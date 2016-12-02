@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_container, MainFragment.newInstance())
+        ft.replace(R.id.master_container, MainFragment.newInstance())
                 .addToBackStack(null)
                 .commit();
     }
