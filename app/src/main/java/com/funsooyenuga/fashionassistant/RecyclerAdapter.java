@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by FAB THE GREAT on 30/11/2016.
@@ -13,9 +14,9 @@ import java.util.HashMap;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListRow> {
 
-    HashMap<String, String> clients;
+    List<Client> clients;
 
-    public RecyclerAdapter(HashMap<String, String> clients) {
+    public RecyclerAdapter(List<Client> clients) {
         this.clients = clients;
     }
 

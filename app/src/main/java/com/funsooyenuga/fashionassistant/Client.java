@@ -1,14 +1,21 @@
 package com.funsooyenuga.fashionassistant;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
+
 /**
  * Created by FAB THE GREAT on 30/11/2016.
  */
 
 public class Client {
     //Personal details
+    UUID id;
     String name;
-    char sex;
+    String sex;
     String phoneNumber;
+    String dueDate;
+    Boolean delivered;
 
     //Measurements
     //CAP
@@ -16,18 +23,22 @@ public class Client {
 
     //TOP OR GOWN
     float shoulder;
-    float chest_or_bust;
-    float sleeve;
-    float round_sleeve;
-    float long_sleeve;
-    float top_or_gown_length;
-    float half_length_f;
+    float chestOrBust;
+    float shortSleeve;
+    float roundSleeve;
+    float longSleeve;
+    float topOrGownLength;
+    float halfLength_f;
 
     //TROUSER
     float waist_or_hips;
     float thigh;
     float length;
     float bottom;
+
+    public Client() {
+        this.id = UUID.randomUUID();
+    }
 
     //GETTER AND SETTER METHODS
     public String getName() {
@@ -38,11 +49,11 @@ public class Client {
         this.name = name;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -70,52 +81,52 @@ public class Client {
         this.shoulder = shoulder;
     }
 
-    public float getChest_or_bust() {
-        return chest_or_bust;
+    public float getChestOrBust() {
+        return chestOrBust;
     }
 
-    public void setChest_or_bust(float chest_or_bust) {
-        this.chest_or_bust = chest_or_bust;
+    public void setChestOrBust(float chestOrBust) {
+        this.chestOrBust = chestOrBust;
     }
 
-    public float getSleeve() {
-        return sleeve;
+    public float getShortSleeve() {
+        return shortSleeve;
     }
 
-    public void setSleeve(float sleeve) {
-        this.sleeve = sleeve;
+    public void setShortSleeve(float shortSleeve) {
+        this.shortSleeve = shortSleeve;
     }
 
-    public float getRound_sleeve() {
-        return round_sleeve;
+    public float getRoundSleeve() {
+        return roundSleeve;
     }
 
-    public void setRound_sleeve(float round_sleeve) {
-        this.round_sleeve = round_sleeve;
+    public void setRoundSleeve(float roundSleeve) {
+        this.roundSleeve = roundSleeve;
     }
 
-    public float getLong_sleeve() {
-        return long_sleeve;
+    public float getLongSleeve() {
+        return longSleeve;
     }
 
-    public void setLong_sleeve(float long_sleeve) {
-        this.long_sleeve = long_sleeve;
+    public void setLongSleeve(float longSleeve) {
+        this.longSleeve = longSleeve;
     }
 
-    public float getTop_or_gown_length() {
-        return top_or_gown_length;
+    public float getTopOrGownLength() {
+        return topOrGownLength;
     }
 
-    public void setTop_or_gown_length(float top_or_gown_length) {
-        this.top_or_gown_length = top_or_gown_length;
+    public void setTopOrGownLength(float topOrGownLength) {
+        this.topOrGownLength = topOrGownLength;
     }
 
-    public float getHalf_length_f() {
-        return half_length_f;
+    public float getHalfLength_f() {
+        return halfLength_f;
     }
 
-    public void setHalf_length_f(float half_length_f) {
-        this.half_length_f = half_length_f;
+    public void setHalfLength_f(float halfLength_f) {
+        this.halfLength_f = halfLength_f;
     }
 
     public float getWaist_or_hips() {
@@ -148,5 +159,27 @@ public class Client {
 
     public void setBottom(float bottom) {
         this.bottom = bottom;
+    }
+
+    public Boolean getDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(Boolean delivered) {
+        this.delivered = delivered;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        SimpleDateFormat dateFormat  = new SimpleDateFormat("EEE, d MMM yyyy");
+        String formattedDate = dateFormat.format(dueDate);
+        this.dueDate = formattedDate;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }
