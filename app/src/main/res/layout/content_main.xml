@@ -10,11 +10,11 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.funsooyenuga.fashionassistant.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="com.funsooyenuga.fashionassistant.clients.ClientsActivity"
+    tools:showIn="@layout/activity_client">
 
     <FrameLayout
-        android:id="@+id/main_container"
+        android:id="@+id/master_container"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 </RelativeLayout>

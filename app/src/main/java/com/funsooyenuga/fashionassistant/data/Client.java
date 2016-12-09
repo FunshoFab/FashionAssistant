@@ -1,4 +1,4 @@
-package com.funsooyenuga.fashionassistant;
+package com.funsooyenuga.fashionassistant.data;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

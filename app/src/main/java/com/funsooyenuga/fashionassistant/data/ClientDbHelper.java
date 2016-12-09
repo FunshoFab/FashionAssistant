@@ -1,11 +1,11 @@
-package com.funsooyenuga.fashionassistant.database;
+package com.funsooyenuga.fashionassistant.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.funsooyenuga.fashionassistant.database.ClientDbSchema.ClientInfoTable;
-import com.funsooyenuga.fashionassistant.database.ClientDbSchema.MeasurementTable;
+import com.funsooyenuga.fashionassistant.data.ClientDbSchema.ClientInfoTable;
+import com.funsooyenuga.fashionassistant.data.ClientDbSchema.MeasurementTable;
 
 /**
  * Created by FAB THE GREAT on 07/12/2016.
@@ -39,6 +39,8 @@ public class ClientDbHelper extends SQLiteOpenHelper {
 
     private void createMeasurementTable(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + MeasurementTable.TABLE_NAME + "("
+                + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + MeasurementTable.MEASUREMENT_ID + ", "
                 + MeasurementTable.CAP_BASE + ", "
                 + MeasurementTable.BOTTOM + ", "
                 + MeasurementTable.CHEST_OR_BUST + ", "
@@ -56,6 +58,7 @@ public class ClientDbHelper extends SQLiteOpenHelper {
     private void createClientInfoTable(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + ClientInfoTable.TABLE_NAME + "("
                 + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + ClientInfoTable.CLIENT_ID + ", "
                 + ClientInfoTable.CLIENT_NAME + ", "
                 + ClientInfoTable.CLIENT_PHONE_NUMBER + ", "
                 + ClientInfoTable.CLIENT_SEX + ", "

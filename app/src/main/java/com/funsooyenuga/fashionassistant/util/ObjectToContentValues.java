@@ -3,8 +3,8 @@ package com.funsooyenuga.fashionassistant.util;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.funsooyenuga.fashionassistant.Client;
-import com.funsooyenuga.fashionassistant.database.ClientDbSchema;
+import com.funsooyenuga.fashionassistant.data.Client;
+import com.funsooyenuga.fashionassistant.data.ClientDbSchema;
 
 /**
  * Created by FAB THE GREAT on 07/12/2016.

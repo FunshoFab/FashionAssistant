@@ -1,4 +1,4 @@
-package com.funsooyenuga.fashionassistant.database;
+package com.funsooyenuga.fashionassistant.data;
 
 /**
  * Created by FAB THE GREAT on 30/11/2016.
