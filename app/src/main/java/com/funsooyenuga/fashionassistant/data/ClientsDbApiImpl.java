@@ -3,7 +3,6 @@ package com.funsooyenuga.fashionassistant.data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by FAB THE GREAT on 08/12/2016.
@@ -19,7 +18,7 @@ public class ClientsDbApiImpl implements ClientsDbApi {
     }
 
     @Override
-    public void getMeasurement(UUID id, GetMeasurementCallback callback) {
+    public void getMeasurement(String id, GetMeasurementCallback callback) {
 
     }
 
@@ -29,7 +28,7 @@ public class ClientsDbApiImpl implements ClientsDbApi {
     }
 
 
-    public static List<Client> fakeData() {
+    private static List<Client> fakeData() {
         final List<Client> fakeClients = new ArrayList<>();
 
         Client client1 = new Client();

@@ -1,7 +1,6 @@
 package com.funsooyenuga.fashionassistant.data;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by FAB THE GREAT on 08/12/2016.
@@ -21,7 +20,7 @@ public interface ClientsDbApi {
 
     void getAllClients(GetClientsCallback callback);
 
-    void getMeasurement(UUID id, GetMeasurementCallback callback);
+    void getMeasurement(String id, GetMeasurementCallback callback);
 
     void saveClient();
 }

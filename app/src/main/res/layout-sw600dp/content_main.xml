@@ -15,7 +15,7 @@
     tools:showIn="@layout/activity_client">
 
     <FrameLayout
-        android:id="@+id/master_container"
+        android:id="@+id/content_frame"
         android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"/>

@@ -14,7 +14,7 @@ public interface ClientsContract {
 
         void showClients(List<Client> clients);
 
-        void showMeasurement();
+        void showMeasurement(String clientId);
 
         void showAddClientUi();
     }
@@ -23,7 +23,7 @@ public interface ClientsContract {
 
         void loadClients();
 
-        void getMeasurement(Client client);
+        void getMeasurement(String clientId);
 
         void addClient(Client client);
     }

@@ -31,8 +31,8 @@ public class ClientsPresenter implements ClientsContract.ActionListener {
     }
 
     @Override
-    public void getMeasurement(Client client) {
-
+    public void getMeasurement(String clientId) {
+        clientsView.showMeasurement(clientId);
     }
 
     @Override

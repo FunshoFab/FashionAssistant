@@ -65,5 +65,4 @@ public class ClientDbHelper extends SQLiteOpenHelper {
                 + ClientInfoTable.DUE_DATE + ", "
                 + ClientInfoTable.DELIVERED);
     }
-
 }

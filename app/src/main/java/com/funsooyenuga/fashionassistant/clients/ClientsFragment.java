@@ -1,6 +1,7 @@
 package com.funsooyenuga.fashionassistant.clients;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,24 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
         return new ClientsFragment();
     }
 
+    public interface Listener {
+
+        void onClientSelected(String clientId);
+    }
+
+    private Listener listener;
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            listener = (Listener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Activity must implement ClientsFragment.Listener");
+        }
+    }
 
     public ClientsFragment() {
         // Required empty public constructor
@@ -64,8 +83,8 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     ClientItemListener itemListener = new ClientItemListener() {
         @Override
-        public void onClientClick(Client client) {
-
+        public void onClientClick(String clientId) {
+            actionListener.getMeasurement(clientId);
         }
     };
 
@@ -75,8 +94,8 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
     }
 
     @Override
-    public void showMeasurement() {
-
+    public void showMeasurement(String clientId) {
+        listener.onClientSelected(clientId);
     }
 
     @Override
@@ -131,7 +150,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
             public void onClick(View v) {
                 int position = getAdapterPosition();
                 Client client = clients.get(position);
-                listener.onClientClick(client);
+                listener.onClientClick(client.getId().toString());
             }
         }
 
@@ -144,6 +163,6 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     public interface ClientItemListener {
 
-        void onClientClick(Client client);
+        void onClientClick(String clientId);
     }
 }

@@ -18,9 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".TestArena.DateActivity">
-
+        <activity android:name=".TestArena.DateActivity"></activity>
+        <activity
+            android:name=".clientdetail.ClientDetailActivity"
+            android:parentActivityName=".clients.ClientsActivity">
         </activity>
     </application>
 

@@ -10,31 +10,31 @@ import java.util.UUID;
 
 public class Client {
     //Personal details
-    UUID id;
-    String name;
-    String sex;
-    String phoneNumber;
-    String dueDate;
-    Boolean delivered;
+    private final UUID id;
+    private String name;
+    private String sex;
+    private String phoneNumber;
+    private String dueDate;
+    private Boolean delivered;
 
     //Measurements
     //CAP
-    float cap_base_m;
+    private float cap_base_m;
 
     //TOP OR GOWN
-    float shoulder;
-    float chestOrBust;
-    float shortSleeve;
-    float roundSleeve;
-    float longSleeve;
-    float topOrGownLength;
-    float halfLength_f;
+    private float shoulder;
+    private float chestOrBust;
+    private float shortSleeve;
+    private float roundSleeve;
+    private float longSleeve;
+    private float topOrGownLength;
+    private float halfLength_f;
 
     //TROUSER
-    float waist_or_hips;
-    float thigh;
-    float length;
-    float bottom;
+    private float waist_or_hips;
+    private float thigh;
+    private float length;
+    private float bottom;
 
     public Client() {
         this.id = UUID.randomUUID();
@@ -175,8 +175,7 @@ public class Client {
 
     public void setDueDate(Date dueDate) {
         SimpleDateFormat dateFormat  = new SimpleDateFormat("EEE, d MMM yyyy");
-        String formattedDate = dateFormat.format(dueDate);
-        this.dueDate = formattedDate;
+        this.dueDate = dateFormat.format(dueDate);
     }
 
     public UUID getId() {
