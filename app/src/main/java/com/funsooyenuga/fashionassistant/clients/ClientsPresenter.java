@@ -36,7 +36,7 @@ public class ClientsPresenter implements ClientsContract.ActionListener {
     }
 
     @Override
-    public void addClient(Client client) {
-
+    public void addClient() {
+        clientsView.showAddClientUi();
     }
 }

@@ -2,21 +2,20 @@ package com.funsooyenuga.fashionassistant.clients;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.funsooyenuga.fashionassistant.R;
 import com.funsooyenuga.fashionassistant.clientdetail.ClientDetailActivity;
 import com.funsooyenuga.fashionassistant.clientdetail.ClientDetailFragment;
+import com.funsooyenuga.fashionassistant.util.HelperMethods;
 
 public class ClientsActivity extends AppCompatActivity implements ClientsFragment.Listener {
+
+    FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,23 +24,9 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fm = getSupportFragmentManager();
 
-        initFragment(ClientsFragment.newInstance(), R.id.content_frame);
-    }
-
-    private void initFragment(Fragment fragment, int containerId) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(containerId, fragment)
-                .addToBackStack(null)
-                .commit();
+        HelperMethods.hostFragment(fm, R.id.content_frame, ClientsFragment.newInstance());
     }
 
     @Override
@@ -49,11 +34,7 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
         Boolean isTwoPane = findViewById(R.id.detail_container) != null;
 
         if (isTwoPane) {
-            initFragment(ClientDetailFragment.newInstance(clientId), R.id.detail_container);
-            /*FragmentTransaction ftt = getSupportFragmentManager().beginTransaction();
-            ftt.add(R.id.detail_container, ClientDetailFragment.newInstance(clientId))
-                    .addToBackStack(null)
-                    .commit();*/
+            HelperMethods.hostFragment(fm, R.id.detail_container, ClientDetailFragment.newInstance(clientId));
         } else {
             Intent intent = ClientDetailActivity.newIntent(this, clientId);
             startActivity(intent);

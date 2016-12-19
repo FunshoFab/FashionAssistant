@@ -2,6 +2,9 @@ package com.funsooyenuga.fashionassistant.util;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.ClientDbSchema;
@@ -10,7 +13,7 @@ import com.funsooyenuga.fashionassistant.data.ClientDbSchema;
  * Created by FAB THE GREAT on 07/12/2016.
  */
 
-public class ObjectToContentValues {
+public class HelperMethods {
 
     public static ContentValues getClientValues(SQLiteDatabase db, Client client) {
         ContentValues cv = new ContentValues();
@@ -43,5 +46,11 @@ public class ObjectToContentValues {
         cv.put(ClientDbSchema.MeasurementTable.MEASUREMENT_ID, client.getId().toString());
 
         return cv;
+    }
+
+    public static void hostFragment(FragmentManager fm, int resourceId, Fragment fragment) {
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(resourceId, fragment)
+                .commit();
     }
 }

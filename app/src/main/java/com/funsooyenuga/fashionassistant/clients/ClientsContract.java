@@ -25,6 +25,6 @@ public interface ClientsContract {
 
         void getMeasurement(String clientId);
 
-        void addClient(Client client);
+        void addClient();
     }
 }

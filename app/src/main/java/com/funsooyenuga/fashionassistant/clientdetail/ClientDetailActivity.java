@@ -3,13 +3,12 @@ package com.funsooyenuga.fashionassistant.clientdetail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.funsooyenuga.fashionassistant.R;
+import com.funsooyenuga.fashionassistant.util.HelperMethods;
 
 public class ClientDetailActivity extends AppCompatActivity {
 
@@ -22,14 +21,8 @@ public class ClientDetailActivity extends AppCompatActivity {
 
         String clientId = getIntent().getStringExtra(EXTRA_CLIENT_ID);
 
-        initFragment(ClientDetailFragment.newInstance(clientId));
-    }
-
-    private void initFragment(Fragment fragment) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.content_frame, fragment)
-            .addToBackStack(null)
-            .commit();
+        HelperMethods.hostFragment(getSupportFragmentManager(), R.id.content_frame,
+                ClientDetailFragment.newInstance(clientId));
     }
 
     public static Intent newIntent(Context context, String clientId) {

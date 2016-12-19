@@ -2,8 +2,10 @@ package com.funsooyenuga.fashionassistant.clients;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.funsooyenuga.fashionassistant.R;
+import com.funsooyenuga.fashionassistant.addclient.AddClientActivity;
 import com.funsooyenuga.fashionassistant.data.Client;
 
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import java.util.List;
 
 public class ClientsFragment extends Fragment implements ClientsContract.View {
 
+    private static final int RC_ADD_CLIENT = 1;
     private ClientAdapter adapter;
     private ClientsContract.ActionListener actionListener;
 
@@ -78,6 +82,14 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        FloatingActionButton newClient = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        newClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actionListener.addClient();
+            }
+        });
+
         return v;
     }
 
@@ -100,7 +112,8 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     @Override
     public void showAddClientUi() {
-
+        Intent intent = AddClientActivity.newIntent(getActivity());
+        startActivityForResult(intent, RC_ADD_CLIENT);
     }
 
     public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder> {
