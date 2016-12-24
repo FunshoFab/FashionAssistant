@@ -24,9 +24,8 @@ public class Client {
     //TOP OR GOWN
     private float shoulder;
     private float chestOrBust;
-    private float shortSleeve;
-    private float roundSleeve;
-    private float longSleeve;
+    private float cuff_or_round_sleeve;
+    private float long_or_short_sleeve;
     private float topOrGownLength;
     private float halfLength_f;
 
@@ -35,6 +34,8 @@ public class Client {
     private float thigh;
     private float length;
     private float bottom;
+    private String highWaist;
+    private String hips;
 
     public Client() {
         this.id = UUID.randomUUID();
@@ -89,28 +90,20 @@ public class Client {
         this.chestOrBust = chestOrBust;
     }
 
-    public float getShortSleeve() {
-        return shortSleeve;
+    public float getCuff_or_round_sleeve() {
+        return cuff_or_round_sleeve;
     }
 
-    public void setShortSleeve(float shortSleeve) {
-        this.shortSleeve = shortSleeve;
+    public void setCuff_or_round_sleeve(float cuff_or_round_sleeve) {
+        this.cuff_or_round_sleeve = cuff_or_round_sleeve;
     }
 
-    public float getRoundSleeve() {
-        return roundSleeve;
+    public float getLong_or_short_sleeve() {
+        return long_or_short_sleeve;
     }
 
-    public void setRoundSleeve(float roundSleeve) {
-        this.roundSleeve = roundSleeve;
-    }
-
-    public float getLongSleeve() {
-        return longSleeve;
-    }
-
-    public void setLongSleeve(float longSleeve) {
-        this.longSleeve = longSleeve;
+    public void setLong_or_short_sleeve(float long_or_short_sleeve) {
+        this.long_or_short_sleeve = long_or_short_sleeve;
     }
 
     public float getTopOrGownLength() {
@@ -180,5 +173,22 @@ public class Client {
 
     public UUID getId() {
         return id;
+    }
+
+
+    public String getHighWaist() {
+        return highWaist;
+    }
+
+    public void setHighWaist(String highWaist) {
+        this.highWaist = highWaist;
+    }
+
+    public String getHips() {
+        return hips;
+    }
+
+    public void setHips(String hips) {
+        this.hips = hips;
     }
 }

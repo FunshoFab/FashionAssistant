@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.ClientDbSchema;
@@ -36,9 +37,8 @@ public class HelperMethods {
         cv.put(ClientDbSchema.MeasurementTable.CHEST_OR_BUST, client.getChestOrBust());
         cv.put(ClientDbSchema.MeasurementTable.HALF_LENGTH, client.getHalfLength_f());
         cv.put(ClientDbSchema.MeasurementTable.LENGTH, client.getLength());
-        cv.put(ClientDbSchema.MeasurementTable.SHORT_SLEEVE, client.getShortSleeve());
-        cv.put(ClientDbSchema.MeasurementTable.LONG_SLEEVE, client.getLongSleeve());
-        cv.put(ClientDbSchema.MeasurementTable.ROUND_SLEEVE, client.getRoundSleeve());
+        cv.put(ClientDbSchema.MeasurementTable.LONG_SLEEVE, client.getLong_or_short_sleeve());
+        cv.put(ClientDbSchema.MeasurementTable.ROUND_SLEEVE, client.getCuff_or_round_sleeve());
         cv.put(ClientDbSchema.MeasurementTable.SHOULDER, client.getShoulder());
         cv.put(ClientDbSchema.MeasurementTable.THIGH, client.getThigh());
         cv.put(ClientDbSchema.MeasurementTable.TOP_OR_GOWN_LENGTH, client.getTopOrGownLength());
@@ -53,4 +53,9 @@ public class HelperMethods {
         ft.add(resourceId, fragment)
                 .commit();
     }
+
+    public static void initWidgets(View v) {
+
+    }
+
 }

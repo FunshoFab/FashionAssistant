@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/content_space_margin">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_space_margin">
 
         <EditText
-            android:id="@+id/shoulder"
-            android:hint="Shoulder"
+            android:id="@+id/et_shoulder"
+            android:hint="@string/shoulder_hint"
+            android:digits="@string/digits"
             android:inputType="number"
+            android:imeOptions="actionNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -19,12 +22,31 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_space_margin">
+
+        <EditText
+            android:id="@+id/et_chest"
+            android:hint="@string/chest_hint"
+            android:digits="@string/digits"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="@dimen/content_space_margin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/chest"
-            android:hint="Chest"
+            android:id="@+id/et_sleeve"
+            android:hint="@string/long_or_short_sleeve_hint"
+            android:digits="@string/digits"
             android:inputType="number"
+            android:imeOptions="actionNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -32,12 +54,15 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_space_margin">
 
         <EditText
-            android:id="@+id/short_sleeve"
-            android:hint="Short sleeve"
+            android:id="@+id/et_cuff_rsl"
+            android:hint="@string/cuff_or_round_sleeve_hint"
+            android:digits="@string/digits"
             android:inputType="number"
+            android:imeOptions="actionNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -45,17 +70,69 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_space_margin">
 
         <EditText
-            android:id="@+id/top_length"
-            android:hint="Top length"
+            android:id="@+id/et_top_length"
+            android:hint="@string/length_hint"
+            android:digits="@string/digits"
             android:inputType="number"
+            android:imeOptions="actionNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_half_length"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_space_margin">
 
+        <EditText
+            android:id="@+id/et_half_length"
+            android:hint="@string/half_length_hint"
+            android:inputType="number"
+            android:digits="@string/digits"
+            android:imeOptions="actionNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_knee_length"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_space_margin">
+
+        <EditText
+            android:id="@+id/et_knee_length"
+            android:hint="@string/knee_length_hint"
+            android:digits="@string/digits"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_top_or_gown_waist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_space_margin">
+
+        <EditText
+            android:id="@+id/et_top_or_gown_waist"
+            android:hint="@string/high_waist_hint"
+            android:digits="@string/digits"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
 
 </LinearLayout>

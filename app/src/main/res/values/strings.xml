@@ -2,9 +2,45 @@
     <string name="app_name">Fashion Assistant</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_add_client">AddClientActivity</string>
-    <string name="title_activity_add_client2">AddClientActivity2</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_add_client2">Add new client</string>
+    <string name="digits">0123456789/.</string>
+
+    <!-- INCLUDE_CLIENT_INFO layout-->
+    <!-- EditText -->
+    <string name="client_name_hint">Name</string>
+    <string name="client_phone_hint">Phone number</string>
+    <string name="client_additional_info_hint">Additional information</string>
+    <!-- Button -->
+    <string name="client_delivery_date">Delivery date</string>
+    <!-- TextView -->
+    <string name="client_info_title">CLIENT INFO</string>
+
+    <!-- INCLUDE_MEASUREMENT layout -->
+    <!-- EditText -->
+    <string name="cap_base_hint">Cap base</string>
+    <!-- TextView -->
+    <string name="measurement_title">MEASUREMENT</string>
+    <string name="cap_title">CAP</string>
+    <string name="top_title">TOP</string>
+    <string name="top_or_gown_title">TOP/GOWN</string>
+    <string name="trouser_title">TROUSER</string>
+    <string name="trouser_or_skirt_title">TROUSER/SKIRT</string>
+
+    <!-- INCLUDE_TOP layout -->
+    <!--EditText-->
+    <string name="shoulder_hint">Shoulder</string>
+    <string name="chest_hint">Chest</string>
+    <string name="long_or_short_sleeve_hint">Long/Short sleeve</string>
+    <string name="cuff_or_round_sleeve_hint">Cuff/Round sleeve</string>
+    <string name="length_hint">Length</string>
+    <string name="half_length_hint">Half length</string>
+    <string name="knee_length_hint">Knee length</string>
+    <string name="high_waist_hint">High waist</string>
+
+    <!-- INCLUDE_TROUSER layout -->
+    <!-- EditText-->
+    <string name="waist_hint">Waist</string>
+    <string name="thigh_hint">Thigh</string>
+    <string name="bottom_hint">Bottom</string>
+    <string name="hips_hint">Hips</string>
 </resources>
