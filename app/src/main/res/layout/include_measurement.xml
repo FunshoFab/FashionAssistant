@@ -20,12 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:textStyle="bold"
             android:layout_marginTop="@dimen/horizontal_margin"
             android:text="@string/measurement_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
         <TextView
             android:id="@+id/tv_cap_title"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/client_detail_margin"
@@ -35,6 +37,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_cap_base"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_space_margin">

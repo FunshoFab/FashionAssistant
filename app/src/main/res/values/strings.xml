@@ -30,6 +30,7 @@
     <!--EditText-->
     <string name="shoulder_hint">Shoulder</string>
     <string name="chest_hint">Chest</string>
+    <string name="bust_hint">Bust</string>
     <string name="long_or_short_sleeve_hint">Long/Short sleeve</string>
     <string name="cuff_or_round_sleeve_hint">Cuff/Round sleeve</string>
     <string name="length_hint">Length</string>

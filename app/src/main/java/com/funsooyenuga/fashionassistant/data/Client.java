@@ -30,7 +30,7 @@ public class Client {
     private float halfLength_f;
 
     //TROUSER
-    private float waist_or_hips;
+    private float waist;
     private float thigh;
     private float length;
     private float bottom;
@@ -122,12 +122,12 @@ public class Client {
         this.halfLength_f = halfLength_f;
     }
 
-    public float getWaist_or_hips() {
-        return waist_or_hips;
+    public float getWaist() {
+        return waist;
     }
 
-    public void setWaist_or_hips(float waist_or_hips) {
-        this.waist_or_hips = waist_or_hips;
+    public void setWaist(float waist) {
+        this.waist = waist;
     }
 
     public float getThigh() {

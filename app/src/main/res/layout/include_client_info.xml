@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/client_info_title"
+            android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
         <android.support.design.widget.TextInputLayout
@@ -56,9 +57,8 @@
 
             <EditText
                 android:layout_marginTop="@dimen/content_space_margin"
+                android:id="@+id/et_additional_info"
                 android:hint="@string/client_additional_info_hint"
-                android:maxLines="3"
-                android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </android.support.design.widget.TextInputLayout>

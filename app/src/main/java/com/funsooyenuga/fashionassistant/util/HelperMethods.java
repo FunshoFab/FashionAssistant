@@ -42,7 +42,7 @@ public class HelperMethods {
         cv.put(ClientDbSchema.MeasurementTable.SHOULDER, client.getShoulder());
         cv.put(ClientDbSchema.MeasurementTable.THIGH, client.getThigh());
         cv.put(ClientDbSchema.MeasurementTable.TOP_OR_GOWN_LENGTH, client.getTopOrGownLength());
-        cv.put(ClientDbSchema.MeasurementTable.WAIST_OR_HIPS, client.getWaist_or_hips());
+        cv.put(ClientDbSchema.MeasurementTable.WAIST_OR_HIPS, client.getWaist());
         cv.put(ClientDbSchema.MeasurementTable.MEASUREMENT_ID, client.getId().toString());
 
         return cv;

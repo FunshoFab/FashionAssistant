@@ -16,7 +16,7 @@
             android:layout_marginTop="@dimen/content_space_margin">
 
             <EditText
-                android:id="@+id/et_waist_or_hips"
+                android:id="@+id/et_waist"
                 android:hint="@string/waist_hint"
                 android:digits="@string/digits"
                 android:inputType="number"
@@ -32,7 +32,7 @@
             android:layout_marginTop="@dimen/content_space_margin">
 
             <EditText
-                android:id="@+id/et_length"
+                android:id="@+id/et_trouser_length"
                 android:hint="@string/length_hint"
                 android:digits="@string/digits"
                 android:inputType="number"
@@ -43,6 +43,8 @@
 
 
         <android.support.design.widget.TextInputLayout
+            android:visibility="gone"
+            android:id="@+id/til_hips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

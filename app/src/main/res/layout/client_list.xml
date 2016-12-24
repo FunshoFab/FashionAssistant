@@ -6,9 +6,7 @@
     android:layout_height="72dp"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
-    android:focusable="true"
-    android:divider="@drawable/divider"
-    android:showDividers="beginning">
+    android:focusable="true">
 
     <TextView
         android:id="@+id/client_name"

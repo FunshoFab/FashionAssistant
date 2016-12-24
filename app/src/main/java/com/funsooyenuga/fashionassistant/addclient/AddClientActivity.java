@@ -87,9 +87,9 @@ public class AddClientActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new AddMaleClientFragment();
+                    return AddMaleClientFragment.newInstance();
                 case 1:
-                    return new AddFemaleClientFragment();
+                    return AddFemaleClientFragment.newInstance();
                 default:
                     return new AddMaleClientFragment();
             }

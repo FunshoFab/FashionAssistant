@@ -21,6 +21,8 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:visibility="gone"
+        android:id="@+id/til_chest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content_space_margin">
@@ -28,6 +30,25 @@
         <EditText
             android:id="@+id/et_chest"
             android:hint="@string/chest_hint"
+            android:digits="@string/digits"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:visibility="gone"
+        android:id="@+id/til_bust"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_space_margin">
+
+        <EditText
+            android:id="@+id/et_bust"
+            android:hint="@string/bust_hint"
             android:digits="@string/digits"
             android:inputType="number"
             android:imeOptions="actionNext"
@@ -85,6 +106,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:visibility="gone"
         android:id="@+id/til_half_length"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -102,6 +124,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:visibility="gone"
         android:id="@+id/til_knee_length"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -119,13 +142,14 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_top_or_gown_waist"
+        android:visibility="gone"
+        android:id="@+id/til_high_waist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content_space_margin">
 
         <EditText
-            android:id="@+id/et_top_or_gown_waist"
+            android:id="@+id/et_high_waist"
             android:hint="@string/high_waist_hint"
             android:digits="@string/digits"
             android:inputType="number"
