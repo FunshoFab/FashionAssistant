@@ -19,7 +19,7 @@ public interface ClientsContract {
         void showAddClientUi();
     }
 
-    interface ActionListener {
+    interface Presenter {
 
         void loadClients();
 

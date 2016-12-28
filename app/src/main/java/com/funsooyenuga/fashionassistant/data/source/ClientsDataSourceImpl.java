@@ -1,4 +1,6 @@
-package com.funsooyenuga.fashionassistant.data;
+package com.funsooyenuga.fashionassistant.data.source;
+
+import com.funsooyenuga.fashionassistant.data.Client;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,7 +10,7 @@ import java.util.List;
  * Created by FAB THE GREAT on 08/12/2016.
  */
 
-public class ClientsDbApiImpl implements ClientsDbApi {
+public class ClientsDataSourceImpl implements ClientsDataSource {
 
 
     @Override

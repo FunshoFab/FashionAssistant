@@ -11,7 +11,7 @@ public interface ClientDetailContract {
         void showMeasurement();
     }
 
-    interface ActionListener {
+    interface Presenter {
 
         void getMeasurement(String clientId);
     }

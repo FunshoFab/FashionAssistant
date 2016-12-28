@@ -1,11 +1,11 @@
-package com.funsooyenuga.fashionassistant.data;
+package com.funsooyenuga.fashionassistant.data.source;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.funsooyenuga.fashionassistant.data.ClientDbSchema.ClientInfoTable;
-import com.funsooyenuga.fashionassistant.data.ClientDbSchema.MeasurementTable;
+import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.ClientInfoTable;
+import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.MeasurementTable;
 
 /**
  * Created by FAB THE GREAT on 07/12/2016.

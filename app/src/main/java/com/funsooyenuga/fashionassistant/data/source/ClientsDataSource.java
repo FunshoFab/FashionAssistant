@@ -1,4 +1,6 @@
-package com.funsooyenuga.fashionassistant.data;
+package com.funsooyenuga.fashionassistant.data.source;
+
+import com.funsooyenuga.fashionassistant.data.Client;
 
 import java.util.List;
 
@@ -6,7 +8,7 @@ import java.util.List;
  * Created by FAB THE GREAT on 08/12/2016.
  */
 
-public interface ClientsDbApi {
+public interface ClientsDataSource {
 
     interface GetClientsCallback {
 

@@ -25,7 +25,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     private static final int RC_ADD_CLIENT = 1;
     private ClientAdapter adapter;
-    private ClientsContract.ActionListener actionListener;
+    private ClientsContract.Presenter presenter;
 
     public static ClientsFragment newInstance() {
         return new ClientsFragment();
@@ -58,7 +58,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new ClientAdapter(new ArrayList<Client>(0), itemListener);
-        actionListener = new ClientsPresenter(this);
+        presenter = new ClientsPresenter(this);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        actionListener.loadClients();
+        presenter.loadClients();
     }
 
     @Override
@@ -86,7 +86,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
         newClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                actionListener.addClient();
+                presenter.addClient();
             }
         });
 
@@ -96,7 +96,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
     ClientItemListener itemListener = new ClientItemListener() {
         @Override
         public void onClientClick(String clientId) {
-            actionListener.getMeasurement(clientId);
+            presenter.getMeasurement(clientId);
         }
     };
 

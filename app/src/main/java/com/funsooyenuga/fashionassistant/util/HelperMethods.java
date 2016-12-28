@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.funsooyenuga.fashionassistant.data.Client;
-import com.funsooyenuga.fashionassistant.data.ClientDbSchema;
+import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema;
 
 /**
  * Created by FAB THE GREAT on 07/12/2016.
