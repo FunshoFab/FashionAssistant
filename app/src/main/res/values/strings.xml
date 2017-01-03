@@ -34,8 +34,8 @@
     <string name="long_or_short_sleeve_hint">Long/Short sleeve</string>
     <string name="cuff_or_round_sleeve_hint">Cuff/Round sleeve</string>
     <string name="length_hint">Length</string>
-    <string name="half_length_hint">Half length</string>
-    <string name="knee_length_hint">Knee length</string>
+    <string name="half_length_hint">Half trouserLength</string>
+    <string name="knee_length_hint">Knee trouserLength</string>
     <string name="high_waist_hint">High waist</string>
 
     <!-- INCLUDE_TROUSER layout -->

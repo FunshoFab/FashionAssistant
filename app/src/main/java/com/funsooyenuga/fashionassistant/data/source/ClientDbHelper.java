@@ -13,7 +13,7 @@ import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.MeasurementT
 
 public class ClientDbHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "Fashion assistant";
+    private static final String DB_NAME = "FashionAssistant.db";
     private static final int DB_VERSION = 1;
 
     public ClientDbHelper(Context context) {
@@ -32,8 +32,7 @@ public class ClientDbHelper extends SQLiteOpenHelper {
 
     private void updateDB(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 1) {
-            createClientInfoTable(db);
-            createMeasurementTable(db);
+            createClientTable(db);
         }
     }
 
@@ -45,17 +44,19 @@ public class ClientDbHelper extends SQLiteOpenHelper {
                 + MeasurementTable.BOTTOM + ", "
                 + MeasurementTable.CHEST_OR_BUST + ", "
                 + MeasurementTable.HALF_LENGTH + ", "
-                + MeasurementTable.LENGTH + ", "
-                + MeasurementTable.LONG_SLEEVE + ", "
-                + MeasurementTable.ROUND_SLEEVE + ", "
-                + MeasurementTable.SHORT_SLEEVE + ", "
+                + MeasurementTable.TROUSER_LENGTH + ", "
+                + MeasurementTable.CUFF_OR_ROUND_SLEEVE + ", "
+                + MeasurementTable.LONG_OR_SHORT_SLEEVE + ", "
                 + MeasurementTable.SHOULDER + ", "
                 + MeasurementTable.THIGH + ", "
+                + MeasurementTable.HIGH_WAIST + ", "
+                + MeasurementTable.HIPS + ", "
+                + MeasurementTable.KNEE_LENGTH + ", "
                 + MeasurementTable.TOP_OR_GOWN_LENGTH + ", "
-                + MeasurementTable.WAIST_OR_HIPS + ", ");
+                + MeasurementTable.WAIST + ", ");
     }
 
-    private void createClientInfoTable(SQLiteDatabase db) {
+    private void createClientTable(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + ClientInfoTable.TABLE_NAME + "("
                 + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + ClientInfoTable.CLIENT_ID + ", "
@@ -63,6 +64,22 @@ public class ClientDbHelper extends SQLiteOpenHelper {
                 + ClientInfoTable.CLIENT_PHONE_NUMBER + ", "
                 + ClientInfoTable.CLIENT_SEX + ", "
                 + ClientInfoTable.DUE_DATE + ", "
-                + ClientInfoTable.DELIVERED);
+                + ClientInfoTable.DELIVERED + ", "
+
+                + MeasurementTable.MEASUREMENT_ID + ", "
+                + MeasurementTable.CAP_BASE + ", "
+                + MeasurementTable.BOTTOM + ", "
+                + MeasurementTable.CHEST_OR_BUST + ", "
+                + MeasurementTable.HALF_LENGTH + ", "
+                + MeasurementTable.TROUSER_LENGTH + ", "
+                + MeasurementTable.CUFF_OR_ROUND_SLEEVE + ", "
+                + MeasurementTable.LONG_OR_SHORT_SLEEVE + ", "
+                + MeasurementTable.SHOULDER + ", "
+                + MeasurementTable.THIGH + ", "
+                + MeasurementTable.HIGH_WAIST + ", "
+                + MeasurementTable.HIPS + ", "
+                + MeasurementTable.KNEE_LENGTH + ", "
+                + MeasurementTable.TOP_OR_GOWN_LENGTH + ", "
+                + MeasurementTable.WAIST + ", ");
     }
 }

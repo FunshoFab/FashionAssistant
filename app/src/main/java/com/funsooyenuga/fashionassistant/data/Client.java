@@ -9,8 +9,9 @@ import java.util.UUID;
  */
 
 public class Client {
+
     //Personal details
-    private final UUID id;
+    private String id;
     private String name;
     private String sex;
     private String phoneNumber;
@@ -19,26 +20,28 @@ public class Client {
 
     //Measurements
     //CAP
-    private float cap_base_m;
+    private String capBase;
 
     //TOP OR GOWN
-    private float shoulder;
-    private float chestOrBust;
-    private float cuff_or_round_sleeve;
-    private float long_or_short_sleeve;
-    private float topOrGownLength;
-    private float halfLength_f;
+    private String shoulder;
+    private String chestOrBust;
+    private String cuffOrRoundSleeve;
+    private String longOrShortSleeve;
+    private String topOrGownLength;
+    //female only
+    private String halfLength;
+    private String highWaist;
+    private String kneeLength;
 
     //TROUSER
-    private float waist;
-    private float thigh;
-    private float length;
-    private float bottom;
-    private String highWaist;
+    private String waist;
+    private String thigh;
+    private String trouserLength;
+    private String bottom;
     private String hips;
 
     public Client() {
-        this.id = UUID.randomUUID();
+        this.id = UUID.randomUUID().toString();
     }
 
     //GETTER AND SETTER METHODS
@@ -66,91 +69,91 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
-    public float getCap_base_m() {
-        return cap_base_m;
+    public String getCapBase() {
+        return capBase;
     }
 
-    public void setCap_base_m(float cap_base_m) {
-        this.cap_base_m = cap_base_m;
+    public void setCapBase(String capBase) {
+        this.capBase = capBase;
     }
 
-    public float getShoulder() {
+    public String getShoulder() {
         return shoulder;
     }
 
-    public void setShoulder(float shoulder) {
+    public void setShoulder(String shoulder) {
         this.shoulder = shoulder;
     }
 
-    public float getChestOrBust() {
+    public String getChestOrBust() {
         return chestOrBust;
     }
 
-    public void setChestOrBust(float chestOrBust) {
+    public void setChestOrBust(String chestOrBust) {
         this.chestOrBust = chestOrBust;
     }
 
-    public float getCuff_or_round_sleeve() {
-        return cuff_or_round_sleeve;
+    public String getCuffOrRoundSleeve() {
+        return cuffOrRoundSleeve;
     }
 
-    public void setCuff_or_round_sleeve(float cuff_or_round_sleeve) {
-        this.cuff_or_round_sleeve = cuff_or_round_sleeve;
+    public void setCuffOrRoundSleeve(String cuffOrRoundSleeve) {
+        this.cuffOrRoundSleeve = cuffOrRoundSleeve;
     }
 
-    public float getLong_or_short_sleeve() {
-        return long_or_short_sleeve;
+    public String getLongOrShortSleeve() {
+        return longOrShortSleeve;
     }
 
-    public void setLong_or_short_sleeve(float long_or_short_sleeve) {
-        this.long_or_short_sleeve = long_or_short_sleeve;
+    public void setLongOrShortSleeve(String longOrShortSleeve) {
+        this.longOrShortSleeve = longOrShortSleeve;
     }
 
-    public float getTopOrGownLength() {
+    public String getTopOrGownLength() {
         return topOrGownLength;
     }
 
-    public void setTopOrGownLength(float topOrGownLength) {
+    public void setTopOrGownLength(String topOrGownLength) {
         this.topOrGownLength = topOrGownLength;
     }
 
-    public float getHalfLength_f() {
-        return halfLength_f;
+    public String getHalfLength() {
+        return halfLength;
     }
 
-    public void setHalfLength_f(float halfLength_f) {
-        this.halfLength_f = halfLength_f;
+    public void setHalfLength(String halfLength) {
+        this.halfLength = halfLength;
     }
 
-    public float getWaist() {
+    public String getWaist() {
         return waist;
     }
 
-    public void setWaist(float waist) {
+    public void setWaist(String waist) {
         this.waist = waist;
     }
 
-    public float getThigh() {
+    public String getThigh() {
         return thigh;
     }
 
-    public void setThigh(float thigh) {
+    public void setThigh(String thigh) {
         this.thigh = thigh;
     }
 
-    public float getLength() {
-        return length;
+    public String getTrouserLength() {
+        return trouserLength;
     }
 
-    public void setLength(float length) {
-        this.length = length;
+    public void setTrouserLength(String trouserLength) {
+        this.trouserLength = trouserLength;
     }
 
-    public float getBottom() {
+    public String getBottom() {
         return bottom;
     }
 
-    public void setBottom(float bottom) {
+    public void setBottom(String bottom) {
         this.bottom = bottom;
     }
 
@@ -171,10 +174,17 @@ public class Client {
         this.dueDate = dateFormat.format(dueDate);
     }
 
-    public UUID getId() {
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getHighWaist() {
         return highWaist;
@@ -190,5 +200,13 @@ public class Client {
 
     public void setHips(String hips) {
         this.hips = hips;
+    }
+
+    public String getKneeLength() {
+        return kneeLength;
+    }
+
+    public void setKneeLength(String kneeLength) {
+        this.kneeLength = kneeLength;
     }
 }

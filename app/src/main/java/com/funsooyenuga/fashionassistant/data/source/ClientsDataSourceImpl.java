@@ -29,7 +29,6 @@ public class ClientsDataSourceImpl implements ClientsDataSource {
 
     }
 
-
     private static List<Client> fakeData() {
         final List<Client> fakeClients = new ArrayList<>();
 

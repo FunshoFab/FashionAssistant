@@ -108,6 +108,4 @@ public class AddFemaleClientFragment extends Fragment {
         //Trouser
         tilHips.setVisibility(View.VISIBLE);
     }
-
-
 }
