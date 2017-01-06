@@ -19,6 +19,8 @@ public class ClientsRepository implements ClientDataSource {
 
     private Map<String, Client> cachedClients;
 
+    private List<ClientsRepositoryObserver> observers = new ArrayList<>();
+
     private boolean cacheAvailable;
 
     private ClientsRepository(ClientsDataSourceImpl2 dataSource) {
@@ -61,13 +63,20 @@ public class ClientsRepository implements ClientDataSource {
         return new ArrayList<>(cachedClients.values());
     }
 
-    private boolean cacheAvailable() {
+    public boolean cacheAvailable() {
         return cacheAvailable && cachedClients != null;
+    }
+
+    public Client getClient(String clientId) {
+        return cachedClients.get(clientId);
     }
 
     @Override
     public void saveClient(Client client) {
-
+        dataSource.saveClient(client);
+        //Update repository
+        cachedClients.put(client.getId(), client);
+        notifyContentObservers();
     }
 
     @Override
@@ -82,6 +91,32 @@ public class ClientsRepository implements ClientDataSource {
 
     @Override
     public void toggleDelivered(Boolean delivered) {
+
+    }
+
+
+    //Content Observers
+    public void addContentObserver(ClientsRepositoryObserver observer) {
+        if (!observers.contains(observer)) {
+            observers.add(observer);
+        }
+    }
+
+    public void removeContentObservers(ClientsRepositoryObserver observer) {
+        if (observers.contains(observer)) {
+            observers.remove(observer);
+        }
+    }
+
+    public void notifyContentObservers() {
+        for (ClientsRepositoryObserver observer : observers) {
+            observer.onDataChange();
+        }
+    }
+
+    public interface ClientsRepositoryObserver {
+
+        void onDataChange();
 
     }
 }

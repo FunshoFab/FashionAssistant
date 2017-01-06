@@ -1,10 +1,12 @@
 package com.funsooyenuga.fashionassistant.clients;
 
-import android.support.annotation.NonNull;
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 
 import com.funsooyenuga.fashionassistant.data.Client;
-import com.funsooyenuga.fashionassistant.data.source.ClientsDataSource.GetClientsCallback;
-import com.funsooyenuga.fashionassistant.util.Injection;
+import com.funsooyenuga.fashionassistant.data.loaders.ClientsLoader;
+import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
 
 import java.util.List;
 
@@ -12,22 +14,30 @@ import java.util.List;
  * Created by FAB THE GREAT on 08/12/2016.
  */
 
-public class ClientsPresenter implements ClientsContract.Presenter {
+public class ClientsPresenter implements ClientsContract.Presenter,
+        LoaderManager.LoaderCallbacks<List<Client>> {
 
     private ClientsContract.View clientsView;
 
-    public ClientsPresenter(@NonNull ClientsContract.View clientsView) {
+    private ClientsLoader loader;
+
+    private final int LOADER_ID = 1;
+
+    private ClientsRepository repository;
+
+    private LoaderManager loaderManager;
+
+    public ClientsPresenter(ClientsContract.View clientsView, ClientsLoader loader,
+                            LoaderManager loaderManager, ClientsRepository repository) {
         this.clientsView = clientsView;
+        this.loader = loader;
+        this.loaderManager = loaderManager;
+        this.repository = repository;
     }
 
     @Override
-    public void loadClients() {
-        Injection.provideClientsDbApiImpl().getAllClients(new GetClientsCallback() {
-            @Override
-            public void onClientsLoaded(List<Client> clients) {
-                clientsView.showClients(clients);
-            }
-        });
+    public void start() {
+        loaderManager.initLoader(LOADER_ID, null, this);
     }
 
     @Override
@@ -38,5 +48,20 @@ public class ClientsPresenter implements ClientsContract.Presenter {
     @Override
     public void addClient() {
         clientsView.showAddClientUi();
+    }
+
+    @Override
+    public Loader<List<Client>> onCreateLoader(int id, Bundle args) {
+        return loader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Client>> loader, List<Client> data) {
+        clientsView.showClients(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Client>> loader) {
+
     }
 }

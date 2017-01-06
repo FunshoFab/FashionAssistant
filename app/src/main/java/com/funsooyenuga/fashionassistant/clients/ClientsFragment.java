@@ -17,6 +17,9 @@ import android.widget.TextView;
 import com.funsooyenuga.fashionassistant.R;
 import com.funsooyenuga.fashionassistant.addclient.AddClientActivity;
 import com.funsooyenuga.fashionassistant.data.Client;
+import com.funsooyenuga.fashionassistant.data.loaders.ClientsLoader;
+import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
+import com.funsooyenuga.fashionassistant.util.Injection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +61,11 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new ClientAdapter(new ArrayList<Client>(0), itemListener);
-        presenter = new ClientsPresenter(this);
+
+        ClientsLoader loader = new ClientsLoader(getActivity().getApplicationContext());
+        ClientsRepository repository = Injection.provideClientsRepository(getActivity().getApplicationContext());
+
+        presenter = new ClientsPresenter(this, loader, getLoaderManager(), repository);
     }
 
     @Override
@@ -70,7 +77,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.loadClients();
+        presenter.start();
     }
 
     @Override

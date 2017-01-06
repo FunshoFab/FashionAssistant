@@ -21,7 +21,7 @@ public interface ClientsContract {
 
     interface Presenter {
 
-        void loadClients();
+        void start();
 
         void getMeasurement(String clientId);
 

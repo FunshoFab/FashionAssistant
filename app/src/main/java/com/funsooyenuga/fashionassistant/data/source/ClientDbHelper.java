@@ -3,6 +3,7 @@ package com.funsooyenuga.fashionassistant.data.source;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.ClientInfoTable;
 import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.MeasurementTable;
@@ -80,6 +81,8 @@ public class ClientDbHelper extends SQLiteOpenHelper {
                 + MeasurementTable.HIPS + ", "
                 + MeasurementTable.KNEE_LENGTH + ", "
                 + MeasurementTable.TOP_OR_GOWN_LENGTH + ", "
-                + MeasurementTable.WAIST + ", ");
+                + MeasurementTable.WAIST + ")"
+        );
+        Log.d("DBHelper", "Database created");
     }
 }
