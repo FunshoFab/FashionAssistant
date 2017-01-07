@@ -11,7 +11,7 @@
     <string name="client_phone_hint">Phone number</string>
     <string name="client_additional_info_hint">Additional information</string>
     <!-- Button -->
-    <string name="client_delivery_date">Delivery date</string>
+    <string name="client_delivery_date">DELIVERY DATE</string>
     <!-- TextView -->
     <string name="client_info_title">CLIENT INFO</string>
 

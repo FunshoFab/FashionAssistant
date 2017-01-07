@@ -64,10 +64,11 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/colorAccent"
             android:id="@+id/delivery_date_button"
             android:text="@string/client_delivery_date"
             android:layout_marginTop="@dimen/content_space_margin"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
