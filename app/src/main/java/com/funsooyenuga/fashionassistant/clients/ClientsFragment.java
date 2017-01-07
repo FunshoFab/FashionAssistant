@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -85,9 +86,14 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_client, container, false);
+
         RecyclerView rv = (RecyclerView) v.findViewById(R.id.fragment_client_rv);
         rv.setAdapter(adapter);
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        rv.setLayoutManager(layoutManager);
+        DividerItemDecoration divider = new DividerItemDecoration(rv.getContext(),
+                layoutManager.getOrientation());
+        rv.addItemDecoration(divider);
 
         FloatingActionButton newClient = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         newClient.setOnClickListener(new View.OnClickListener() {

@@ -15,7 +15,7 @@ public class ClientsRepository implements ClientDataSource {
 
     private static ClientsRepository instance;
 
-    private final ClientsDataSourceImpl2 dataSource;
+    private final ClientDataSource dataSource;
 
     private Map<String, Client> cachedClients;
 
@@ -23,11 +23,11 @@ public class ClientsRepository implements ClientDataSource {
 
     private boolean cacheAvailable;
 
-    private ClientsRepository(ClientsDataSourceImpl2 dataSource) {
+    private ClientsRepository(ClientDataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    public static ClientsRepository getInstance(ClientsDataSourceImpl2 dataSource) {
+    public static ClientsRepository getInstance(ClientDataSource dataSource) {
         if (instance == null) {
             instance = new ClientsRepository(dataSource);
         }

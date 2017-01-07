@@ -10,22 +10,35 @@ import java.util.List;
  * Created by FAB THE GREAT on 08/12/2016.
  */
 
-public class ClientsDataSourceImpl implements ClientsDataSource {
-
+public class ClientsDataSourceImpl implements ClientDataSource {
 
     @Override
-    public void getAllClients(GetClientsCallback callback) {
-        callback.onClientsLoaded(fakeData());
+    public void clearDeliveredJobs() {
 
     }
 
     @Override
-    public void getMeasurement(String id, GetMeasurementCallback callback) {
+    public List<Client> getClients() {
+        return fakeData();
+    }
+
+    @Override
+    public void saveClient(Client client) {
 
     }
 
     @Override
-    public void saveClient() {
+    public void updateClient(Client client) {
+
+    }
+
+    @Override
+    public void deleteClient(String clientId) {
+
+    }
+
+    @Override
+    public void toggleDelivered(Boolean delivered) {
 
     }
 
