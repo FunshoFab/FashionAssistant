@@ -6,7 +6,7 @@ import android.support.v4.content.Loader;
 
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientsLoader;
-import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
+import com.funsooyenuga.fashionassistant.data.source.ClientDataSource;
 
 import java.util.List;
 
@@ -23,12 +23,12 @@ public class ClientsPresenter implements ClientsContract.Presenter,
 
     private final int LOADER_ID = 1;
 
-    private ClientsRepository repository;
+    private ClientDataSource repository;
 
     private LoaderManager loaderManager;
 
     public ClientsPresenter(ClientsContract.View clientsView, ClientsLoader loader,
-                            LoaderManager loaderManager, ClientsRepository repository) {
+                            LoaderManager loaderManager, ClientDataSource repository) {
         this.clientsView = clientsView;
         this.loader = loader;
         this.loaderManager = loaderManager;

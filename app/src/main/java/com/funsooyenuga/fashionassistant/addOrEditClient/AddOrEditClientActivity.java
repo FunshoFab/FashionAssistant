@@ -1,4 +1,4 @@
-package com.funsooyenuga.fashionassistant.addclient;
+package com.funsooyenuga.fashionassistant.addOrEditClient;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import android.view.View;
 
 import com.funsooyenuga.fashionassistant.R;
 
-public class AddClientActivity extends AppCompatActivity {
+public class AddOrEditClientActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -53,7 +53,7 @@ public class AddClientActivity extends AppCompatActivity {
     }
 
     public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, AddClientActivity.class);
+        Intent intent = new Intent(context, AddOrEditClientActivity.class);
         return intent;
     }
 
@@ -87,11 +87,11 @@ public class AddClientActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return AddMaleClientFragment.newInstance();
+                    return AddOrEditMaleClientFragment.newInstance();
                 case 1:
-                    return AddFemaleClientFragment.newInstance();
+                    return AddOrEditFemaleClientFragment.newInstance();
                 default:
-                    return new AddMaleClientFragment();
+                    return new AddOrEditMaleClientFragment();
             }
         }
 

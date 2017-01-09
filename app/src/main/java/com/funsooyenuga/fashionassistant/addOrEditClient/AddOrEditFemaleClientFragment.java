@@ -1,4 +1,4 @@
-package com.funsooyenuga.fashionassistant.addclient;
+package com.funsooyenuga.fashionassistant.addOrEditClient;
 
 
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import com.funsooyenuga.fashionassistant.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddFemaleClientFragment extends Fragment {
+public class AddOrEditFemaleClientFragment extends Fragment {
 
     //TextView
     private TextView top, trouser;
@@ -30,16 +30,16 @@ public class AddFemaleClientFragment extends Fragment {
 
 
     public static Fragment newInstance() {
-        return new AddFemaleClientFragment();
+        return new AddOrEditFemaleClientFragment();
     }
 
-    public AddFemaleClientFragment() {
+    public AddOrEditFemaleClientFragment() {
         // Required empty public constructor
     }
 
 
     /**
-     * Shares the same layout as {@link AddMaleClientFragment}. It modifies the layout by changing
+     * Shares the same layout as {@link AddOrEditMaleClientFragment}. It modifies the layout by changing
      * the title of some TextViews and un-hiding some widgets peculiar to this Fragment alone.
      * @param inflater
      * @param container

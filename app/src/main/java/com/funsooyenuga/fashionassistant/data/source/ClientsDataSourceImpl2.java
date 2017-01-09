@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.ClientInfoTable;
-import com.funsooyenuga.fashionassistant.util.HelperMethods;
+import com.funsooyenuga.fashionassistant.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ClientsDataSourceImpl2 implements ClientDataSource {
 
-    private static final String TAG = "ClientsDataSourceImpl";
+    private static final String TAG = "ClientsDataSourceImpl2";
     private static ClientsDataSourceImpl2 instance;
 
     private ClientDbHelper dbHelper;
@@ -54,7 +54,7 @@ public class ClientsDataSourceImpl2 implements ClientDataSource {
 
             if (cursor != null && cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    Client client = HelperMethods.cursorToClient(cursor, new Client());
+                    Client client = Util.cursorToClient(cursor, new Client());
                     clients.add(client);
                 }
                 cursor.close();
@@ -68,9 +68,13 @@ public class ClientsDataSourceImpl2 implements ClientDataSource {
 
     @Override
     public void saveClient(Client client) {
-        ContentValues values = HelperMethods.clientToContentValues(client);
+        ContentValues values = Util.clientToContentValues(client);
         try {
-            db.insert(ClientInfoTable.TABLE_NAME, null, values);
+            long result = db.insert(ClientInfoTable.TABLE_NAME, null, values);
+            if (result >= 0)
+                Log.d(TAG, "Success. ID = " + result);
+            else
+                Log.d(TAG, "Error. result = " + result);
         } catch (SQLiteException e) {
             Log.e(TAG, e.toString());
         }
@@ -78,7 +82,15 @@ public class ClientsDataSourceImpl2 implements ClientDataSource {
 
     @Override
     public void updateClient(Client client) {
+        ContentValues values = Util.clientToContentValues(client);
+        String whereClause = ClientInfoTable.CLIENT_ID + " = ?";
+        String[] whereArgs = {client.getId()};
 
+        try {
+            db.update(ClientInfoTable.TABLE_NAME, values, whereClause, whereArgs);
+        } catch (SQLiteException e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     @Override

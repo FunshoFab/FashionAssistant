@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.funsooyenuga.fashionassistant.R;
-import com.funsooyenuga.fashionassistant.util.HelperMethods;
+import com.funsooyenuga.fashionassistant.util.Util;
 
 public class ClientDetailActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class ClientDetailActivity extends AppCompatActivity {
 
         String clientId = getIntent().getStringExtra(EXTRA_CLIENT_ID);
 
-        HelperMethods.hostFragment(getSupportFragmentManager(), R.id.content_frame,
+        Util.hostFragment(getSupportFragmentManager(), R.id.content_frame,
                 ClientDetailFragment.newInstance(clientId));
     }
 

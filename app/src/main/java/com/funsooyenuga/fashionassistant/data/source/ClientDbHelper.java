@@ -63,8 +63,10 @@ public class ClientDbHelper extends SQLiteOpenHelper {
                 + ClientInfoTable.CLIENT_NAME + ", "
                 + ClientInfoTable.CLIENT_PHONE_NUMBER + ", "
                 + ClientInfoTable.CLIENT_SEX + ", "
-                + ClientInfoTable.DUE_DATE + ", "
+                + ClientInfoTable.DELIVERY_DATE + ", "
+                + ClientInfoTable.RECEIVED_DATE + ", "
                 + ClientInfoTable.DELIVERED + ", "
+                + ClientInfoTable.ADD_INFO + ", "
 
                 + MeasurementTable.MEASUREMENT_ID + ", "
                 + MeasurementTable.CAP_BASE + ", "

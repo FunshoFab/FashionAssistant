@@ -28,6 +28,5 @@
         android:contextClickable="true"
         android:focusable="false"
         android:clickable="false"
-        android:divider="@drawable/divider"
         android:showDividers="middle"/>
 </android.support.constraint.ConstraintLayout>

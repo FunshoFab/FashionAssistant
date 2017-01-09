@@ -2,7 +2,7 @@ package com.funsooyenuga.fashionassistant.util;
 
 import android.content.Context;
 
-import com.funsooyenuga.fashionassistant.data.source.ClientsDataSourceImpl;
+import com.funsooyenuga.fashionassistant.data.source.ClientsDataSourceImpl2;
 import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
 
 /**
@@ -11,7 +11,7 @@ import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
 
 public class Injection {
     public static ClientsRepository provideClientsRepository(Context context) {
-        //return ClientsRepository.getInstance(ClientsDataSourceImpl2.getInstance(context));
-        return ClientsRepository.getInstance(new ClientsDataSourceImpl());
+        return ClientsRepository.getInstance(ClientsDataSourceImpl2.getInstance(context));
+        //return ClientsRepository.getInstance(new ClientsDataSourceImpl());
     }
 }

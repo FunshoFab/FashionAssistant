@@ -44,4 +44,5 @@
     <string name="thigh_hint">Thigh</string>
     <string name="bottom_hint">Bottom</string>
     <string name="hips_hint">Hips</string>
+    <string name="new_job_added">New job added</string>
 </resources>

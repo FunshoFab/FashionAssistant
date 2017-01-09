@@ -10,11 +10,14 @@ import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.ClientInfoTable;
 import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.MeasurementTable;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by FAB THE GREAT on 07/12/2016.
  */
 
-public class HelperMethods {
+public class Util {
 
     public static ContentValues clientToContentValues(Client client) {
         ContentValues cv = new ContentValues();
@@ -23,16 +26,17 @@ public class HelperMethods {
         cv.put(ClientInfoTable.CLIENT_NAME, client.getName());
         cv.put(ClientInfoTable.CLIENT_PHONE_NUMBER, client.getPhoneNumber());
         cv.put(ClientInfoTable.CLIENT_SEX, client.getSex());
-        cv.put(ClientInfoTable.DUE_DATE, client.getDueDate());
-        cv.put(ClientInfoTable.DELIVERED, client.getDelivered() ? 1 : 0);
+//        cv.put(ClientInfoTable.DELIVERY_DATE, client.getDeliveryDate().getTime());
+        cv.put(ClientInfoTable.RECEIVED_DATE, client.getReceivedDate().getTime());
+    //    cv.put(ClientInfoTable.DELIVERED, client.getDelivered() ? 1 : 0);
         cv.put(ClientInfoTable.CLIENT_ID, client.getId().toString());
+        cv.put(ClientInfoTable.ADD_INFO, client.getAddInfo());
 
         //MEASUREMENT
         cv.put(MeasurementTable.MEASUREMENT_ID, client.getId().toString());
 
         //Cap
         cv.put(MeasurementTable.CAP_BASE, client.getCapBase());
-
         //Top or Gown
         cv.put(MeasurementTable.CHEST_OR_BUST, client.getChestOrBust());
         cv.put(MeasurementTable.LONG_OR_SHORT_SLEEVE, client.getLongOrShortSleeve());
@@ -50,7 +54,6 @@ public class HelperMethods {
         cv.put(MeasurementTable.TROUSER_LENGTH, client.getTrouserLength());
         cv.put(MeasurementTable.HIPS, client.getHips());
 
-
         return cv;
     }
 
@@ -67,28 +70,37 @@ public class HelperMethods {
         client.setName(c.getString(c.getColumnIndex(ClientInfoTable.CLIENT_NAME)));
         client.setPhoneNumber(c.getString(c.getColumnIndex(ClientInfoTable.CLIENT_PHONE_NUMBER)));
         client.setSex(c.getString(c.getColumnIndex(ClientInfoTable.CLIENT_SEX)));
-        client.setDueDate(c.getString(c.getColumnIndex(ClientInfoTable.DUE_DATE)));
+        client.setDeliveryDate(new Date(c.getLong(c.getColumnIndex(ClientInfoTable.DELIVERY_DATE))));
+        client.setReceivedDate(new Date(c.getLong(c.getColumnIndex(ClientInfoTable.RECEIVED_DATE))));
+        client.setAddInfo(c.getString(c.getColumnIndex(ClientInfoTable.ADD_INFO)));
 
         //MEASUREMENT
         //Cap
-        client.setCapBase(c.getString(c.getColumnIndex(MeasurementTable.CAP_BASE)));
+        client.setCapBase(c.getDouble(c.getColumnIndex(MeasurementTable.CAP_BASE)));
         //Top
-        client.setShoulder(c.getString(c.getColumnIndex(MeasurementTable.SHOULDER)));
-        client.setChestOrBust(c.getString(c.getColumnIndex(MeasurementTable.CHEST_OR_BUST)));
-        client.setLongOrShortSleeve(c.getString(c.getColumnIndex(MeasurementTable.LONG_OR_SHORT_SLEEVE)));
-        client.setTopOrGownLength(c.getString(c.getColumnIndex(MeasurementTable.TOP_OR_GOWN_LENGTH)));
-        client.setCuffOrRoundSleeve(c.getString(c.getColumnIndex(MeasurementTable.CUFF_OR_ROUND_SLEEVE)));
-        client.setHighWaist(c.getString(c.getColumnIndex(MeasurementTable.HIGH_WAIST)));
-        client.setKneeLength(c.getString(c.getColumnIndex(MeasurementTable.KNEE_LENGTH)));
-        client.setHalfLength(c.getString(c.getColumnIndex(MeasurementTable.HALF_LENGTH)));
+        client.setShoulder(c.getDouble(c.getColumnIndex(MeasurementTable.SHOULDER)));
+        client.setChestOrBust(c.getDouble(c.getColumnIndex(MeasurementTable.CHEST_OR_BUST)));
+        client.setLongOrShortSleeve(c.getDouble(c.getColumnIndex(MeasurementTable.LONG_OR_SHORT_SLEEVE)));
+        client.setTopOrGownLength(c.getDouble(c.getColumnIndex(MeasurementTable.TOP_OR_GOWN_LENGTH)));
+        client.setCuffOrRoundSleeve(c.getDouble(c.getColumnIndex(MeasurementTable.CUFF_OR_ROUND_SLEEVE)));
+        client.setHighWaist(c.getDouble(c.getColumnIndex(MeasurementTable.HIGH_WAIST)));
+        client.setKneeLength(c.getDouble(c.getColumnIndex(MeasurementTable.KNEE_LENGTH)));
+        client.setHalfLength(c.getDouble(c.getColumnIndex(MeasurementTable.HALF_LENGTH)));
 
         //Trouser
-        client.setWaist(c.getString(c.getColumnIndex(MeasurementTable.WAIST)));
-        client.setTrouserLength(c.getString(c.getColumnIndex(MeasurementTable.TROUSER_LENGTH)));
-        client.setThigh(c.getString(c.getColumnIndex(MeasurementTable.THIGH)));
-        client.setBottom(c.getString(c.getColumnIndex(MeasurementTable.BOTTOM)));
-        client.setHips(c.getString(c.getColumnIndex(MeasurementTable.HIPS)));
+        client.setWaist(c.getDouble(c.getColumnIndex(MeasurementTable.WAIST)));
+        client.setTrouserLength(c.getDouble(c.getColumnIndex(MeasurementTable.TROUSER_LENGTH)));
+        client.setThigh(c.getDouble(c.getColumnIndex(MeasurementTable.THIGH)));
+        client.setBottom(c.getDouble(c.getColumnIndex(MeasurementTable.BOTTOM)));
+        client.setHips(c.getDouble(c.getColumnIndex(MeasurementTable.HIPS)));
 
         return client;
     }
+
+    public static String formatDate(Date date) {
+        String pattern = "EEE, d MMM yyyy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+        return dateFormat.format(date);
+    }
+
 }

@@ -18,12 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TestArena.DateActivity" />
+        <activity android:name=".TestArena.DateActivity">
+        </activity>
         <activity
             android:name=".clientdetail.ClientDetailActivity"
             android:parentActivityName=".clients.ClientsActivity" />
         <activity
-            android:name=".addclient.AddClientActivity"
+            android:name=".addOrEditClient.AddOrEditClientActivity"
             android:label="@string/title_activity_add_client2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

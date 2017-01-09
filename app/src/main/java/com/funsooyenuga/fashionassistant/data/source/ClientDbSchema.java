@@ -13,9 +13,11 @@ public class ClientDbSchema {
         public static final String CLIENT_NAME = "client_name";
         public static final String CLIENT_PHONE_NUMBER = "client_phone_number";
         public static final String CLIENT_SEX = "client_sex";
-        public static final String DUE_DATE = "due_date";
+        public static final String DELIVERY_DATE = "delivery_date";
+        public static final String RECEIVED_DATE = "received_date";
         public static final String DELIVERED = "delivered";
         public static final String CLIENT_ID = "client_id";
+        public static final String ADD_INFO = "add_info";
 
     }
 

@@ -66,7 +66,6 @@ public class ClientsRepository implements ClientDataSource {
     public boolean cacheAvailable() {
         return cacheAvailable && cachedClients != null;
     }
-
     public Client getClient(String clientId) {
         return cachedClients.get(clientId);
     }
@@ -76,17 +75,27 @@ public class ClientsRepository implements ClientDataSource {
         dataSource.saveClient(client);
         //Update repository
         cachedClients.put(client.getId(), client);
+
         notifyContentObservers();
     }
 
     @Override
     public void updateClient(Client client) {
+        dataSource.updateClient(client);
+        //Remove the old Client from the map and put the new client object
+        cachedClients.remove(client.getId());
+        cachedClients.put(client.getId(), client);
 
+        notifyContentObservers();
     }
 
     @Override
     public void deleteClient(String clientId) {
+        dataSource.deleteClient(clientId);
+        //Update repository
+        cachedClients.remove(clientId);
 
+        notifyContentObservers();
     }
 
     @Override

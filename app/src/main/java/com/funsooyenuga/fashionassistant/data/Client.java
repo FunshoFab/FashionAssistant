@@ -1,6 +1,6 @@
 package com.funsooyenuga.fashionassistant.data;
 
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -15,33 +15,36 @@ public class Client {
     private String name;
     private String sex;
     private String phoneNumber;
-    private String dueDate;
+    private Date deliveryDate;
+    private Date receivedDate;
+    private String addInfo;
+
     private Boolean delivered;
 
     //Measurements
     //CAP
-    private String capBase;
-
+    private double capBase;
     //TOP OR GOWN
-    private String shoulder;
-    private String chestOrBust;
-    private String cuffOrRoundSleeve;
-    private String longOrShortSleeve;
-    private String topOrGownLength;
+    private double shoulder;
+    private double chestOrBust;
+    private double cuffOrRoundSleeve;
+    private double longOrShortSleeve;
+    private double topOrGownLength;
     //female only
-    private String halfLength;
-    private String highWaist;
-    private String kneeLength;
+    private double halfLength;
+    private double highWaist;
+    private double kneeLength;
 
     //TROUSER
-    private String waist;
-    private String thigh;
-    private String trouserLength;
-    private String bottom;
-    private String hips;
+    private double waist;
+    private double thigh;
+    private double trouserLength;
+    private double bottom;
+    private double hips;
 
     public Client() {
         this.id = UUID.randomUUID().toString();
+        receivedDate = Calendar.getInstance().getTime();
     }
 
     //GETTER AND SETTER METHODS
@@ -69,91 +72,107 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getCapBase() {
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public Date getReceivedDate() {
+        return receivedDate;
+    }
+
+    public void setReceivedDate(Date receivedDate) {
+        this.receivedDate = receivedDate;
+    }
+
+    public double getCapBase() {
         return capBase;
     }
 
-    public void setCapBase(String capBase) {
+    public void setCapBase(double capBase) {
         this.capBase = capBase;
     }
 
-    public String getShoulder() {
+    public double getShoulder() {
         return shoulder;
     }
 
-    public void setShoulder(String shoulder) {
+    public void setShoulder(double shoulder) {
         this.shoulder = shoulder;
     }
 
-    public String getChestOrBust() {
+    public double getChestOrBust() {
         return chestOrBust;
     }
 
-    public void setChestOrBust(String chestOrBust) {
+    public void setChestOrBust(double chestOrBust) {
         this.chestOrBust = chestOrBust;
     }
 
-    public String getCuffOrRoundSleeve() {
+    public double getCuffOrRoundSleeve() {
         return cuffOrRoundSleeve;
     }
 
-    public void setCuffOrRoundSleeve(String cuffOrRoundSleeve) {
+    public void setCuffOrRoundSleeve(double cuffOrRoundSleeve) {
         this.cuffOrRoundSleeve = cuffOrRoundSleeve;
     }
 
-    public String getLongOrShortSleeve() {
+    public double getLongOrShortSleeve() {
         return longOrShortSleeve;
     }
 
-    public void setLongOrShortSleeve(String longOrShortSleeve) {
+    public void setLongOrShortSleeve(double longOrShortSleeve) {
         this.longOrShortSleeve = longOrShortSleeve;
     }
 
-    public String getTopOrGownLength() {
+    public double getTopOrGownLength() {
         return topOrGownLength;
     }
 
-    public void setTopOrGownLength(String topOrGownLength) {
+    public void setTopOrGownLength(double topOrGownLength) {
         this.topOrGownLength = topOrGownLength;
     }
 
-    public String getHalfLength() {
+    public double getHalfLength() {
         return halfLength;
     }
 
-    public void setHalfLength(String halfLength) {
+    public void setHalfLength(double halfLength) {
         this.halfLength = halfLength;
     }
 
-    public String getWaist() {
+    public double getWaist() {
         return waist;
     }
 
-    public void setWaist(String waist) {
+    public void setWaist(double waist) {
         this.waist = waist;
     }
 
-    public String getThigh() {
+    public double getThigh() {
         return thigh;
     }
 
-    public void setThigh(String thigh) {
+    public void setThigh(double thigh) {
         this.thigh = thigh;
     }
 
-    public String getTrouserLength() {
+    public double getTrouserLength() {
         return trouserLength;
     }
 
-    public void setTrouserLength(String trouserLength) {
+    public void setTrouserLength(double trouserLength) {
         this.trouserLength = trouserLength;
     }
 
-    public String getBottom() {
+    public double getBottom() {
         return bottom;
     }
 
-    public void setBottom(String bottom) {
+    public void setBottom(double bottom) {
         this.bottom = bottom;
     }
 
@@ -165,19 +184,6 @@ public class Client {
         this.delivered = delivered;
     }
 
-    public String getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        SimpleDateFormat dateFormat  = new SimpleDateFormat("EEE, d MMM yyyy");
-        this.dueDate = dateFormat.format(dueDate);
-    }
-
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
-    }
-
     public String getId() {
         return id;
     }
@@ -186,27 +192,35 @@ public class Client {
         this.id = id;
     }
 
-    public String getHighWaist() {
+    public double getHighWaist() {
         return highWaist;
     }
 
-    public void setHighWaist(String highWaist) {
+    public void setHighWaist(double highWaist) {
         this.highWaist = highWaist;
     }
 
-    public String getHips() {
+    public double getHips() {
         return hips;
     }
 
-    public void setHips(String hips) {
+    public void setHips(double hips) {
         this.hips = hips;
     }
 
-    public String getKneeLength() {
+    public double getKneeLength() {
         return kneeLength;
     }
 
-    public void setKneeLength(String kneeLength) {
+    public void setKneeLength(double kneeLength) {
         this.kneeLength = kneeLength;
+    }
+
+    public String getAddInfo() {
+        return addInfo;
+    }
+
+    public void setAddInfo(String addInfo) {
+        this.addInfo = addInfo;
     }
 }

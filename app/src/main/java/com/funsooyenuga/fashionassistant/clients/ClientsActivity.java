@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import com.funsooyenuga.fashionassistant.R;
 import com.funsooyenuga.fashionassistant.clientdetail.ClientDetailActivity;
 import com.funsooyenuga.fashionassistant.clientdetail.ClientDetailFragment;
-import com.funsooyenuga.fashionassistant.util.HelperMethods;
+import com.funsooyenuga.fashionassistant.util.Util;
 
 public class ClientsActivity extends AppCompatActivity implements ClientsFragment.Listener {
 
@@ -26,7 +26,7 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
 
         fm = getSupportFragmentManager();
 
-        HelperMethods.hostFragment(fm, R.id.content_frame, ClientsFragment.newInstance());
+        Util.hostFragment(fm, R.id.content_frame, ClientsFragment.newInstance());
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
         Boolean isTwoPane = findViewById(R.id.detail_container) != null;
 
         if (isTwoPane) {
-            HelperMethods.hostFragment(fm, R.id.detail_container, ClientDetailFragment.newInstance(clientId));
+            Util.hostFragment(fm, R.id.detail_container, ClientDetailFragment.newInstance(clientId));
         } else {
             Intent intent = ClientDetailActivity.newIntent(this, clientId);
             startActivity(intent);

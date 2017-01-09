@@ -11,7 +11,7 @@
         android:paddingRight="@dimen/horizontal_margin"
         android:paddingTop="@dimen/vertical_margin"
         android:orientation="vertical"
-        tools:context="com.funsooyenuga.fashionassistant.addclient.AddMaleClientFragment">
+        tools:context="com.funsooyenuga.fashionassistant.addOrEditClient.AddOrEditMaleClientFragment">
 
         <include layout="@layout/include_client_info"/>
 

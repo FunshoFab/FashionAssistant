@@ -47,11 +47,11 @@ public class ClientsDataSourceImpl implements ClientDataSource {
 
         Client client1 = new Client();
         client1.setName("Funsho Fab");
-        client1.setDueDate(new Date());
+        client1.setDeliveryDate(new Date());
 
         Client client2 = new Client();
         client2.setName("Lolla Oye");
-        client2.setDueDate(new Date());
+        client2.setDeliveryDate(new Date());
 
         fakeClients.add(client1);
         fakeClients.add(client1);

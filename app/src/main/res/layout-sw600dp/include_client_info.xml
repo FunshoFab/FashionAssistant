@@ -50,7 +50,7 @@
                 <EditText
                     android:id="@+id/et_client_phone_number"
                     android:hint="@string/client_phone_hint"
-                    android:inputType="number"
+                    android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

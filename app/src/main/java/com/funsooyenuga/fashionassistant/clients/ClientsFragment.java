@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,11 +17,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.funsooyenuga.fashionassistant.R;
-import com.funsooyenuga.fashionassistant.addclient.AddClientActivity;
+import com.funsooyenuga.fashionassistant.addOrEditClient.AddOrEditClientActivity;
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientsLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
 import com.funsooyenuga.fashionassistant.util.Injection;
+import com.funsooyenuga.fashionassistant.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,9 @@ import java.util.List;
 public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     private static final int RC_ADD_CLIENT = 1;
+
     private ClientAdapter adapter;
+
     private ClientsContract.Presenter presenter;
 
     public static ClientsFragment newInstance() {
@@ -89,8 +93,10 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
         RecyclerView rv = (RecyclerView) v.findViewById(R.id.fragment_client_rv);
         rv.setAdapter(adapter);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(layoutManager);
+
         DividerItemDecoration divider = new DividerItemDecoration(rv.getContext(),
                 layoutManager.getOrientation());
         rv.addItemDecoration(divider);
@@ -125,8 +131,19 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     @Override
     public void showAddClientUi() {
-        Intent intent = AddClientActivity.newIntent(getActivity());
+        Intent intent = AddOrEditClientActivity.newIntent(getActivity());
         startActivityForResult(intent, RC_ADD_CLIENT);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RC_ADD_CLIENT && resultCode == Activity.RESULT_OK) {
+            showMessage(getString(R.string.new_job_added));
+        }
+    }
+
+    private void showMessage(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
     public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder> {
@@ -151,7 +168,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
         public void onBindViewHolder(ViewHolder holder, int position) {
             Client client = clients.get(position);
             holder.clientName.setText(client.getName());
-            holder.dueDate.setText(client.getDueDate());
+            holder.dueDate.setText(Util.formatDate(client.getReceivedDate()));
         }
 
         @Override
