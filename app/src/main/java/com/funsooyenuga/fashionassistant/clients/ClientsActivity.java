@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.funsooyenuga.fashionassistant.R;
 import com.funsooyenuga.fashionassistant.clientdetail.ClientDetailActivity;
 import com.funsooyenuga.fashionassistant.clientdetail.ClientDetailFragment;
+import com.funsooyenuga.fashionassistant.data.DbManager.AndroidDatabaseManager;
 import com.funsooyenuga.fashionassistant.util.Util;
 
 public class ClientsActivity extends AppCompatActivity implements ClientsFragment.Listener {
@@ -53,6 +54,11 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
 
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        if (id == R.id.show_database) {
+            Intent intent = new Intent(this, AndroidDatabaseManager.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

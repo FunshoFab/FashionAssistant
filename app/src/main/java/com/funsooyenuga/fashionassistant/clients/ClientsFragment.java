@@ -131,7 +131,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     @Override
     public void showAddClientUi() {
-        Intent intent = AddOrEditClientActivity.newIntent(getActivity());
+        Intent intent = AddOrEditClientActivity.newIntent(getActivity(), null, null);
         startActivityForResult(intent, RC_ADD_CLIENT);
     }
 

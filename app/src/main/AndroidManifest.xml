@@ -27,6 +27,11 @@
             android:name=".addOrEditClient.AddOrEditClientActivity"
             android:label="@string/title_activity_add_client2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity android:name=".data.DbManager.AndroidDatabaseManager"
+            android:theme="@style/Theme.AppCompat.Light"/>
+
     </application>
 
 </manifest>

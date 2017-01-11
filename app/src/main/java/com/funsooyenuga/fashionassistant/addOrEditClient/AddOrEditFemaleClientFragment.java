@@ -1,7 +1,10 @@
 package com.funsooyenuga.fashionassistant.addOrEditClient;
 
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,11 +14,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.funsooyenuga.fashionassistant.R;
+import com.funsooyenuga.fashionassistant.data.Client;
+import com.funsooyenuga.fashionassistant.data.loaders.ClientLoader;
+import com.funsooyenuga.fashionassistant.data.source.ClientDataSource;
+import com.funsooyenuga.fashionassistant.util.Injection;
+
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddOrEditFemaleClientFragment extends Fragment {
+public class AddOrEditFemaleClientFragment extends Fragment
+        implements AddOrEditClientContract.View {
+
+    private static final String ARG_CLIENT_ID = "arg_client_id";
+
+    private String clientId;
+
+    private AddOrEditClientContract.Presenter presenter;
 
     //TextView
     private TextView top, trouser;
@@ -28,15 +44,32 @@ public class AddOrEditFemaleClientFragment extends Fragment {
     //TextInputLayout
     private TextInputLayout tilBust, tilHalfLength, tilKneeLength, tilHighWaist, tilHips;
 
+    private boolean dataOkay;
 
-    public static Fragment newInstance() {
-        return new AddOrEditFemaleClientFragment();
+    public static Fragment newInstance(@Nullable String clientId) {
+        AddOrEditFemaleClientFragment fragment = new AddOrEditFemaleClientFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_CLIENT_ID, clientId);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     public AddOrEditFemaleClientFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        clientId = getArguments().getString(ARG_CLIENT_ID);
+
+        ClientLoader loader = new ClientLoader(getActivity().getApplicationContext(), null);
+        ClientDataSource repository = Injection.provideClientsRepository(getActivity().getApplicationContext());
+
+        presenter = new AddOrEditClientPresenter(clientId, this, loader, getLoaderManager(), repository);
+    }
 
     /**
      * Shares the same layout as {@link AddOrEditMaleClientFragment}. It modifies the layout by changing
@@ -55,6 +88,18 @@ public class AddOrEditFemaleClientFragment extends Fragment {
         initWidgets(v);
         changeTitle();
         unhideWidgets();
+
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Client client = fetchClientDetail();
+                if (dataOkay) {
+                    presenter.saveClient(client);
+                }
+            }
+        });
+
 
         return v;
     }
@@ -107,5 +152,86 @@ public class AddOrEditFemaleClientFragment extends Fragment {
         tilHighWaist.setVisibility(View.VISIBLE);
         //Trouser
         tilHips.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void returnToClientList() {
+        getActivity().setResult(Activity.RESULT_OK);
+        getActivity().finish();
+    }
+
+    @Override
+    public void setClientDetails(Client client) {
+        //Client info
+        name.setText(client.getName().toString());
+        phoneNumber.setText(client.getPhoneNumber().toString());
+        addInfo.setText(client.getAddInfo().toString());
+
+        //Measurement - top
+        shoulder.setText(String.valueOf(client.getShoulder()));
+        bust.setText(String.valueOf(client.getChestOrBust()));
+        sleeve.setText(String.valueOf(client.getLongOrShortSleeve()));
+        cuff.setText(String.valueOf(client.getCuffOrRoundSleeve()));
+        topLength.setText(String.valueOf(client.getTopOrGownLength()));
+        halfLength.setText(String.valueOf(client.getHalfLength()));
+        kneeLength.setText(String.valueOf(client.getKneeLength()));
+        highWaist.setText(String.valueOf(client.getWaist()));
+
+        //Trouser
+        waist.setText(String.valueOf(client.getWaist()));
+        thigh.setText(String.valueOf(client.getThigh()));
+        trouserLength.setText(String.valueOf(client.getTrouserLength()));
+        bottom.setText(String.valueOf(client.getBottom()));
+        hips.setText(String.valueOf(client.getHips()));
+    }
+
+    private Client fetchClientDetail() {
+        Client c = new Client();
+
+        //Client Info
+        c.setName(setName(name.getText().toString().trim()));
+        c.setPhoneNumber(phoneNumber.getText().toString());
+        c.setAddInfo(addInfo.getText().toString());
+        c.setSex("f");
+        c.setReceivedDate(new Date());
+
+        //Measurement - Top/Gown
+        c.setShoulder(setValue(shoulder.getText().toString()));
+        c.setChestOrBust(setValue(bust.getText().toString()));
+        c.setLongOrShortSleeve(setValue(sleeve.getText().toString()));
+        c.setCuffOrRoundSleeve(setValue(cuff.getText().toString()));
+        c.setTopOrGownLength(setValue(topLength.getText().toString()));
+        c.setHalfLength(setValue(halfLength.getText().toString()));
+        c.setKneeLength(setValue(kneeLength.getText().toString()));
+        c.setHighWaist(setValue(highWaist.getText().toString()));
+
+        //Trouser/skirt
+        c.setWaist(setValue(waist.getText().toString()));
+        c.setThigh(setValue(thigh.getText().toString()));
+        c.setTrouserLength(setValue(trouserLength.getText().toString()));
+        c.setBottom(setValue(bottom.getText().toString()));
+        c.setHips(setValue(hips.getText().toString()));
+
+        return c;
+    }
+
+    private String setName(String etName) {
+        String trimmedName;
+        if (etName.equals("")) {
+            name.setError(getString(R.string.empty_name_error_message));
+            dataOkay = false;
+            trimmedName = null;
+        } else {
+            dataOkay = true;
+            trimmedName = etName;
+        }
+        return trimmedName;
+    }
+
+    private double setValue(String value) {
+        if (value.isEmpty())
+            return 0;
+        else
+            return Double.valueOf(value);
     }
 }

@@ -25,8 +25,6 @@ public class ClientDbSchema {
         public static final String TABLE_NAME = "measurement";
 
         //COLUMN NAMES
-        public static final String MEASUREMENT_ID  = "measurement_id";
-
         //Cap
         public static final String CAP_BASE = "cap_base";
 

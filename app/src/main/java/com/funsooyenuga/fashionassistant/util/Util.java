@@ -33,8 +33,6 @@ public class Util {
         cv.put(ClientInfoTable.ADD_INFO, client.getAddInfo());
 
         //MEASUREMENT
-        cv.put(MeasurementTable.MEASUREMENT_ID, client.getId().toString());
-
         //Cap
         cv.put(MeasurementTable.CAP_BASE, client.getCapBase());
         //Top or Gown

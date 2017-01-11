@@ -25,7 +25,12 @@ import java.util.Date;
 public class AddOrEditMaleClientFragment extends Fragment
         implements AddOrEditClientContract.View {
 
+    private static final String ARG_CLIENT_ID = "arg_client_id";
+
+    private String clientId;
+
     private AddOrEditClientContract.Presenter presenter;
+
     //TextView
     private TextView capTitle;
     //Client info
@@ -35,24 +40,33 @@ public class AddOrEditMaleClientFragment extends Fragment
     //Trouser
     private EditText waist, thigh, trouserLength, bottom;
     //TextInputLayout
-    private TextInputLayout tilChest, tilCapBase;
+    private TextInputLayout tilChest, tilCapBase, tilName;
+
+    private boolean dataOkay;
 
     public AddOrEditMaleClientFragment() {
         // Required empty public constructor
     }
 
-    public static Fragment newInstance() {
-        return new AddOrEditMaleClientFragment();
+    public static Fragment newInstance(@Nullable String clientId) {
+        AddOrEditMaleClientFragment fragment = new AddOrEditMaleClientFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_CLIENT_ID, clientId);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        clientId = getArguments().getString(ARG_CLIENT_ID);
+
         ClientLoader loader = new ClientLoader(getActivity().getApplicationContext(), null);
         ClientDataSource repository = Injection.provideClientsRepository(getActivity().getApplicationContext());
 
-        presenter = new AddOrEditClientPresenter(null, this, loader, getLoaderManager(), repository);
+        presenter = new AddOrEditClientPresenter(clientId, this, loader, getLoaderManager(), repository);
     }
 
     /**
@@ -75,7 +89,10 @@ public class AddOrEditMaleClientFragment extends Fragment
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.saveClient(fetchClientDetail());
+                Client client = fetchClientDetail();
+                if (dataOkay) {
+                    presenter.saveClient(client);
+                }
             }
         });
 
@@ -107,6 +124,7 @@ public class AddOrEditMaleClientFragment extends Fragment
         //TextInputLayout
         tilCapBase = (TextInputLayout) v.findViewById(R.id.til_cap_base);
         tilChest = (TextInputLayout) v.findViewById(R.id.til_chest);
+        tilName = (TextInputLayout) v.findViewById(R.id.til_client_name);
     }
 
     private void unhideWidgets() {
@@ -146,7 +164,7 @@ public class AddOrEditMaleClientFragment extends Fragment
     private Client fetchClientDetail() {
         Client c = new Client();
         //Client Info
-        c.setName(name.getText().toString());
+        c.setName(setName(name.getText().toString().trim()));
         c.setPhoneNumber(phoneNumber.getText().toString());
         c.setAddInfo(addInfo.getText().toString());
         c.setSex("m");
@@ -166,6 +184,19 @@ public class AddOrEditMaleClientFragment extends Fragment
         c.setBottom(setValue(bottom.getText().toString()));
 
         return c;
+    }
+
+    private String setName(String etName) {
+        String trimmedName;
+        if (etName.equals("")) {
+            name.setError(getString(R.string.empty_name_error_message));
+            dataOkay = false;
+            trimmedName = null;
+        } else {
+            dataOkay = true;
+            trimmedName = etName;
+        }
+        return trimmedName;
     }
 
     private double setValue(String value) {
