@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.funsooyenuga.fashionassistant.R;
-import com.funsooyenuga.fashionassistant.addOrEditClient.AddOrEditClientActivity;
+import com.funsooyenuga.fashionassistant.addOrEditClient.AddClientActivity;
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientsLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
@@ -131,7 +131,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     @Override
     public void showAddClientUi() {
-        Intent intent = AddOrEditClientActivity.newIntent(getActivity(), null, null);
+        Intent intent = AddClientActivity.newIntent(getActivity());
         startActivityForResult(intent, RC_ADD_CLIENT);
     }
 

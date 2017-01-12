@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,10 +66,16 @@ public class AddOrEditFemaleClientFragment extends Fragment
 
         clientId = getArguments().getString(ARG_CLIENT_ID);
 
-        ClientLoader loader = new ClientLoader(getActivity().getApplicationContext(), null);
+        ClientLoader loader = new ClientLoader(getActivity().getApplicationContext(), clientId);
         ClientDataSource repository = Injection.provideClientsRepository(getActivity().getApplicationContext());
 
         presenter = new AddOrEditClientPresenter(clientId, this, loader, getLoaderManager(), repository);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start();
     }
 
     /**
@@ -111,6 +118,7 @@ public class AddOrEditFemaleClientFragment extends Fragment
 
         //Client info
         name = (EditText) v.findViewById(R.id.et_client_name);
+        name.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         phoneNumber = (EditText) v.findViewById(R.id.et_client_phone_number);
         addInfo  = (EditText) v.findViewById(R.id.et_additional_info);
 
@@ -163,9 +171,9 @@ public class AddOrEditFemaleClientFragment extends Fragment
     @Override
     public void setClientDetails(Client client) {
         //Client info
-        name.setText(client.getName().toString());
-        phoneNumber.setText(client.getPhoneNumber().toString());
-        addInfo.setText(client.getAddInfo().toString());
+        name.setText(client.getName());
+        phoneNumber.setText(client.getPhoneNumber());
+        addInfo.setText(client.getAddInfo());
 
         //Measurement - top
         shoulder.setText(String.valueOf(client.getShoulder()));

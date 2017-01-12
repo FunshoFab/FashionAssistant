@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class AddOrEditMaleClientFragment extends Fragment
         implements AddOrEditClientContract.View {
 
     private static final String ARG_CLIENT_ID = "arg_client_id";
+    private static final String TAG = "MaleFragment";
 
     private String clientId;
 
@@ -54,6 +56,7 @@ public class AddOrEditMaleClientFragment extends Fragment
         args.putString(ARG_CLIENT_ID, clientId);
         fragment.setArguments(args);
 
+        Log.i(TAG, "Received clientID: " + clientId);
         return fragment;
     }
 
@@ -63,10 +66,16 @@ public class AddOrEditMaleClientFragment extends Fragment
 
         clientId = getArguments().getString(ARG_CLIENT_ID);
 
-        ClientLoader loader = new ClientLoader(getActivity().getApplicationContext(), null);
+        ClientLoader loader = new ClientLoader(getActivity().getApplicationContext(), clientId);
         ClientDataSource repository = Injection.provideClientsRepository(getActivity().getApplicationContext());
 
         presenter = new AddOrEditClientPresenter(clientId, this, loader, getLoaderManager(), repository);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start();
     }
 
     /**
@@ -125,6 +134,7 @@ public class AddOrEditMaleClientFragment extends Fragment
         tilCapBase = (TextInputLayout) v.findViewById(R.id.til_cap_base);
         tilChest = (TextInputLayout) v.findViewById(R.id.til_chest);
         tilName = (TextInputLayout) v.findViewById(R.id.til_client_name);
+        Log.d(TAG, "Init finished");
     }
 
     private void unhideWidgets() {
@@ -142,9 +152,10 @@ public class AddOrEditMaleClientFragment extends Fragment
     @Override
     public void setClientDetails(Client client) {
         //Client info
-        name.setText(client.getName().toString());
-        phoneNumber.setText(client.getPhoneNumber().toString());
-        addInfo.setText(client.getAddInfo().toString());
+        Log.d(TAG, "Client name: " + client.getName());
+        name.setText(client.getName());
+        phoneNumber.setText(client.getPhoneNumber());
+        addInfo.setText(client.getAddInfo());
 
         //Measurement - top
         capBase.setText(String.valueOf(client.getCapBase()));

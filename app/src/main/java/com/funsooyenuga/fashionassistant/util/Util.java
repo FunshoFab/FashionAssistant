@@ -56,9 +56,11 @@ public class Util {
     }
 
     public static void hostFragment(FragmentManager fm, int resourceId, Fragment fragment) {
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(resourceId, fragment)
-                .commit();
+        if (fragment != null) {
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(resourceId, fragment)
+                    .commit();
+        }
     }
 
     public static Client cursorToClient(Cursor c, Client client) {
