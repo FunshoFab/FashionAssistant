@@ -1,5 +1,7 @@
 package com.funsooyenuga.fashionassistant.clientdetail;
 
+import com.funsooyenuga.fashionassistant.data.Client;
+
 /**
  * Created by FAB THE GREAT on 10/12/2016.
  */
@@ -8,11 +10,11 @@ public interface ClientDetailContract {
 
     interface View {
 
-        void showMeasurement();
+        void showDetails(Client client);
     }
 
     interface Presenter {
 
-        void getMeasurement(String clientId);
+        void start();
     }
 }

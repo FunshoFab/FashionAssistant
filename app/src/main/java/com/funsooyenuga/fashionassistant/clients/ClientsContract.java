@@ -14,7 +14,7 @@ public interface ClientsContract {
 
         void showClients(List<Client> clients);
 
-        void showMeasurement(String clientId);
+        void showMeasurement(String clientId, String sex);
 
         void showAddClientUi();
     }
@@ -23,7 +23,7 @@ public interface ClientsContract {
 
         void start();
 
-        void getMeasurement(String clientId);
+        void getMeasurement(String clientId, String sex);
 
         void addClient();
     }

@@ -58,7 +58,7 @@ public class Util {
     public static void hostFragment(FragmentManager fm, int resourceId, Fragment fragment) {
         if (fragment != null) {
             FragmentTransaction ft = fm.beginTransaction();
-            ft.add(resourceId, fragment)
+            ft.replace(resourceId, fragment)
                     .commit();
         }
     }

@@ -41,8 +41,8 @@ public class ClientsPresenter implements ClientsContract.Presenter,
     }
 
     @Override
-    public void getMeasurement(String clientId) {
-        clientsView.showMeasurement(clientId);
+    public void getMeasurement(String clientId, String sex) {
+        clientsView.showMeasurement(clientId, sex);
     }
 
     @Override

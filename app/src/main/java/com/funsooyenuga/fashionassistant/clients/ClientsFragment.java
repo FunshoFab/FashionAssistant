@@ -41,7 +41,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     public interface Listener {
 
-        void onClientSelected(String clientId);
+        void onClientSelected(String clientId, String sex);
     }
 
     private Listener listener;
@@ -114,8 +114,8 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     ClientItemListener itemListener = new ClientItemListener() {
         @Override
-        public void onClientClick(String clientId) {
-            presenter.getMeasurement(clientId);
+        public void onClientClick(String clientId, String sex) {
+            presenter.getMeasurement(clientId, sex);
         }
     };
 
@@ -125,8 +125,8 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
     }
 
     @Override
-    public void showMeasurement(String clientId) {
-        listener.onClientSelected(clientId);
+    public void showMeasurement(String clientId, String sex) {
+        listener.onClientSelected(clientId, sex);
     }
 
     @Override
@@ -193,7 +193,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
             public void onClick(View v) {
                 int position = getAdapterPosition();
                 Client client = clients.get(position);
-                listener.onClientClick(client.getId().toString());
+                listener.onClientClick(client.getId(), client.getSex());
             }
         }
 
@@ -206,6 +206,6 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
 
     public interface ClientItemListener {
 
-        void onClientClick(String clientId);
+        void onClientClick(String clientId, String sex);
     }
 }
