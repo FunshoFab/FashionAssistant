@@ -21,6 +21,7 @@ import java.util.List;
 public class ClientsDataSourceImpl2 implements ClientDataSource {
 
     private static final String TAG = "ClientsDataSourceImpl2";
+
     private static ClientsDataSourceImpl2 instance;
 
     private ClientDbHelper dbHelper;
@@ -70,11 +71,7 @@ public class ClientsDataSourceImpl2 implements ClientDataSource {
     public void saveClient(Client client) {
         ContentValues values = Util.clientToContentValues(client);
         try {
-            long result = db.insert(ClientInfoTable.TABLE_NAME, null, values);
-            if (result >= 0)
-                Log.d(TAG, "Success. ID = " + result);
-            else
-                Log.d(TAG, "Error. result = " + result);
+            db.insert(ClientInfoTable.TABLE_NAME, null, values);
         } catch (SQLiteException e) {
             Log.e(TAG, e.toString());
         }

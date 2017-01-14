@@ -28,11 +28,15 @@ import java.util.Date;
 public class AddOrEditFemaleClientFragment extends Fragment
         implements AddOrEditClientContract.View {
 
+    private static final String TAG = "FemaleFragment";
+
     private static final String ARG_CLIENT_ID = "arg_client_id";
 
     private String clientId;
 
     private AddOrEditClientContract.Presenter presenter;
+
+    private FloatingActionButton fab;
 
     //TextView
     private TextView top, trouser;
@@ -72,6 +76,15 @@ public class AddOrEditFemaleClientFragment extends Fragment
         presenter = new AddOrEditClientPresenter(clientId, this, loader, getLoaderManager(), repository);
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        boolean visible = isVisibleToUser && isResumed();
+        initFab(visible);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -95,18 +108,7 @@ public class AddOrEditFemaleClientFragment extends Fragment
         initWidgets(v);
         changeTitle();
         unhideWidgets();
-
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Client client = fetchClientDetail();
-                if (dataOkay) {
-                    presenter.saveClient(client);
-                }
-            }
-        });
-
+        initFab(getUserVisibleHint());
 
         return v;
     }
@@ -160,6 +162,25 @@ public class AddOrEditFemaleClientFragment extends Fragment
         tilHighWaist.setVisibility(View.VISIBLE);
         //Trouser
         tilHips.setVisibility(View.VISIBLE);
+    }
+
+    private void initFab(boolean visible) {
+        if (visible) {
+            fab = (FloatingActionButton) getActivity().findViewById(R.id.done);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getUserVisibleHint()) {
+                        Client client = fetchClientDetail();
+                        if (dataOkay) {
+                            presenter.saveClient(client);
+                        }
+                    }
+                }
+            });
+        } else {
+            fab = null;
+        }
     }
 
     @Override
@@ -219,6 +240,10 @@ public class AddOrEditFemaleClientFragment extends Fragment
         c.setTrouserLength(setValue(trouserLength.getText().toString()));
         c.setBottom(setValue(bottom.getText().toString()));
         c.setHips(setValue(hips.getText().toString()));
+
+        if (clientId != null) {
+            c.setId(clientId);
+        }
 
         return c;
     }

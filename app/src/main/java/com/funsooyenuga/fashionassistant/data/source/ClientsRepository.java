@@ -66,6 +66,7 @@ public class ClientsRepository implements ClientDataSource {
     public boolean cacheAvailable() {
         return cacheAvailable && cachedClients != null;
     }
+
     public Client getClient(String clientId) {
         return cachedClients.get(clientId);
     }

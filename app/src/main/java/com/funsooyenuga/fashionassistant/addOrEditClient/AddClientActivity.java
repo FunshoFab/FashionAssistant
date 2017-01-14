@@ -17,8 +17,6 @@ import com.funsooyenuga.fashionassistant.R;
 
 public class AddClientActivity extends AppCompatActivity {
 
-    private static final String TAG = "Funsho";
-
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;

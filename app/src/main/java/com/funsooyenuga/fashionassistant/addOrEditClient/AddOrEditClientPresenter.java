@@ -15,6 +15,7 @@ import com.funsooyenuga.fashionassistant.data.source.ClientDataSource;
 public class AddOrEditClientPresenter implements AddOrEditClientContract.Presenter,
         LoaderManager.LoaderCallbacks<Client> {
 
+    private static final String TAG = "AEPresenter";
     private String clientId;
 
     private static final int LOADER_ID = 2;

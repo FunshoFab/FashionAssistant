@@ -29,7 +29,7 @@ public class Util {
 //        cv.put(ClientInfoTable.DELIVERY_DATE, client.getDeliveryDate().getTime());
         cv.put(ClientInfoTable.RECEIVED_DATE, client.getReceivedDate().getTime());
     //    cv.put(ClientInfoTable.DELIVERED, client.getDelivered() ? 1 : 0);
-        cv.put(ClientInfoTable.CLIENT_ID, client.getId().toString());
+        cv.put(ClientInfoTable.CLIENT_ID, client.getId());
         cv.put(ClientInfoTable.ADD_INFO, client.getAddInfo());
 
         //MEASUREMENT

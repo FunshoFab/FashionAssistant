@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +25,9 @@ import java.util.Date;
 public class AddOrEditMaleClientFragment extends Fragment
         implements AddOrEditClientContract.View {
 
-    private static final String ARG_CLIENT_ID = "arg_client_id";
     private static final String TAG = "MaleFragment";
+
+    private static final String ARG_CLIENT_ID = "arg_client_id";
 
     private String clientId;
 
@@ -46,6 +46,8 @@ public class AddOrEditMaleClientFragment extends Fragment
 
     private boolean dataOkay;
 
+    private FloatingActionButton fab;
+
     public AddOrEditMaleClientFragment() {
         // Required empty public constructor
     }
@@ -56,7 +58,6 @@ public class AddOrEditMaleClientFragment extends Fragment
         args.putString(ARG_CLIENT_ID, clientId);
         fragment.setArguments(args);
 
-        Log.i(TAG, "Received clientID: " + clientId);
         return fragment;
     }
 
@@ -70,6 +71,14 @@ public class AddOrEditMaleClientFragment extends Fragment
         ClientDataSource repository = Injection.provideClientsRepository(getActivity().getApplicationContext());
 
         presenter = new AddOrEditClientPresenter(clientId, this, loader, getLoaderManager(), repository);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        boolean visible = isVisibleToUser && isResumed();
+        initFab(visible);
     }
 
     @Override
@@ -89,23 +98,13 @@ public class AddOrEditMaleClientFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add_client, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_client, container, false);
 
-        initWidgets(v);
+        initWidgets(view);
         unhideWidgets();
+        initFab(getUserVisibleHint());
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Client client = fetchClientDetail();
-                if (dataOkay) {
-                    presenter.saveClient(client);
-                }
-            }
-        });
-
-        return v;
+        return view;
     }
 
     private void initWidgets(View v) {
@@ -134,13 +133,31 @@ public class AddOrEditMaleClientFragment extends Fragment
         tilCapBase = (TextInputLayout) v.findViewById(R.id.til_cap_base);
         tilChest = (TextInputLayout) v.findViewById(R.id.til_chest);
         tilName = (TextInputLayout) v.findViewById(R.id.til_client_name);
-        Log.d(TAG, "Init finished");
     }
 
     private void unhideWidgets() {
         capTitle.setVisibility(View.VISIBLE);
         tilCapBase.setVisibility(View.VISIBLE);
         tilChest.setVisibility(View.VISIBLE);
+    }
+
+    private void initFab(boolean visible) {
+        if (visible) {
+            fab = (FloatingActionButton) getActivity().findViewById(R.id.done);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getUserVisibleHint()) {
+                        Client client = fetchClientDetail();
+                        if (dataOkay) {
+                            presenter.saveClient(client);
+                        }
+                    }
+                }
+            });
+        } else {
+            fab = null;
+        }
     }
 
     @Override
@@ -152,7 +169,6 @@ public class AddOrEditMaleClientFragment extends Fragment
     @Override
     public void setClientDetails(Client client) {
         //Client info
-        Log.d(TAG, "Client name: " + client.getName());
         name.setText(client.getName());
         phoneNumber.setText(client.getPhoneNumber());
         addInfo.setText(client.getAddInfo());
@@ -170,6 +186,8 @@ public class AddOrEditMaleClientFragment extends Fragment
         thigh.setText(String.valueOf(client.getThigh()));
         trouserLength.setText(String.valueOf(client.getTrouserLength()));
         bottom.setText(String.valueOf(client.getBottom()));
+
+        clientId = client.getId();
     }
 
     private Client fetchClientDetail() {
@@ -193,6 +211,10 @@ public class AddOrEditMaleClientFragment extends Fragment
         c.setThigh(setValue(thigh.getText().toString()));
         c.setTrouserLength(setValue(trouserLength.getText().toString()));
         c.setBottom(setValue(bottom.getText().toString()));
+
+        if (clientId != null) {
+            c.setId(clientId);
+        }
 
         return c;
     }

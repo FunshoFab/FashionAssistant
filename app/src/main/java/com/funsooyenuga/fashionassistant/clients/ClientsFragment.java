@@ -101,7 +101,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View {
                 layoutManager.getOrientation());
         rv.addItemDecoration(divider);
 
-        FloatingActionButton newClient = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton newClient = (FloatingActionButton) getActivity().findViewById(R.id.done);
         newClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
