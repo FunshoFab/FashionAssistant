@@ -161,7 +161,7 @@ public class AddOrEditMaleClientFragment extends Fragment
     }
 
     @Override
-    public void returnToClientList() {
+    public void result() {
         getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
     }

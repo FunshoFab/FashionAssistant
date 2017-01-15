@@ -1,10 +1,12 @@
 package com.funsooyenuga.fashionassistant.clientdetail;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,8 @@ import com.funsooyenuga.fashionassistant.util.Injection;
 public class ClientDetailFragment extends Fragment implements ClientDetailContract.View {
 
     private static final String ARG_CLIENT_ID = "clientId";
+
+    private static final int RC_EDIT_CLIENT = 1;
 
     private static final String ARG_SEX = "sex";
 
@@ -84,7 +88,7 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
             public void onClick(View v) {
                 Intent intent = EditClientActivity.newIntent(getActivity().getApplicationContext(),
                         clientId, sex);
-                startActivity(intent);
+                startActivityForResult(intent, RC_EDIT_CLIENT);
             }
         });
         return v;
@@ -94,5 +98,12 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
     public void showDetails(Client client) {
         tv_name.setText(client.getName());
         tv_sex.setText(client.getSex());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RC_EDIT_CLIENT && resultCode == Activity.RESULT_OK) {
+            Snackbar.make(tv_name, R.string.edit_saved, Snackbar.LENGTH_SHORT).show();
+        }
     }
 }
