@@ -42,12 +42,10 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
 
 
     private Listener listener;
+    private ClientDetailContract.Presenter presenter;
 
     private String clientId;
-
     private String sex;
-
-    private ClientDetailContract.Presenter presenter;
 
     private TextView tv_name, tv_sex;
 

@@ -81,6 +81,10 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (savedInstanceState != null) {
+            filter = (ClientsFilterType) savedInstanceState.getSerializable(CURRENT_FILTER);
+        }
+
         adapter = new ClientAdapter(new ArrayList<Client>(0), itemListener);
 
         ClientsLoader loader = new ClientsLoader(getActivity().getApplicationContext());
@@ -95,6 +99,8 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
     public void onResume() {
         super.onResume();
         presenter.start();
+
+        Log.d(TAG, "onResume");
     }
 
     @Override
@@ -131,6 +137,11 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
         return v;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(CURRENT_FILTER, filter);
+    }
 
     @Override
     public void showClients(List<Client> clients, ClientsFilterType filter) {
