@@ -1,15 +1,24 @@
 package com.funsooyenuga.fashionassistant.util;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.util.Log;
+import android.view.MenuItem;
 
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.ClientInfoTable;
 import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.MeasurementTable;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,11 +35,13 @@ public class Util {
         cv.put(ClientInfoTable.CLIENT_NAME, client.getName());
         cv.put(ClientInfoTable.CLIENT_PHONE_NUMBER, client.getPhoneNumber());
         cv.put(ClientInfoTable.CLIENT_SEX, client.getSex());
-//        cv.put(ClientInfoTable.DELIVERY_DATE, client.getDeliveryDate().getTime());
+        if (client.getDeliveryDate() != null) {
+            cv.put(ClientInfoTable.DELIVERY_DATE, client.getDeliveryDate().getTime());
+        }
         cv.put(ClientInfoTable.RECEIVED_DATE, client.getReceivedDate().getTime());
-    //    cv.put(ClientInfoTable.DELIVERED, client.getDelivered() ? 1 : 0);
         cv.put(ClientInfoTable.CLIENT_ID, client.getId());
         cv.put(ClientInfoTable.ADD_INFO, client.getAddInfo());
+        cv.put(ClientInfoTable.DELIVERED, client.isDelivered());
 
         //MEASUREMENT
         //Cap
@@ -55,14 +66,6 @@ public class Util {
         return cv;
     }
 
-    public static void hostFragment(FragmentManager fm, int resourceId, Fragment fragment) {
-        if (fragment != null) {
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(resourceId, fragment)
-                    .commit();
-        }
-    }
-
     public static Client cursorToClient(Cursor c, Client client) {
 
         //CLIENT INFO
@@ -70,9 +73,11 @@ public class Util {
         client.setName(c.getString(c.getColumnIndex(ClientInfoTable.CLIENT_NAME)));
         client.setPhoneNumber(c.getString(c.getColumnIndex(ClientInfoTable.CLIENT_PHONE_NUMBER)));
         client.setSex(c.getString(c.getColumnIndex(ClientInfoTable.CLIENT_SEX)));
-        client.setDeliveryDate(new Date(c.getLong(c.getColumnIndex(ClientInfoTable.DELIVERY_DATE))));
+
+        client.setDeliveryDate(c.getLong(c.getColumnIndex(ClientInfoTable.DELIVERY_DATE)));
         client.setReceivedDate(new Date(c.getLong(c.getColumnIndex(ClientInfoTable.RECEIVED_DATE))));
         client.setAddInfo(c.getString(c.getColumnIndex(ClientInfoTable.ADD_INFO)));
+        client.setDelivered(c.getInt(c.getColumnIndex(ClientInfoTable.DELIVERED)) == 1);
 
         //MEASUREMENT
         //Cap
@@ -97,10 +102,36 @@ public class Util {
         return client;
     }
 
-    public static String formatDate(Date date) {
+    public static void hostFragment(FragmentManager fm, int resourceId, Fragment fragment, String tag) {
+        if (fragment != null) {
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(resourceId, fragment, tag)
+                    .commit();
+        }
+    }
+
+    public static String formatDate(@NonNull Date date) {
         String pattern = "EEE, d MMM yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         return dateFormat.format(date);
     }
 
+    public static Date stringToDate(@NonNull String formattedDate) {
+        String pattern = "EEE, d MMM yyyy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+
+        Date date = null;
+        try {
+            date = dateFormat.parse(formattedDate);
+        } catch (ParseException e) {
+            Log.d("Util", e.toString());
+        }
+        return date;
+    }
+
+    public static void tintMenuIcon(Context context, MenuItem item, @ColorRes int color) {
+        Drawable drawable = DrawableCompat.wrap(item.getIcon());
+        DrawableCompat.setTint(drawable, ContextCompat.getColor(context, color));
+        item.setIcon(drawable);
+    }
 }

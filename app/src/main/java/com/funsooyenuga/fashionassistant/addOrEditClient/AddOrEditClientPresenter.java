@@ -28,7 +28,7 @@ public class AddOrEditClientPresenter implements AddOrEditClientContract.Present
 
     private LoaderManager loaderManager;
 
-    public AddOrEditClientPresenter(String clientId, AddOrEditClientContract.View addClientView, ClientLoader loader,
+    AddOrEditClientPresenter(String clientId, AddOrEditClientContract.View addClientView, ClientLoader loader,
                                     LoaderManager loaderManager, ClientDataSource repository) {
         this.clientId = clientId;
         this.addClientView = addClientView;

@@ -34,24 +34,26 @@ public class EditClientActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getResources().getString(R.string.edit_client));
 
         clientId = getIntent().getStringExtra(EXTRA_CLIENT_ID);
         sex = getIntent().getStringExtra(EXTRA_SEX);
 
         Fragment fragment;
+        String tag = "";
 
         switch (sex) {
             case "m":
                 fragment = AddOrEditMaleClientFragment.newInstance(clientId);
+                tag = AddOrEditMaleClientFragment.TAG;
                 break;
             case "f":
                 fragment = AddOrEditFemaleClientFragment.newInstance(clientId);
+                tag = AddOrEditFemaleClientFragment.TAG;
                 break;
             default:
                 fragment = null;
                 break;
         }
-        Util.hostFragment(getSupportFragmentManager(), R.id.content_frame, fragment);
+        Util.hostFragment(getSupportFragmentManager(), R.id.content_frame, fragment, tag);
     }
 }

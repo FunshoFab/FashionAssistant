@@ -9,11 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.funsooyenuga.fashionassistant.R;
+import com.funsooyenuga.fashionassistant.addOrEditClient.DateDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateActivity extends AppCompatActivity implements DateDialogFragment.Listener {
+public class DateActivity extends AppCompatActivity {
 
     private TextView displayDate;
 
@@ -34,7 +35,6 @@ public class DateActivity extends AppCompatActivity implements DateDialogFragmen
         });
     }
 
-    @Override
     public void onDateSelect(Date date) {
         String pattern = "EEE, d MMM yyyy";
         SimpleDateFormat dateFmt = new SimpleDateFormat(pattern);

@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import com.funsooyenuga.fashionassistant.R;
 import com.funsooyenuga.fashionassistant.util.Util;
 
-public class ClientDetailActivity extends AppCompatActivity {
+public class ClientDetailActivity extends AppCompatActivity implements ClientDetailFragment.Listener  {
 
     public static final String EXTRA_CLIENT_ID = "client_id";
 
@@ -25,7 +25,7 @@ public class ClientDetailActivity extends AppCompatActivity {
         String sex = getIntent().getStringExtra(EXTRA_SEX);
 
         Util.hostFragment(getSupportFragmentManager(), R.id.content_frame,
-                ClientDetailFragment.newInstance(clientId, sex));
+                ClientDetailFragment.newInstance(clientId, sex), ClientDetailFragment.TAG);
     }
 
     public static Intent newIntent(Context context, String clientId, String sex) {
@@ -50,5 +50,10 @@ public class ClientDetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClientDeleted() {
+        finish();
     }
 }

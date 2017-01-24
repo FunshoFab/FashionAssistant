@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/edit_client"
+        android:title="@string/menu_edit_client"
+        android:icon="@drawable/ic_edit_black_24dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/delete_client"
+        android:title="@string/menu_delete_client"
+        android:icon="@drawable/ic_delete_black_24dp"
+        app:showAsAction="always" />
+</menu>

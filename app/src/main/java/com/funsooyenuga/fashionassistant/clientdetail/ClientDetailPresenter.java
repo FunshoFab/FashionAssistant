@@ -41,6 +41,12 @@ public class ClientDetailPresenter implements ClientDetailContract.Presenter,
         loaderManager.initLoader(LOADER_ID, null, this);
     }
 
+    @Override
+    public void deleteClient() {
+        repository.deleteClient(clientId);
+        clientDetailView.returnToClientsList();
+    }
+
     //LOADER
 
     @Override
@@ -50,7 +56,9 @@ public class ClientDetailPresenter implements ClientDetailContract.Presenter,
 
     @Override
     public void onLoadFinished(Loader<Client> loader, Client data) {
-        clientDetailView.showDetails(data);
+        if (data != null) {
+            clientDetailView.showDetails(data);
+        }
     }
 
     @Override

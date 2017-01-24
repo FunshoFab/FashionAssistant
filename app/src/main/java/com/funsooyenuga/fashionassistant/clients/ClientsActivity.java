@@ -14,9 +14,12 @@ import com.funsooyenuga.fashionassistant.clientdetail.ClientDetailFragment;
 import com.funsooyenuga.fashionassistant.data.DbManager.AndroidDatabaseManager;
 import com.funsooyenuga.fashionassistant.util.Util;
 
-public class ClientsActivity extends AppCompatActivity implements ClientsFragment.Listener {
+public class ClientsActivity extends AppCompatActivity implements ClientsFragment.Listener,
+        ClientDetailFragment.Listener {
 
-    FragmentManager fm;
+    private FragmentManager fm;
+
+    private ClientDetailFragment clientDetailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +30,20 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
 
         fm = getSupportFragmentManager();
 
-        Util.hostFragment(fm, R.id.content_frame, ClientsFragment.newInstance());
+        ClientsFragment fragment = findClientsFragment();
+
+        if (fragment == null) {
+            Util.hostFragment(fm, R.id.content_frame, ClientsFragment.newInstance(), ClientsFragment.TAG);
+        }
     }
 
     @Override
     public void onClientSelected(String clientId, String sex) {
         Boolean isTwoPane = findViewById(R.id.detail_container) != null;
+        clientDetailFragment = ClientDetailFragment.newInstance(clientId, sex);
 
         if (isTwoPane) {
-            Util.hostFragment(fm, R.id.detail_container, ClientDetailFragment.newInstance(clientId, sex));
+            Util.hostFragment(fm, R.id.detail_container, clientDetailFragment, ClientDetailFragment.TAG);
         } else {
             Intent intent = ClientDetailActivity.newIntent(this, clientId, sex);
             startActivity(intent);
@@ -62,5 +70,14 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private ClientsFragment findClientsFragment() {
+        return (ClientsFragment) getSupportFragmentManager().findFragmentByTag(ClientsFragment.TAG);
+    }
+
+    @Override
+    public void onClientDeleted() {
+        getSupportFragmentManager().beginTransaction().remove(clientDetailFragment).commit();
     }
 }

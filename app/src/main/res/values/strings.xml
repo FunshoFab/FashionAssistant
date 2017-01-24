@@ -1,10 +1,4 @@
 <resources>
-    <string name="app_name">Fashion Assistant</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="title_activity_add_client2">Add new client</string>
-    <string name="digits">0123456789/.</string>
-
     <!-- INCLUDE_CLIENT_INFO layout-->
     <!-- EditText -->
     <string name="client_name_hint">Name</string>
@@ -44,8 +38,27 @@
     <string name="thigh_hint">Thigh</string>
     <string name="bottom_hint">Bottom</string>
     <string name="hips_hint">Hips</string>
+
+    <!-- Others -->
+    <string name="app_name">Fashion Assistant</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="digits">0123456789/.</string>
+    <string name="title_activity_add_client2">Add new client</string>
     <string name="new_job_added">New job added</string>
     <string name="empty_name_error_message">A name is required</string>
     <string name="edit_client">Edit Client</string>
     <string name="edit_saved">Updated</string>
+    <string name="menu_delete_client">Delete</string>
+    <string name="menu_edit_client">Edit</string>
+    <string name="date_dialog_ok">OK</string>
+    <string name="dialog_cancel">CANCEL</string>
+    <string name="date_dialog_delivery_date">Select delivery date</string>
+    <string name="dialog_deliver_client">This client will be moved to Measurements</string>
+    <string name="dialog_mark_delivered_title">Mark as delivered?</string>
+    <string name="dialog_mark_delivered_ok">YES</string>
+    <string name="pending_jobs">Pending jobs</string>
+    <string name="measurements">Measurements</string>
+    <string name="filter_clients">Filter clients</string>
+    <string name="delivered">Delivered</string>
 </resources>

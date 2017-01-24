@@ -15,11 +15,10 @@ public class Client {
     private String name;
     private String sex;
     private String phoneNumber;
-    private Date deliveryDate;
+    private Date deliveryDate = null;
     private Date receivedDate;
     private String addInfo;
-
-    private Boolean delivered;
+    private boolean delivered;
 
     //Measurements
     //CAP
@@ -45,6 +44,18 @@ public class Client {
     public Client() {
         this.id = UUID.randomUUID().toString();
         receivedDate = Calendar.getInstance().getTime();
+    }
+
+    public boolean isPending() {
+        return deliveryDate != null && !delivered;
+    }
+
+    public static int sortByDate(Client a, Client b) {
+        return a.getDeliveryDate().compareTo(b.deliveryDate);
+    }
+
+    public static int sortByName(Client a, Client b) {
+        return a.getName().compareToIgnoreCase(b.getName());
     }
 
     //GETTER AND SETTER METHODS
@@ -80,12 +91,26 @@ public class Client {
         this.deliveryDate = deliveryDate;
     }
 
+    public void setDeliveryDate(long deliveryDate) {
+        if (deliveryDate > 0) {
+            setDeliveryDate(new Date(deliveryDate));
+        }
+    }
+
     public Date getReceivedDate() {
         return receivedDate;
     }
 
     public void setReceivedDate(Date receivedDate) {
         this.receivedDate = receivedDate;
+    }
+
+    public boolean isDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(boolean delivered) {
+        this.delivered = delivered;
     }
 
     public double getCapBase() {
@@ -174,14 +199,6 @@ public class Client {
 
     public void setBottom(double bottom) {
         this.bottom = bottom;
-    }
-
-    public Boolean getDelivered() {
-        return delivered;
-    }
-
-    public void setDelivered(Boolean delivered) {
-        this.delivered = delivered;
     }
 
     public String getId() {

@@ -11,10 +11,14 @@ public interface ClientDetailContract {
     interface View {
 
         void showDetails(Client client);
+
+        void returnToClientsList();
     }
 
     interface Presenter {
 
         void start();
+
+        void deleteClient();
     }
 }

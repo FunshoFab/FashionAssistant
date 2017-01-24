@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/choose_filter"
+        android:title="@string/filter_clients"
+        android:icon="@drawable/ic_filter_list_black_24dp"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/show_database"
+        android:title="Show database"
+        app:showAsAction="never" />
+</menu>

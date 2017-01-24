@@ -12,11 +12,13 @@ public interface ClientsContract {
 
     interface View {
 
-        void showClients(List<Client> clients);
+        void showClients(List<Client> clients, ClientsFilterType filter);
 
         void showMeasurement(String clientId, String sex);
 
         void showAddClientUi();
+
+        void showDeliveredMessage();
     }
 
     interface Presenter {
@@ -25,6 +27,10 @@ public interface ClientsContract {
 
         void getMeasurement(String clientId, String sex);
 
+        void setDelivered(String clientId);
+
         void addClient();
+
+        void filterClients(ClientsFilterType filter);
     }
 }

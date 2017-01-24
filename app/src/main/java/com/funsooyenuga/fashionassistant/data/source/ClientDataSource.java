@@ -20,6 +20,6 @@ public interface ClientDataSource {
 
     void clearDeliveredJobs();
 
-    void toggleDelivered(Boolean delivered);
+    void setDelivered(String clientId, boolean delivered);
 
 }

@@ -84,6 +84,8 @@ public class ClientsRepository implements ClientDataSource {
     public void updateClient(Client client) {
         dataSource.updateClient(client);
         //Remove the old Client from the map and put the new client object
+        String clientId = client.getId();
+
         cachedClients.remove(client.getId());
         cachedClients.put(client.getId(), client);
 
@@ -100,10 +102,13 @@ public class ClientsRepository implements ClientDataSource {
     }
 
     @Override
-    public void toggleDelivered(Boolean delivered) {
+    public void setDelivered(String clientId, boolean delivered) {
+        dataSource.setDelivered(clientId, delivered);
 
+        cachedClients.get(clientId).setDelivered(delivered);
+        cachedClients.get(clientId).setDeliveryDate(null);
+        notifyContentObservers();
     }
-
 
     //Content Observers
     public void addContentObserver(ClientsRepositoryObserver observer) {

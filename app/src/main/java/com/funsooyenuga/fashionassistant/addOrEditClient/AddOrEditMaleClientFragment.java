@@ -2,14 +2,17 @@ package com.funsooyenuga.fashionassistant.addOrEditClient;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientDataSource;
 import com.funsooyenuga.fashionassistant.util.Injection;
+import com.funsooyenuga.fashionassistant.util.Util;
 
 import java.util.Date;
 
@@ -25,11 +29,15 @@ import java.util.Date;
 public class AddOrEditMaleClientFragment extends Fragment
         implements AddOrEditClientContract.View {
 
-    private static final String TAG = "MaleFragment";
+    public static final String TAG = "MaleFragment";
+
+    public static final int RC_DATE_DIALOG = 1;
 
     private static final String ARG_CLIENT_ID = "arg_client_id";
 
     private String clientId;
+
+    private String formattedDate;
 
     private AddOrEditClientContract.Presenter presenter;
 
@@ -37,6 +45,7 @@ public class AddOrEditMaleClientFragment extends Fragment
     private TextView capTitle;
     //Client info
     private EditText name, phoneNumber, addInfo;
+    private Button deliveryDate;
     //Cap and Top
     private EditText capBase, shoulder, chest, sleeve, cuff, topLength;
     //Trouser
@@ -104,6 +113,8 @@ public class AddOrEditMaleClientFragment extends Fragment
         unhideWidgets();
         initFab(getUserVisibleHint());
 
+        Log.d(TAG, "onCreateView()");
+
         return view;
     }
 
@@ -114,6 +125,13 @@ public class AddOrEditMaleClientFragment extends Fragment
         name = (EditText) v.findViewById(R.id.et_client_name);
         phoneNumber = (EditText) v.findViewById(R.id.et_client_phone_number);
         addInfo  = (EditText) v.findViewById(R.id.et_additional_info);
+        deliveryDate = (Button) v.findViewById(R.id.delivery_date_button);
+        deliveryDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateDialog();
+            }
+        });
 
         //Cap and Top
         capBase = (EditText) v.findViewById(R.id.et_cap_base);
@@ -133,6 +151,22 @@ public class AddOrEditMaleClientFragment extends Fragment
         tilCapBase = (TextInputLayout) v.findViewById(R.id.til_cap_base);
         tilChest = (TextInputLayout) v.findViewById(R.id.til_chest);
         tilName = (TextInputLayout) v.findViewById(R.id.til_client_name);
+    }
+
+    private void showDateDialog() {
+        DateDialogFragment dateDialog = new DateDialogFragment();
+        dateDialog.setTargetFragment(this, RC_DATE_DIALOG);
+        dateDialog.show(getFragmentManager(), TAG);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RC_DATE_DIALOG && resultCode == Activity.RESULT_OK) {
+            Date date = (Date) data.getSerializableExtra(DateDialogFragment.EXTRA_DATE);
+
+            formattedDate = Util.formatDate(date);
+            deliveryDate.setText(formattedDate);
+        }
     }
 
     private void unhideWidgets() {
@@ -172,6 +206,10 @@ public class AddOrEditMaleClientFragment extends Fragment
         name.setText(client.getName());
         phoneNumber.setText(client.getPhoneNumber());
         addInfo.setText(client.getAddInfo());
+        if (client.getDeliveryDate() != null) {
+            formattedDate = Util.formatDate(client.getDeliveryDate());
+            deliveryDate.setText(formattedDate);
+        }
 
         //Measurement - top
         capBase.setText(String.valueOf(client.getCapBase()));
@@ -190,6 +228,10 @@ public class AddOrEditMaleClientFragment extends Fragment
         clientId = client.getId();
     }
 
+    /**
+     * Gets the data in the widgets and puts them in a Client object.
+     * @return Client
+     */
     private Client fetchClientDetail() {
         Client c = new Client();
         //Client Info
@@ -198,6 +240,9 @@ public class AddOrEditMaleClientFragment extends Fragment
         c.setAddInfo(addInfo.getText().toString());
         c.setSex("m");
         c.setReceivedDate(new Date());
+        if (formattedDate != null) {
+            c.setDeliveryDate(Util.stringToDate(formattedDate));
+        }
 
         //Measurement - Top
         c.setCapBase(setValue(capBase.getText().toString()));
