@@ -33,31 +33,33 @@ import com.funsooyenuga.fashionassistant.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.funsooyenuga.fashionassistant.clients.ClientsFilterType.PENDING_JOBS;
+import static com.funsooyenuga.fashionassistant.clients.ClientsFilterType.MEASUREMENTS;
+
 public class ClientsFragment extends Fragment implements ClientsContract.View,
         DeliverDialog.Listener {
 
     public static final String TAG = "clientsFragment";
+    public static final String EXTRA_ADD_CLIENT = "extraAddClient";
 
     public static final int RC_DELIVER_CLIENT = 2;
+    private static final int RC_ADD_CLIENT = 1;
 
     private String CURRENT_FILTER = "currentFilter";
-
-    private static final int RC_ADD_CLIENT = 1;
 
     private ClientAdapter adapter;
 
     private ClientsContract.Presenter presenter;
-
-    public static ClientsFragment newInstance() {
-        return new ClientsFragment();
-    }
-
     private Listener listener;
 
     private TextView filterLabel;
 
-    private ClientsFilterType filter = ClientsFilterType.PENDING_JOBS;
+    private ClientsFilterType filter = PENDING_JOBS;
 
+
+    public static ClientsFragment newInstance() {
+        return new ClientsFragment();
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -110,7 +112,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
         View v = inflater.inflate(R.layout.fragment_client, container, false);
 
         filterLabel = (TextView) v.findViewById(R.id.filterLabel);
-        if (filter == ClientsFilterType.MEASUREMENTS) {
+        if (filter == MEASUREMENTS) {
             filterLabel.setText(getResources().getString(R.string.measurements));
         }
 
@@ -163,7 +165,15 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RC_ADD_CLIENT && resultCode == Activity.RESULT_OK) {
-            showMessage(getString(R.string.new_job_added));
+            boolean isPending = data.getExtras().getBoolean(EXTRA_ADD_CLIENT);
+
+            if (isPending) {
+                showMessage(getString(R.string.new_job_added));
+                filterClients(PENDING_JOBS);
+            } else {
+                showMessage(getString(R.string.new_measurement));
+                filterClients(MEASUREMENTS);
+            }
         }
     }
 
@@ -216,12 +226,10 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.pending_jobs:
-                        filterLabel.setText(getResources().getString(R.string.pending_jobs));
-                        presenter.filterClients(ClientsFilterType.PENDING_JOBS);
+                        filterClients(PENDING_JOBS);
                         break;
                     case R.id.measurements:
-                        filterLabel.setText(getResources().getString(R.string.measurements));
-                        presenter.filterClients(ClientsFilterType.MEASUREMENTS);
+                        filterClients(MEASUREMENTS);
                         break;
                     default:
                         break;
@@ -231,6 +239,15 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
         });
 
         popup.show();
+    }
+
+    private void filterClients(ClientsFilterType filter) {
+        presenter.filterClients(filter);
+        if (filter == PENDING_JOBS) {
+            filterLabel.setText(getResources().getString(R.string.pending_jobs));
+        } else {
+            filterLabel.setText(getResources().getString(R.string.measurements));
+        }
     }
 
     /**
@@ -257,7 +274,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
 
         private List<Client> clients;
         private ClientItemListener itemListener;
-        private ClientsFilterType filter = ClientsFilterType.PENDING_JOBS;
+        private ClientsFilterType filter = PENDING_JOBS;
 
         public ClientAdapter(List<Client> clients, ClientItemListener itemListener) {
             this.clients = clients;
@@ -279,7 +296,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
             Client client = clients.get(position);
             holder.clientName.setText(client.getName());
 
-            if (filter == ClientsFilterType.PENDING_JOBS && client.getDeliveryDate() != null) {
+            if (filter == PENDING_JOBS && client.getDeliveryDate() != null) {
                 holder.dueDate.setText(Util.formatDate(client.getDeliveryDate()));
             } else {
                 holder.dueDate.setText("");
@@ -287,7 +304,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
         }
 
         private void toggleCheckBoxAndDate(ViewHolder holder, ClientsFilterType filter) {
-            if (filter == ClientsFilterType.MEASUREMENTS) {
+            if (filter == MEASUREMENTS) {
                 holder.dueDate.setVisibility(View.GONE);
                 holder.deliverCb.setVisibility(View.GONE);
             } else {

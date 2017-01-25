@@ -42,25 +42,6 @@ public class ClientDbHelper extends SQLiteOpenHelper {
         }
     }
 
-    private void createMeasurementTable(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + MeasurementTable.TABLE_NAME + "("
-                + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + MeasurementTable.CAP_BASE + ", "
-                + MeasurementTable.BOTTOM + ", "
-                + MeasurementTable.CHEST_OR_BUST + ", "
-                + MeasurementTable.HALF_LENGTH + ", "
-                + MeasurementTable.TROUSER_LENGTH + ", "
-                + MeasurementTable.CUFF_OR_ROUND_SLEEVE + ", "
-                + MeasurementTable.LONG_OR_SHORT_SLEEVE + ", "
-                + MeasurementTable.SHOULDER + ", "
-                + MeasurementTable.THIGH + ", "
-                + MeasurementTable.HIGH_WAIST + ", "
-                + MeasurementTable.HIPS + ", "
-                + MeasurementTable.KNEE_LENGTH + ", "
-                + MeasurementTable.TOP_OR_GOWN_LENGTH + ", "
-                + MeasurementTable.WAIST + ", ");
-    }
-
     private void createClientTable(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + ClientInfoTable.TABLE_NAME + "("
                 + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -78,8 +59,10 @@ public class ClientDbHelper extends SQLiteOpenHelper {
                 + MeasurementTable.CHEST_OR_BUST + ", "
                 + MeasurementTable.HALF_LENGTH + ", "
                 + MeasurementTable.TROUSER_LENGTH + ", "
-                + MeasurementTable.CUFF_OR_ROUND_SLEEVE + ", "
-                + MeasurementTable.LONG_OR_SHORT_SLEEVE + ", "
+                + MeasurementTable.CUFF + ", "
+                + MeasurementTable.ROUND_SLEEVE + ", "
+                + MeasurementTable.SHORT_SLEEVE + ", "
+                + MeasurementTable.LONG_SLEEVE + ", "
                 + MeasurementTable.SHOULDER + ", "
                 + MeasurementTable.THIGH + ", "
                 + MeasurementTable.HIGH_WAIST + ", "

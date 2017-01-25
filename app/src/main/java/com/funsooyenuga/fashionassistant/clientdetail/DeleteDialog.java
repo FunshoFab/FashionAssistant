@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
+import com.funsooyenuga.fashionassistant.R;
+
 /**
  * Created by FAB THE GREAT on 16/01/2017.
  */
@@ -37,8 +39,9 @@ public class DeleteDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                .setMessage("Delete this client?")
-                .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                .setTitle("Delete")
+                .setMessage("This client will be deleted")
+                .setPositiveButton(getResources().getString(R.string.date_dialog_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         listener.onDeleteClick();

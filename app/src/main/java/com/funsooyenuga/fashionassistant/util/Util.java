@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.ClientInfoTable;
@@ -48,8 +49,10 @@ public class Util {
         cv.put(MeasurementTable.CAP_BASE, client.getCapBase());
         //Top or Gown
         cv.put(MeasurementTable.CHEST_OR_BUST, client.getChestOrBust());
-        cv.put(MeasurementTable.LONG_OR_SHORT_SLEEVE, client.getLongOrShortSleeve());
-        cv.put(MeasurementTable.CUFF_OR_ROUND_SLEEVE, client.getCuffOrRoundSleeve());
+        cv.put(MeasurementTable.LONG_SLEEVE, client.getLongSleeve());
+        cv.put(MeasurementTable.SHORT_SLEEVE, client.getShortSleeve());
+        cv.put(MeasurementTable.ROUND_SLEEVE, client.getRoundSleeve());
+        cv.put(MeasurementTable.CUFF, client.getCuff());
         cv.put(MeasurementTable.SHOULDER, client.getShoulder());
         cv.put(MeasurementTable.TOP_OR_GOWN_LENGTH, client.getTopOrGownLength());
         cv.put(MeasurementTable.HALF_LENGTH, client.getHalfLength());
@@ -85,9 +88,11 @@ public class Util {
         //Top
         client.setShoulder(c.getDouble(c.getColumnIndex(MeasurementTable.SHOULDER)));
         client.setChestOrBust(c.getDouble(c.getColumnIndex(MeasurementTable.CHEST_OR_BUST)));
-        client.setLongOrShortSleeve(c.getDouble(c.getColumnIndex(MeasurementTable.LONG_OR_SHORT_SLEEVE)));
+        client.setLongSleeve(c.getDouble(c.getColumnIndex(MeasurementTable.LONG_SLEEVE)));
+        client.setShortSleeve(c.getDouble(c.getColumnIndex(MeasurementTable.SHORT_SLEEVE)));
+        client.setRoundSleeve(c.getDouble(c.getColumnIndex(MeasurementTable.ROUND_SLEEVE)));
         client.setTopOrGownLength(c.getDouble(c.getColumnIndex(MeasurementTable.TOP_OR_GOWN_LENGTH)));
-        client.setCuffOrRoundSleeve(c.getDouble(c.getColumnIndex(MeasurementTable.CUFF_OR_ROUND_SLEEVE)));
+        client.setCuff(c.getDouble(c.getColumnIndex(MeasurementTable.CUFF)));
         client.setHighWaist(c.getDouble(c.getColumnIndex(MeasurementTable.HIGH_WAIST)));
         client.setKneeLength(c.getDouble(c.getColumnIndex(MeasurementTable.KNEE_LENGTH)));
         client.setHalfLength(c.getDouble(c.getColumnIndex(MeasurementTable.HALF_LENGTH)));
@@ -134,4 +139,16 @@ public class Util {
         DrawableCompat.setTint(drawable, ContextCompat.getColor(context, color));
         item.setIcon(drawable);
     }
+
+    /**
+     * Sets the value of an EditText if it is greater than 0.
+     * @param editText
+     * @param measurementValue
+     */
+    public static void set(EditText editText, double measurementValue) {
+        if (measurementValue > 0) {
+            editText.setText(String.valueOf(measurementValue));
+        }
+    }
+
 }

@@ -26,8 +26,10 @@ public class Client {
     //TOP OR GOWN
     private double shoulder;
     private double chestOrBust;
-    private double cuffOrRoundSleeve;
-    private double longOrShortSleeve;
+    private double cuff;
+    private double roundSleeve;
+    private double longSleeve;
+    private double shortSleeve;
     private double topOrGownLength;
     //female only
     private double halfLength;
@@ -137,20 +139,20 @@ public class Client {
         this.chestOrBust = chestOrBust;
     }
 
-    public double getCuffOrRoundSleeve() {
-        return cuffOrRoundSleeve;
+    public double getCuff() {
+        return cuff;
     }
 
-    public void setCuffOrRoundSleeve(double cuffOrRoundSleeve) {
-        this.cuffOrRoundSleeve = cuffOrRoundSleeve;
+    public void setCuff(double cuff) {
+        this.cuff = cuff;
     }
 
-    public double getLongOrShortSleeve() {
-        return longOrShortSleeve;
+    public double getLongSleeve() {
+        return longSleeve;
     }
 
-    public void setLongOrShortSleeve(double longOrShortSleeve) {
-        this.longOrShortSleeve = longOrShortSleeve;
+    public void setLongSleeve(double longSleeve) {
+        this.longSleeve = longSleeve;
     }
 
     public double getTopOrGownLength() {
@@ -239,5 +241,21 @@ public class Client {
 
     public void setAddInfo(String addInfo) {
         this.addInfo = addInfo;
+    }
+
+    public double getRoundSleeve() {
+        return roundSleeve;
+    }
+
+    public void setRoundSleeve(double roundSleeve) {
+        this.roundSleeve = roundSleeve;
+    }
+
+    public double getShortSleeve() {
+        return shortSleeve;
+    }
+
+    public void setShortSleeve(double shortSleeve) {
+        this.shortSleeve = shortSleeve;
     }
 }

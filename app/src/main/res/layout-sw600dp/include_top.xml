@@ -30,10 +30,27 @@
             android:layout_marginTop="@dimen/content_space_margin">
 
             <EditText
-                android:id="@+id/et_sleeve"
-                android:hint="@string/long_or_short_sleeve_hint"
+                android:id="@+id/et_long_sleeve"
+                android:hint="@string/long_sleeve_hint"
                 android:digits="@string/digits"
                 android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_space_margin">
+
+            <EditText
+                android:id="@+id/et_round_sleeve"
+                android:hint="@string/round_sleeve_hint"
+                android:digits="@string/digits"
+                android:inputType="number"
+                android:imeOptions="actionNext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -117,13 +134,28 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_short_sleeve"
+                android:hint="@string/short_sleeve_hint"
+                android:digits="@string/digits"
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_space_margin">
 
             <EditText
-                android:id="@+id/et_cuff_rsl"
-                android:hint="@string/cuff_or_round_sleeve_hint"
+                android:id="@+id/et_cuff"
+                android:hint="@string/cuff_hint"
                 android:digits="@string/digits"
                 android:inputType="number"
                 android:layout_width="match_parent"

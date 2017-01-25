@@ -26,6 +26,8 @@ import com.funsooyenuga.fashionassistant.util.Util;
 
 import java.util.Date;
 
+import static com.funsooyenuga.fashionassistant.util.Util.set;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -52,7 +54,7 @@ public class AddOrEditFemaleClientFragment extends Fragment
     private EditText name, phoneNumber, addInfo;
     private Button deliveryDate;
     //Top
-    private EditText shoulder, bust, sleeve, cuff, topLength, halfLength, kneeLength, highWaist;
+    private EditText shoulder, bust, longSleeve, roundSleeve, shortSleeve, cuff, topLength, halfLength, kneeLength, highWaist;
     //Trouser
     private EditText waist, thigh, trouserLength, bottom, hips;
     //TextInputLayout
@@ -143,8 +145,10 @@ public class AddOrEditFemaleClientFragment extends Fragment
         //Top
         shoulder = (EditText) v.findViewById(R.id.et_shoulder);
         bust = (EditText) v.findViewById(R.id.et_bust);
-        sleeve = (EditText) v.findViewById(R.id.et_sleeve);
-        cuff = (EditText) v.findViewById(R.id.et_cuff_rsl);
+        longSleeve = (EditText) v.findViewById(R.id.et_long_sleeve);
+        shortSleeve = (EditText) v.findViewById(R.id.et_short_sleeve);
+        roundSleeve = (EditText) v.findViewById(R.id.et_round_sleeve);
+        cuff = (EditText) v.findViewById(R.id.et_cuff);
         topLength = (EditText) v.findViewById(R.id.et_top_length);
         halfLength = (EditText) v.findViewById(R.id.et_half_length);
         kneeLength = (EditText) v.findViewById(R.id.et_knee_length);
@@ -216,7 +220,7 @@ public class AddOrEditFemaleClientFragment extends Fragment
     }
 
     @Override
-    public void result() {
+    public void result(boolean isPending) {
         getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
     }
@@ -233,21 +237,23 @@ public class AddOrEditFemaleClientFragment extends Fragment
         }
 
         //Measurement - top
-        shoulder.setText(String.valueOf(client.getShoulder()));
-        bust.setText(String.valueOf(client.getChestOrBust()));
-        sleeve.setText(String.valueOf(client.getLongOrShortSleeve()));
-        cuff.setText(String.valueOf(client.getCuffOrRoundSleeve()));
-        topLength.setText(String.valueOf(client.getTopOrGownLength()));
-        halfLength.setText(String.valueOf(client.getHalfLength()));
-        kneeLength.setText(String.valueOf(client.getKneeLength()));
-        highWaist.setText(String.valueOf(client.getWaist()));
+        set(shoulder, client.getShoulder());
+        set(bust, client.getChestOrBust());
+        set(longSleeve, client.getLongSleeve());
+        set(cuff, client.getCuff());
+        set(topLength, client.getTopOrGownLength());
+        set(halfLength, client.getHalfLength());
+        set(kneeLength, client.getKneeLength());
+        set(highWaist, client.getHighWaist());
+        set(shortSleeve, client.getShortSleeve());
+        set(roundSleeve, client.getRoundSleeve());
 
         //Trouser
-        waist.setText(String.valueOf(client.getWaist()));
-        thigh.setText(String.valueOf(client.getThigh()));
-        trouserLength.setText(String.valueOf(client.getTrouserLength()));
-        bottom.setText(String.valueOf(client.getBottom()));
-        hips.setText(String.valueOf(client.getHips()));
+        set(waist, client.getWaist());
+        set(thigh, client.getThigh());
+        set(trouserLength, client.getTrouserLength());
+        set(bottom, client.getBottom());
+        set(hips, client.getHips());
     }
 
     private Client fetchClientDetail() {
@@ -267,12 +273,14 @@ public class AddOrEditFemaleClientFragment extends Fragment
         //Measurement - Top/Gown
         c.setShoulder(setValue(shoulder.getText().toString()));
         c.setChestOrBust(setValue(bust.getText().toString()));
-        c.setLongOrShortSleeve(setValue(sleeve.getText().toString()));
-        c.setCuffOrRoundSleeve(setValue(cuff.getText().toString()));
+        c.setLongSleeve(setValue(longSleeve.getText().toString()));
+        c.setCuff(setValue(cuff.getText().toString()));
         c.setTopOrGownLength(setValue(topLength.getText().toString()));
         c.setHalfLength(setValue(halfLength.getText().toString()));
         c.setKneeLength(setValue(kneeLength.getText().toString()));
         c.setHighWaist(setValue(highWaist.getText().toString()));
+        c.setRoundSleeve(setValue(roundSleeve.getText().toString()));
+        c.setShortSleeve(setValue(shortSleeve.getText().toString()));
 
         //Trouser/skirt
         c.setWaist(setValue(waist.getText().toString()));

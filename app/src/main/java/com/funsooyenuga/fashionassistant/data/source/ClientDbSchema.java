@@ -26,17 +26,19 @@ public class ClientDbSchema {
 
         //COLUMN NAMES
         //Cap
-        public static final String CAP_BASE = "cap_base";
+        public static final String CAP_BASE = "capBase";
 
         //Top or gown
         public static final String SHOULDER = "shoulder";
-        public static final String CHEST_OR_BUST = "chest_or_bust";
-        public static final String LONG_OR_SHORT_SLEEVE = "sleeve";
-        public static final String CUFF_OR_ROUND_SLEEVE = "cuff_or_round_sleeve";
-        public static final String TOP_OR_GOWN_LENGTH = "top_length";
-        public static final String HALF_LENGTH = "half_length";
-        public static final String KNEE_LENGTH = "knee_length";
-        public static final String HIGH_WAIST = "high_waist";
+        public static final String CHEST_OR_BUST = "chestOrBust";
+        public static final String LONG_SLEEVE = "longSleeve";
+        public static final String CUFF = "cuff";
+        public static final String SHORT_SLEEVE = "shortSleeve";
+        public static final String ROUND_SLEEVE = "roundSleeve";
+        public static final String TOP_OR_GOWN_LENGTH = "topLength";
+        public static final String HALF_LENGTH = "halfLength";
+        public static final String KNEE_LENGTH = "kneeLength";
+        public static final String HIGH_WAIST = "highWaist";
 
         //Trouser
         public static final String WAIST = "waist";

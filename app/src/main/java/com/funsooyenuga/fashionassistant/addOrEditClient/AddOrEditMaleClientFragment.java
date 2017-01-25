@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.funsooyenuga.fashionassistant.R;
+import com.funsooyenuga.fashionassistant.clients.ClientsFragment;
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientDataSource;
@@ -25,18 +26,17 @@ import com.funsooyenuga.fashionassistant.util.Util;
 
 import java.util.Date;
 
+import static com.funsooyenuga.fashionassistant.util.Util.set;
+
 
 public class AddOrEditMaleClientFragment extends Fragment
         implements AddOrEditClientContract.View {
 
     public static final String TAG = "MaleFragment";
-
     public static final int RC_DATE_DIALOG = 1;
-
     private static final String ARG_CLIENT_ID = "arg_client_id";
 
     private String clientId;
-
     private String formattedDate;
 
     private AddOrEditClientContract.Presenter presenter;
@@ -47,7 +47,7 @@ public class AddOrEditMaleClientFragment extends Fragment
     private EditText name, phoneNumber, addInfo;
     private Button deliveryDate;
     //Cap and Top
-    private EditText capBase, shoulder, chest, sleeve, cuff, topLength;
+    private EditText capBase, shoulder, chest, longSleeve, cuff, topLength, roundSleeve, shortSleeve;
     //Trouser
     private EditText waist, thigh, trouserLength, bottom;
     //TextInputLayout
@@ -137,8 +137,10 @@ public class AddOrEditMaleClientFragment extends Fragment
         capBase = (EditText) v.findViewById(R.id.et_cap_base);
         shoulder = (EditText) v.findViewById(R.id.et_shoulder);
         chest = (EditText) v.findViewById(R.id.et_chest);
-        sleeve = (EditText) v.findViewById(R.id.et_sleeve);
-        cuff = (EditText) v.findViewById(R.id.et_cuff_rsl);
+        longSleeve = (EditText) v.findViewById(R.id.et_long_sleeve);
+        shortSleeve = (EditText) v.findViewById(R.id.et_short_sleeve);
+        roundSleeve = (EditText) v.findViewById(R.id.et_round_sleeve);
+        cuff = (EditText) v.findViewById(R.id.et_cuff);
         topLength = (EditText) v.findViewById(R.id.et_top_length);
 
         //Trouser
@@ -195,8 +197,11 @@ public class AddOrEditMaleClientFragment extends Fragment
     }
 
     @Override
-    public void result() {
-        getActivity().setResult(Activity.RESULT_OK);
+    public void result(boolean isPending) {
+        Intent data = new Intent();
+        data.putExtra(ClientsFragment.EXTRA_ADD_CLIENT, isPending);
+
+        getActivity().setResult(Activity.RESULT_OK, data);
         getActivity().finish();
     }
 
@@ -212,21 +217,24 @@ public class AddOrEditMaleClientFragment extends Fragment
         }
 
         //Measurement - top
-        capBase.setText(String.valueOf(client.getCapBase()));
-        shoulder.setText(String.valueOf(client.getShoulder()));
-        chest.setText(String.valueOf(client.getChestOrBust()));
-        sleeve.setText(String.valueOf(client.getLongOrShortSleeve()));
-        cuff.setText(String.valueOf(client.getCuffOrRoundSleeve()));
-        topLength.setText(String.valueOf(client.getTopOrGownLength()));
+        set(capBase, client.getCapBase());
+        set(shoulder, client.getShoulder());
+        set(chest, client.getChestOrBust());
+        set(longSleeve, client.getLongSleeve());
+        set(cuff, client.getCuff());
+        set(topLength, client.getTopOrGownLength());
+        set(shortSleeve, client.getShortSleeve());
+        set(roundSleeve, client.getRoundSleeve());
 
         //Trouser
-        waist.setText(String.valueOf(client.getWaist()));
-        thigh.setText(String.valueOf(client.getThigh()));
-        trouserLength.setText(String.valueOf(client.getTrouserLength()));
-        bottom.setText(String.valueOf(client.getBottom()));
+        set(waist, client.getWaist());
+        set(thigh, client.getThigh());
+        set(trouserLength, client.getTrouserLength());
+        set(bottom, client.getBottom());
 
         clientId = client.getId();
     }
+
 
     /**
      * Gets the data in the widgets and puts them in a Client object.
@@ -248,9 +256,11 @@ public class AddOrEditMaleClientFragment extends Fragment
         c.setCapBase(setValue(capBase.getText().toString()));
         c.setShoulder(setValue(shoulder.getText().toString()));
         c.setChestOrBust(setValue(chest.getText().toString()));
-        c.setLongOrShortSleeve(setValue(sleeve.getText().toString()));
-        c.setCuffOrRoundSleeve(setValue(cuff.getText().toString()));
+        c.setLongSleeve(setValue(longSleeve.getText().toString()));
+        c.setCuff(setValue(cuff.getText().toString()));
         c.setTopOrGownLength(setValue(topLength.getText().toString()));
+        c.setRoundSleeve(setValue(roundSleeve.getText().toString()));
+        c.setShortSleeve(setValue(shortSleeve.getText().toString()));
         //Trouser
         c.setWaist(setValue(waist.getText().toString()));
         c.setThigh(setValue(thigh.getText().toString()));

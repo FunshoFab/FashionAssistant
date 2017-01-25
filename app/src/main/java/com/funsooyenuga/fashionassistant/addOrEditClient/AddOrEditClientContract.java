@@ -12,7 +12,7 @@ public interface AddOrEditClientContract {
 
         void setClientDetails(Client client);
 
-        void result();
+        void result(boolean isPending);
     }
 
     interface Presenter {
