@@ -64,4 +64,6 @@
     <string name="filter_clients">Filter clients</string>
     <string name="delivered">Delivered</string>
     <string name="new_measurement">New measurement added</string>
+    <string name="top">TOP</string>
+    <string name="trouser">TROUSER</string>
 </resources>

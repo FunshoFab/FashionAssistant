@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
 
         android:orientation="vertical"
-        tools:context="com.funsooyenuga.fashionassistant.addOrEditClient.AddOrEditMaleClientFragment">
+        tools:context="com.funsooyenuga.fashionassistant.addOrEditClient.AddOrEditClientFragment">
 
         <include layout="@layout/include_client_info"/>
 

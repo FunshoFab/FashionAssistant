@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.funsooyenuga.fashionassistant.R;
+import com.funsooyenuga.fashionassistant.data.Client;
 
 public class AddClientActivity extends AppCompatActivity {
 
@@ -52,11 +53,11 @@ public class AddClientActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return AddOrEditMaleClientFragment.newInstance(null);
+                    return AddOrEditClientFragment.newInstance(null, Client.MALE);
                 case 1:
-                    return AddOrEditFemaleClientFragment.newInstance(null);
+                    return AddOrEditClientFragment.newInstance(null, Client.FEMALE);
                 default:
-                    return new AddOrEditMaleClientFragment();
+                    return null;
             }
         }
 

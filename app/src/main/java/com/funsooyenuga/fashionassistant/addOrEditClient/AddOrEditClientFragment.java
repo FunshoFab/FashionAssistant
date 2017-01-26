@@ -29,42 +29,47 @@ import java.util.Date;
 import static com.funsooyenuga.fashionassistant.util.Util.set;
 
 
-public class AddOrEditMaleClientFragment extends Fragment
+public class AddOrEditClientFragment extends Fragment
         implements AddOrEditClientContract.View {
 
     public static final String TAG = "MaleFragment";
+    private static final String ARG_CLIENT_ID = "argClientId";
+    private static final String ARG_CLIENT_SEX = "argClientSex";
+
     public static final int RC_DATE_DIALOG = 1;
-    private static final String ARG_CLIENT_ID = "arg_client_id";
 
     private String clientId;
+    private String sex;
     private String formattedDate;
 
     private AddOrEditClientContract.Presenter presenter;
 
     //TextView
-    private TextView capTitle;
+    private TextView capTitle, top, trouser;
     //Client info
     private EditText name, phoneNumber, addInfo;
     private Button deliveryDate;
     //Cap and Top
-    private EditText capBase, shoulder, chest, longSleeve, cuff, topLength, roundSleeve, shortSleeve;
+    private EditText capBase, shoulder, chest, longSleeve, cuff, topLength, roundSleeve,
+            shortSleeve, halfLength, kneeLength, highWaist, hips;
     //Trouser
     private EditText waist, thigh, trouserLength, bottom;
     //TextInputLayout
-    private TextInputLayout tilChest, tilCapBase, tilName;
+    private TextInputLayout tilChest, tilCapBase, tilBust, tilHalfLength, tilKneeLength, tilHighWaist, tilHips;
 
     private boolean dataOkay;
 
     private FloatingActionButton fab;
 
-    public AddOrEditMaleClientFragment() {
+    public AddOrEditClientFragment() {
         // Required empty public constructor
     }
 
-    public static Fragment newInstance(@Nullable String clientId) {
-        AddOrEditMaleClientFragment fragment = new AddOrEditMaleClientFragment();
+    public static Fragment newInstance(@Nullable String clientId, String sex) {
+        AddOrEditClientFragment fragment = new AddOrEditClientFragment();
         Bundle args = new Bundle();
         args.putString(ARG_CLIENT_ID, clientId);
+        args.putString(ARG_CLIENT_SEX, sex);
         fragment.setArguments(args);
 
         return fragment;
@@ -75,6 +80,7 @@ public class AddOrEditMaleClientFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         clientId = getArguments().getString(ARG_CLIENT_ID);
+        sex = getArguments().getString(ARG_CLIENT_SEX);
 
         ClientLoader loader = new ClientLoader(getActivity().getApplicationContext(), clientId);
         ClientDataSource repository = Injection.provideClientsRepository(getActivity().getApplicationContext());
@@ -96,21 +102,14 @@ public class AddOrEditMaleClientFragment extends Fragment
         presenter.start();
     }
 
-    /**
-     * Shares the same layout as {@link AddOrEditFemaleClientFragment}. It modifies the layout by changing
-     * the title of some TextViews and un-hiding some widgets peculiar to this Fragment alone.
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_client, container, false);
 
         initWidgets(view);
-        unhideWidgets();
+        toggleWidgets();
+        changeSubHead();
         initFab(getUserVisibleHint());
 
         Log.d(TAG, "onCreateView()");
@@ -119,8 +118,11 @@ public class AddOrEditMaleClientFragment extends Fragment
     }
 
     private void initWidgets(View v) {
-        //TextView
+        //Subhead
         capTitle = (TextView) v.findViewById(R.id.tv_cap_title);
+        top = (TextView) v.findViewById(R.id.tv_top_title);
+        trouser = (TextView) v.findViewById(R.id.tv_trouser_title);
+
         //Client info
         name = (EditText) v.findViewById(R.id.et_client_name);
         phoneNumber = (EditText) v.findViewById(R.id.et_client_phone_number);
@@ -134,7 +136,6 @@ public class AddOrEditMaleClientFragment extends Fragment
         });
 
         //Cap and Top
-        capBase = (EditText) v.findViewById(R.id.et_cap_base);
         shoulder = (EditText) v.findViewById(R.id.et_shoulder);
         chest = (EditText) v.findViewById(R.id.et_chest);
         longSleeve = (EditText) v.findViewById(R.id.et_long_sleeve);
@@ -142,17 +143,31 @@ public class AddOrEditMaleClientFragment extends Fragment
         roundSleeve = (EditText) v.findViewById(R.id.et_round_sleeve);
         cuff = (EditText) v.findViewById(R.id.et_cuff);
         topLength = (EditText) v.findViewById(R.id.et_top_length);
+        //---Male specific
+        capBase = (EditText) v.findViewById(R.id.et_cap_base);
+        //---Female specific
+        halfLength = (EditText) v.findViewById(R.id.et_half_length);
+        kneeLength = (EditText) v.findViewById(R.id.et_knee_length);
+        highWaist = (EditText) v.findViewById(R.id.et_high_waist);
 
         //Trouser
         waist = (EditText) v.findViewById(R.id.et_waist);
         thigh = (EditText) v.findViewById(R.id.et_thigh);
         trouserLength = (EditText) v.findViewById(R.id.et_trouser_length);
         bottom = (EditText) v.findViewById(R.id.et_bottom);
+        hips = (EditText) v.findViewById(R.id.et_hips);
 
         //TextInputLayout
+        //---Male specific
         tilCapBase = (TextInputLayout) v.findViewById(R.id.til_cap_base);
         tilChest = (TextInputLayout) v.findViewById(R.id.til_chest);
-        tilName = (TextInputLayout) v.findViewById(R.id.til_client_name);
+        //---Female specific
+        tilBust = (TextInputLayout) v.findViewById(R.id.til_bust);
+        tilHalfLength = (TextInputLayout) v.findViewById(R.id.til_half_length);
+        tilHighWaist = (TextInputLayout) v.findViewById(R.id.til_high_waist);
+        tilKneeLength = (TextInputLayout) v.findViewById(R.id.til_knee_length);
+        tilHips = (TextInputLayout) v.findViewById(R.id.til_hips);
+
     }
 
     private void showDateDialog() {
@@ -171,10 +186,40 @@ public class AddOrEditMaleClientFragment extends Fragment
         }
     }
 
-    private void unhideWidgets() {
-        capTitle.setVisibility(View.VISIBLE);
-        tilCapBase.setVisibility(View.VISIBLE);
-        tilChest.setVisibility(View.VISIBLE);
+    private void toggleWidgets() {
+        if (isMale()) {
+            toggleMaleWidgets(View.VISIBLE);
+            toggleFemaleWidgets(View.GONE);
+        } else {
+            toggleMaleWidgets(View.GONE);
+            toggleFemaleWidgets(View.VISIBLE);
+        }
+    }
+
+    private void toggleMaleWidgets(int visibility) {
+        capTitle.setVisibility(visibility);
+        tilCapBase.setVisibility(visibility);
+        tilChest.setVisibility(visibility);
+    }
+
+    private void toggleFemaleWidgets(int visibility) {
+        //Top
+        tilBust.setVisibility(visibility);
+        tilHalfLength.setVisibility(visibility);
+        tilKneeLength.setVisibility(visibility);
+        tilHighWaist.setVisibility(visibility);
+        //Trouser
+        tilHips.setVisibility(visibility);
+    }
+
+    private void changeSubHead() {
+        if (isMale()) {
+            top.setText(R.string.top);
+            trouser.setText(R.string.trouser);
+        } else {
+            top.setText(getResources().getString(R.string.top_or_gown_title));
+            trouser.setText(getResources().getString(R.string.trouser_or_skirt_title));
+        }
     }
 
     private void initFab(boolean visible) {
@@ -225,12 +270,16 @@ public class AddOrEditMaleClientFragment extends Fragment
         set(topLength, client.getTopOrGownLength());
         set(shortSleeve, client.getShortSleeve());
         set(roundSleeve, client.getRoundSleeve());
+        set(halfLength, client.getHalfLength());
+        set(kneeLength, client.getKneeLength());
+        set(highWaist, client.getHighWaist());
 
         //Trouser
         set(waist, client.getWaist());
         set(thigh, client.getThigh());
         set(trouserLength, client.getTrouserLength());
         set(bottom, client.getBottom());
+        set(hips, client.getHips());
 
         clientId = client.getId();
     }
@@ -246,7 +295,7 @@ public class AddOrEditMaleClientFragment extends Fragment
         c.setName(setName(name.getText().toString().trim()));
         c.setPhoneNumber(phoneNumber.getText().toString());
         c.setAddInfo(addInfo.getText().toString());
-        c.setSex("m");
+        c.setSex(sex);
         c.setReceivedDate(new Date());
         if (formattedDate != null) {
             c.setDeliveryDate(Util.stringToDate(formattedDate));
@@ -261,11 +310,16 @@ public class AddOrEditMaleClientFragment extends Fragment
         c.setTopOrGownLength(setValue(topLength.getText().toString()));
         c.setRoundSleeve(setValue(roundSleeve.getText().toString()));
         c.setShortSleeve(setValue(shortSleeve.getText().toString()));
+        c.setHalfLength(setValue(halfLength.getText().toString()));
+        c.setKneeLength(setValue(kneeLength.getText().toString()));
+        c.setHighWaist(setValue(highWaist.getText().toString()));
+
         //Trouser
         c.setWaist(setValue(waist.getText().toString()));
         c.setThigh(setValue(thigh.getText().toString()));
         c.setTrouserLength(setValue(trouserLength.getText().toString()));
         c.setBottom(setValue(bottom.getText().toString()));
+        c.setHips(setValue(hips.getText().toString()));
 
         if (clientId != null) {
             c.setId(clientId);
@@ -292,5 +346,9 @@ public class AddOrEditMaleClientFragment extends Fragment
             return 0;
         else
             return Double.valueOf(value);
+    }
+
+    private boolean isMale() {
+        return sex.equals(Client.MALE);
     }
 }

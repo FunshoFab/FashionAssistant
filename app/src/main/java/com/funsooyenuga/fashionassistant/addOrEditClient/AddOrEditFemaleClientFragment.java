@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.funsooyenuga.fashionassistant.R;
+import com.funsooyenuga.fashionassistant.clients.ClientsFragment;
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientDataSource;
@@ -102,7 +103,7 @@ public class AddOrEditFemaleClientFragment extends Fragment
     }
 
     /**
-     * Shares the same layout as {@link AddOrEditMaleClientFragment}. It modifies the layout by changing
+     * Shares the same layout as {@link AddOrEditClientFragment}. It modifies the layout by changing
      * the title of some TextViews and un-hiding some widgets peculiar to this Fragment alone.
      * @param inflater
      * @param container
@@ -221,6 +222,9 @@ public class AddOrEditFemaleClientFragment extends Fragment
 
     @Override
     public void result(boolean isPending) {
+        Intent data = new Intent();
+        data.putExtra(ClientsFragment.EXTRA_ADD_CLIENT, isPending);
+
         getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
     }

@@ -38,22 +38,9 @@ public class EditClientActivity extends AppCompatActivity {
         clientId = getIntent().getStringExtra(EXTRA_CLIENT_ID);
         sex = getIntent().getStringExtra(EXTRA_SEX);
 
-        Fragment fragment;
-        String tag = "";
+        Fragment fragment = AddOrEditClientFragment.newInstance(clientId, sex);
+        String tag = AddOrEditClientFragment.TAG;
 
-        switch (sex) {
-            case "m":
-                fragment = AddOrEditMaleClientFragment.newInstance(clientId);
-                tag = AddOrEditMaleClientFragment.TAG;
-                break;
-            case "f":
-                fragment = AddOrEditFemaleClientFragment.newInstance(clientId);
-                tag = AddOrEditFemaleClientFragment.TAG;
-                break;
-            default:
-                fragment = null;
-                break;
-        }
         Util.hostFragment(getSupportFragmentManager(), R.id.content_frame, fragment, tag);
     }
 }

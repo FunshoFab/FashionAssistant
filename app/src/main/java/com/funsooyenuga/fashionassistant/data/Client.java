@@ -10,6 +10,9 @@ import java.util.UUID;
 
 public class Client {
 
+    public static final String MALE = "male";
+    public static final String FEMALE  = "female";
+
     //Personal details
     private String id;
     private String name;
