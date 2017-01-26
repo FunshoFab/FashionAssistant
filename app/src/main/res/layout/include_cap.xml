@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/content_space_margin">
+
+    <TextView
+        android:id="@+id/tv_cap_title"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/client_detail_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/cap_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_cap_base"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_space_margin">
+
+        <EditText
+            android:id="@+id/et_cap_base"
+            android:hint="@string/cap_base_hint"
+            android:inputType="number"
+            android:digits="@string/digits"
+            android:imeOptions="actionNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
