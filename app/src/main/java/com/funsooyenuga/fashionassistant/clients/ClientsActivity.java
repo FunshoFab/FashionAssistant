@@ -38,14 +38,14 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
     }
 
     @Override
-    public void onClientSelected(String clientId, String sex) {
+    public void onClientSelected(String clientId, String sex, String name) {
         Boolean isTwoPane = findViewById(R.id.detail_container) != null;
-        clientDetailFragment = ClientDetailFragment.newInstance(clientId, sex);
 
         if (isTwoPane) {
+            clientDetailFragment = ClientDetailFragment.newInstance(clientId, sex);
             Util.hostFragment(fm, R.id.detail_container, clientDetailFragment, ClientDetailFragment.TAG);
         } else {
-            Intent intent = ClientDetailActivity.newIntent(this, clientId, sex);
+            Intent intent = ClientDetailActivity.newIntent(this, clientId, sex, name);
             startActivity(intent);
         }
     }

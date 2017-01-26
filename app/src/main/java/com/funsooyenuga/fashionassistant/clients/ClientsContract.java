@@ -14,7 +14,7 @@ public interface ClientsContract {
 
         void showClients(List<Client> clients, ClientsFilterType filter);
 
-        void showMeasurement(String clientId, String sex);
+        void showMeasurement(String clientId, String sex, String name);
 
         void showAddClientUi();
 
@@ -25,7 +25,7 @@ public interface ClientsContract {
 
         void start();
 
-        void getMeasurement(String clientId, String sex);
+        void getMeasurement(String clientId, String sex, String name);
 
         void setDelivered(String clientId);
 

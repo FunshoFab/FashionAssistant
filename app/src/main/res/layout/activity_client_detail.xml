@@ -10,6 +10,8 @@
     android:fitsSystemWindows="true"
     tools:context="com.funsooyenuga.fashionassistant.addOrEditClient.AddClientActivity">
 
+    <include layout="@layout/include_toolbar"/>
+
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"

@@ -70,7 +70,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
             try {
                 listener = (Listener) activity;
             } catch (ClassCastException e) {
-                throw new ClassCastException("Activity must implement ClientsFragment.Listener");
+                throw new ClassCastException(activity.toString() + " must implement ClientsFragment.Listener");
             }
         }
     }
@@ -152,8 +152,8 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
     }
 
     @Override
-    public void showMeasurement(String clientId, String sex) {
-        listener.onClientSelected(clientId, sex);
+    public void showMeasurement(String clientId, String sex, String name) {
+        listener.onClientSelected(clientId, sex, name);
     }
 
     @Override
@@ -255,8 +255,8 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
      */
     ClientItemListener itemListener = new ClientItemListener() {
         @Override
-        public void onClientClick(String clientId, String sex) {
-            presenter.getMeasurement(clientId, sex);
+        public void onClientClick(String clientId, String sex, String name) {
+            presenter.getMeasurement(clientId, sex, name);
         }
 
         @Override
@@ -343,7 +343,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
                 Client client = clients.get(position);
 
                 if (v.getId() == itemView.getId()) {
-                    listener.onClientClick(client.getId(), client.getSex());
+                    listener.onClientClick(client.getId(), client.getSex(), client.getName());
                 } else if (v.getId() == deliverCb.getId()) {
                     deliverCb.setChecked(false);
                     listener.onMarkAsDeliveredClick(client.getId());
@@ -361,14 +361,14 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
 
     interface ClientItemListener {
 
-        void onClientClick(String clientId, String sex);
+        void onClientClick(String clientId, String sex, String name);
 
         void onMarkAsDeliveredClick(String clientId);
     }
 
     interface Listener {
 
-        void onClientSelected(String clientId, String sex);
+        void onClientSelected(String clientId, String sex, String name);
     }
 
 }
