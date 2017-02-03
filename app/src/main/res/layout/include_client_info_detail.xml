@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/card_content_padding"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/phone_number_detail"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:layout_height="48dp">
+
+        <ImageView
+            app:srcCompat="@drawable/ic_phone_black_24dp"
+            android:contentDescription="@string/phone_icon_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            tool:text="+2347011843603"
+            android:textColor="@color/colorAccent"
+            android:layout_marginLeft="32dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_info_detail"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <ImageView
+            app:srcCompat="@drawable/ic_description_black_24dp"
+            android:contentDescription="@string/phone_icon_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_add_info_detail"
+            tool:text="Hi, this is some additional info about me"
+            android:layout_marginLeft="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
+

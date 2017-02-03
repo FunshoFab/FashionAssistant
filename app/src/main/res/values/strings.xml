@@ -30,8 +30,8 @@
     <string name="round_sleeve_hint">Round sleeve</string>
     <string name="short_sleeve_hint">Short sleeve</string>
     <string name="length_hint">Length</string>
-    <string name="half_length_hint">Half trouserLength</string>
-    <string name="knee_length_hint">Knee trouserLength</string>
+    <string name="half_length_hint">Half trouser length</string>
+    <string name="knee_length_hint">Knee trouser length</string>
     <string name="high_waist_hint">High waist</string>
 
     <!-- INCLUDE_TROUSER layout -->
@@ -66,4 +66,26 @@
     <string name="new_measurement">New measurement added</string>
     <string name="top">TOP</string>
     <string name="trouser">TROUSER</string>
+    <string name="phone_icon_description">phone icon</string>
+    <string name="unavailable">Unavailable</string>
+    <string name="no_pending_job">No pending job</string>
+
+    <!-- Client detail UI-->
+    <string name="tv_cap_base">Cap base:</string>
+    <string name="tv_shoulder">Shoulder:</string>
+    <string name="tv_chest">Chest:</string>
+    <string name="tv_bust">Bust:</string>
+    <string name="tv_long_sleeve">Long sleeve:</string>
+    <string name="tv_short_sleeve">Short sleeve:</string>
+    <string name="tv_cuff">Cuff:</string>
+    <string name="tv_round_sleeve">Round Sleeve:</string>
+    <string name="tv_length">Length:</string>
+    <string name="tv_half_trouser_length">Half length:</string>
+    <string name="tv_knee_trouser_length">Knee length:</string>
+    <string name="tv_waist">Waist:</string>
+    <string name="tv_high_waist">High waist:</string>
+    <string name="tv_thigh">Thigh:</string>
+    <string name="tv_bottom">Bottom:</string>
+    <string name="tv_hips">Hips:</string>
+    <string name="no_measurement">No measurement</string>
 </resources>

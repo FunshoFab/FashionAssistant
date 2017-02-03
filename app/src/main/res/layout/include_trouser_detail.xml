@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:padding="@dimen/card_content_padding"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:text="Trouser"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="@dimen/content_space_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/trouser_list"
+        android:layout_marginTop="@dimen/content_space_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -50,7 +50,7 @@ public class AddOrEditClientFragment extends Fragment
     private EditText name, phoneNumber, addInfo;
     private Button deliveryDate;
     //Cap and Top
-    private EditText capBase, shoulder, chest, longSleeve, cuff, topLength, roundSleeve,
+    private EditText capBase, shoulder, chest, bust, longSleeve, cuff, topLength, roundSleeve,
             shortSleeve, halfLength, kneeLength, highWaist, hips;
     //Trouser
     private EditText waist, thigh, trouserLength, bottom;
@@ -138,6 +138,7 @@ public class AddOrEditClientFragment extends Fragment
         //Cap and Top
         shoulder = (EditText) v.findViewById(R.id.et_shoulder);
         chest = (EditText) v.findViewById(R.id.et_chest);
+        bust = (EditText) v.findViewById(R.id.et_bust);
         longSleeve = (EditText) v.findViewById(R.id.et_long_sleeve);
         shortSleeve = (EditText) v.findViewById(R.id.et_short_sleeve);
         roundSleeve = (EditText) v.findViewById(R.id.et_round_sleeve);
@@ -264,7 +265,6 @@ public class AddOrEditClientFragment extends Fragment
         //Measurement - top
         set(capBase, client.getCapBase());
         set(shoulder, client.getShoulder());
-        set(chest, client.getChestOrBust());
         set(longSleeve, client.getLongSleeve());
         set(cuff, client.getCuff());
         set(topLength, client.getTopOrGownLength());
@@ -282,6 +282,12 @@ public class AddOrEditClientFragment extends Fragment
         set(hips, client.getHips());
 
         clientId = client.getId();
+
+        if (sex.equals(Client.MALE)) {
+            set(chest, client.getChestOrBust());
+        } else {
+            set(bust, client.getChestOrBust());
+        }
     }
 
 
@@ -301,10 +307,15 @@ public class AddOrEditClientFragment extends Fragment
             c.setDeliveryDate(Util.stringToDate(formattedDate));
         }
 
+        if (sex.equals(Client.MALE)) {
+            c.setChestOrBust(setValue(chest.getText().toString()));
+        } else {
+            c.setChestOrBust(setValue(bust.getText().toString()));
+        }
+
         //Measurement - Top
         c.setCapBase(setValue(capBase.getText().toString()));
         c.setShoulder(setValue(shoulder.getText().toString()));
-        c.setChestOrBust(setValue(chest.getText().toString()));
         c.setLongSleeve(setValue(longSleeve.getText().toString()));
         c.setCuff(setValue(cuff.getText().toString()));
         c.setTopOrGownLength(setValue(topLength.getText().toString()));

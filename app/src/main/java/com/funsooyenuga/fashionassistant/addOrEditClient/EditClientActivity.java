@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -34,6 +35,9 @@ public class EditClientActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         clientId = getIntent().getStringExtra(EXTRA_CLIENT_ID);
         sex = getIntent().getStringExtra(EXTRA_SEX);
@@ -42,5 +46,11 @@ public class EditClientActivity extends AppCompatActivity {
         String tag = AddOrEditClientFragment.TAG;
 
         Util.hostFragment(getSupportFragmentManager(), R.id.content_frame, fragment, tag);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

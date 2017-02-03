@@ -18,28 +18,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".TestArena.DateActivity"></activity>
-
+        <activity android:name=".TestArena.DateActivity" />
         <activity
             android:name=".clientdetail.ClientDetailActivity"
             android:parentActivityName=".clients.ClientsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".addOrEditClient.AddClientActivity"
+            android:parentActivityName=".clients.ClientsActivity"
             android:label="@string/title_activity_add_client2"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".data.DbManager.AndroidDatabaseManager"
             android:theme="@style/Theme.AppCompat.Light" />
-
         <activity
             android:name=".addOrEditClient.EditClientActivity"
-            android:parentActivityName=".clientdetail.ClientDetailActivity"
             android:label="@string/edit_client"
+            android:parentActivityName=".clientdetail.ClientDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".TestArena.ListTestActivity">
+
+        </activity>
+        <activity android:name=".TestArena.RecyclerListTestActivity">
+
+                    </activity>
     </application>
 
 </manifest>

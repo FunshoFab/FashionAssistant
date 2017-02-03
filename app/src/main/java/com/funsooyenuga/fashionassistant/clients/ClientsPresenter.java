@@ -117,7 +117,7 @@ public class ClientsPresenter implements ClientsContract.Presenter,
     }
 
     private void showFilteredClients(List<Client> filteredClients) {
-        if (filteredClients == null) {
+        if (filteredClients.isEmpty()) {
             showEmptyClients();
         } else {
             clientsView.showClients(filteredClients, filter);
@@ -125,7 +125,7 @@ public class ClientsPresenter implements ClientsContract.Presenter,
     }
 
     private void showEmptyClients() {
-
+        clientsView.showNoDataUI(filter);
     }
 
     @Override

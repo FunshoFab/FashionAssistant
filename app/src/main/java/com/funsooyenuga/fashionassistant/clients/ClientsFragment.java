@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.funsooyenuga.fashionassistant.R;
@@ -52,9 +54,14 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
     private ClientsContract.Presenter presenter;
     private Listener listener;
 
-    private TextView filterLabel;
+    private TextView filterLabel, noDataText;
+    private RecyclerView clientListRv;
+    private LinearLayout noDataLayout;
+    private ImageView noDataIcon;
 
     private ClientsFilterType filter = PENDING_JOBS;
+
+    private boolean clientListInVisible = false;
 
 
     public static ClientsFragment newInstance() {
@@ -93,7 +100,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
         ClientsRepository repository = Injection.provideClientsRepository(getActivity().getApplicationContext());
 
         presenter = new ClientsPresenter(this, loader, getLoaderManager(), repository, filter);
-        //setRetainInstance(true);
+
         Log.d(TAG, "onCreate");
     }
 
@@ -109,22 +116,25 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_client, container, false);
+        View v = inflater.inflate(R.layout.fragment_clients, container, false);
 
         filterLabel = (TextView) v.findViewById(R.id.filterLabel);
         if (filter == MEASUREMENTS) {
             filterLabel.setText(getResources().getString(R.string.measurements));
         }
 
-        RecyclerView rv = (RecyclerView) v.findViewById(R.id.fragment_client_rv);
-        rv.setAdapter(adapter);
+        noDataIcon = (ImageView) v.findViewById(R.id.noDataIcon);
+        noDataText = (TextView) v.findViewById(R.id.noDataText);
+        noDataLayout = (LinearLayout) v.findViewById(R.id.noDataLayout);
+        clientListRv = (RecyclerView) v.findViewById(R.id.fragment_client_rv);
+        clientListRv.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        rv.setLayoutManager(layoutManager);
+        clientListRv.setLayoutManager(layoutManager);
 
-        DividerItemDecoration divider = new DividerItemDecoration(rv.getContext(),
+        DividerItemDecoration divider = new DividerItemDecoration(clientListRv.getContext(),
                 layoutManager.getOrientation());
-        rv.addItemDecoration(divider);
+        clientListRv.addItemDecoration(divider);
 
         FloatingActionButton newClient = (FloatingActionButton) getActivity().findViewById(R.id.done);
         newClient.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +158,12 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
     @Override
     public void showClients(List<Client> clients, ClientsFilterType filter) {
         this.filter = filter;
+        if (clientListInVisible) {
+            filterLabel.setVisibility(View.VISIBLE);
+            clientListRv.setVisibility(View.VISIBLE);
+
+            noDataLayout.setVisibility(View.GONE);
+        }
         adapter.refreshList(clients, filter);
     }
 
@@ -160,6 +176,30 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
     public void showAddClientUi() {
         Intent intent = AddClientActivity.newIntent(getActivity());
         startActivityForResult(intent, RC_ADD_CLIENT);
+    }
+
+    @Override
+    public void showNoDataUI(ClientsFilterType filter) {
+        this.filter = filter;
+        String message;
+        int drawable;
+
+        if (filter == PENDING_JOBS) {
+            message = getResources().getString(R.string.no_pending_job);
+            drawable = R.drawable.ic_done_all_black_24dp;
+        } else {
+            message = getResources().getString(R.string.no_measurement);
+            drawable = R.drawable.ic_content_paste_black_24dp;
+        }
+
+        filterLabel.setVisibility(View.GONE);
+        clientListRv.setVisibility(View.GONE);
+
+        noDataLayout.setVisibility(View.VISIBLE);
+        noDataText.setText(message);
+        noDataIcon.setImageResource(drawable);
+
+        clientListInVisible = true;
     }
 
     @Override
@@ -284,7 +324,7 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View clientView = inflater.inflate(R.layout.client_row, parent, false);
+            View clientView = inflater.inflate(R.layout.client_list_row, parent, false);
 
             return new ViewHolder(clientView, itemListener);
         }

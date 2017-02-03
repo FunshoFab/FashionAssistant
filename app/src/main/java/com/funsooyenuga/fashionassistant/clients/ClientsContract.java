@@ -19,6 +19,8 @@ public interface ClientsContract {
         void showAddClientUi();
 
         void showDeliveredMessage();
+
+        void showNoDataUI(ClientsFilterType filter);
     }
 
     interface Presenter {

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/activity_vertical_margin"
+    android:layout_marginRight="@dimen/activity_vertical_margin"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    app:cardCornerRadius="@dimen/card_corner_radius">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="@dimen/card_content_padding"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="@string/measurement_title"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/cap_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_cap_base"
+            android:text="@string/tv_cap_base"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/top_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_shoulder"
+            android:text="@string/tv_shoulder"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_chest"
+            android:text="@string/tv_chest"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_bust"
+            android:text="@string/tv_bust"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_long_sleeve"
+            android:text="@string/tv_long_sleeve"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_short_sleeve"
+            android:text="@string/tv_short_sleeve"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_cuff"
+            android:text="@string/tv_cuff"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_round_sleeve"
+            android:text="@string/tv_round_sleeve"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_length"
+            android:text="@string/tv_length"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_half_trouser_length"
+            android:text="@string/tv_half_trouser_length"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_knee_trouser_length"
+            android:text="@string/tv_knee_trouser_length"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_high_waist"
+            android:text="High waist"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/trouser_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_waist"
+            android:text="@string/tv_waist"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_thigh"
+            android:text="@string/tv_thigh"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_trouser_length"
+            android:text="@string/tv_length"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_bottom"
+            android:text="@string/tv_bottom"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_hips"
+            android:text="@string/tv_hips"
+            android:layout_marginTop="@dimen/content_space_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
