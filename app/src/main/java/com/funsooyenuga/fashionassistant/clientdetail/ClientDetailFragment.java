@@ -54,7 +54,7 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
 
     private RecyclerView topListView, trouserListView;
     private CardView topListCard, trouserListCard, clientInfoCard;
-    private LinearLayout phoneNumberLayout, addInfoLayout, noDataLayout, clientDetailLayout;
+    private LinearLayout phoneNumberLayout, addInfoLayout, noDataLayout;
     private TextView phoneNumberDetail, addInfoDetail, noDataText;
     private ImageView noDataIcon;
 
@@ -67,7 +67,6 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
     private ClientDetailAdapter topListAdapter, trouserListAdapter;
     private List<ClientDetail> topList, trouserList;
 
-    private boolean measurementIsEmpty = false;
 
     public static ClientDetailFragment newInstance(String clientId, String sex) {
         Bundle args = new Bundle();
@@ -136,7 +135,6 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
         phoneNumberDetail = (TextView) v.findViewById(R.id.tv_phone_number);
         addInfoDetail = (TextView) v.findViewById(R.id.tv_add_info_detail);
         noDataLayout = (LinearLayout) v.findViewById(R.id.noDataLayout);
-        clientDetailLayout = (LinearLayout) v.findViewById(R.id.client_detail_layout);
         noDataIcon = (ImageView) v.findViewById(R.id.noDataIcon);
         noDataText = (TextView) v.findViewById(R.id.noDataText);
 
@@ -165,6 +163,41 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
     public void showDetails(Client client) {
         setClientInfo(client);
         setMeasurement(client);
+        displayDetails();
+    }
+
+    private void setClientInfo(Client client) {
+        final String phoneNumber = client.getPhoneNumber();
+        String addInfo = client.getAddInfo();
+
+        if (phoneNumber.isEmpty()) {
+            Log.d(TAG, "Phone number invisible");
+            phoneNumberLayout.setVisibility(View.GONE);
+        } else {
+            Log.d(TAG, "Phone number visible");
+            phoneNumberLayout.setVisibility(View.VISIBLE);
+            phoneNumberDetail.setText(phoneNumber);
+            phoneNumberLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callClient(phoneNumber);
+                }
+            });
+        }
+
+        if (addInfo.isEmpty()) {
+            addInfoLayout.setVisibility(View.GONE);
+        } else {
+            addInfoDetail.setVisibility(View.VISIBLE);
+            addInfoDetail.setText(addInfo);
+        }
+
+        if (phoneNumber.isEmpty() && addInfo.isEmpty()) {
+            Log.d(TAG, "Hide ClientInfoCard");
+            clientInfoCard.setVisibility(View.GONE);
+        } else {
+            clientInfoCard.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setMeasurement(Client client) {
@@ -174,6 +207,7 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
         if (!trouserList.isEmpty()) {
             trouserList.clear();
         }
+        setTopDetail(getResources().getString(R.string.tv_cap_base), client.getCapBase());
         setTopDetail(getResources().getString(R.string.tv_shoulder), client.getShoulder());
         setTopDetail(getResources().getString(R.string.tv_long_sleeve), client.getLongSleeve());
         setTopDetail(getResources().getString(R.string.tv_short_sleeve), client.getShortSleeve());
@@ -195,10 +229,13 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
         } else {
             setTopDetail(getResources().getString(R.string.tv_bust), client.getChestOrBust());
         }
+    }
 
+    private void displayDetails() {
         if (topList.isEmpty()) {
             topListCard.setVisibility(View.GONE);
         } else {
+            topListCard.setVisibility(View.VISIBLE);
             sortClientDetail(topList);
             topListAdapter.refreshData(topList);
         }
@@ -206,42 +243,17 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
         if (trouserList.isEmpty()) {
             trouserListCard.setVisibility(View.GONE);
         } else {
+            trouserListCard.setVisibility(View.VISIBLE);
             sortClientDetail(trouserList);
             trouserListAdapter.refreshData(trouserList);
         }
 
         if (topList.isEmpty() && trouserList.isEmpty()) {
-            measurementIsEmpty = true;
             noDataLayout.setVisibility(View.VISIBLE);
             noDataText.setText(R.string.no_measurement);
             noDataIcon.setImageResource(R.drawable.ic_content_paste_black_24dp);
-        }
-    }
-
-    private void setClientInfo(Client client) {
-        final String phoneNumber = client.getPhoneNumber();
-        String addInfo = client.getAddInfo();
-
-        if (phoneNumber.isEmpty()) {
-            phoneNumberLayout.setVisibility(View.GONE);
         } else {
-            phoneNumberDetail.setText(phoneNumber);
-            phoneNumberLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    callClient(phoneNumber);
-                }
-            });
-        }
-
-        if (addInfo.isEmpty()) {
-            addInfoLayout.setVisibility(View.GONE);
-        } else {
-            addInfoDetail.setText(addInfo);
-        }
-
-        if (phoneNumber.isEmpty() && addInfo.isEmpty()) {
-            clientInfoCard.setVisibility(View.GONE);
+            noDataLayout.setVisibility(View.GONE);
         }
     }
 

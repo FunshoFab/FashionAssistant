@@ -36,12 +36,6 @@
             android:label="@string/edit_client"
             android:parentActivityName=".clientdetail.ClientDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TestArena.ListTestActivity">
-
-        </activity>
-        <activity android:name=".TestArena.RecyclerListTestActivity">
-
-                    </activity>
     </application>
 
 </manifest>

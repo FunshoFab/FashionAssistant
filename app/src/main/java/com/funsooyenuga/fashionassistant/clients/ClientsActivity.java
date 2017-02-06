@@ -5,13 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.funsooyenuga.fashionassistant.R;
 import com.funsooyenuga.fashionassistant.clientdetail.ClientDetailActivity;
 import com.funsooyenuga.fashionassistant.clientdetail.ClientDetailFragment;
-import com.funsooyenuga.fashionassistant.data.DbManager.AndroidDatabaseManager;
 import com.funsooyenuga.fashionassistant.util.Util;
 
 public class ClientsActivity extends AppCompatActivity implements ClientsFragment.Listener,
@@ -48,28 +45,6 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
             Intent intent = ClientDetailActivity.newIntent(this, clientId, sex, name);
             startActivity(intent);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if (id == R.id.show_database) {
-            Intent intent = new Intent(this, AndroidDatabaseManager.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private ClientsFragment findClientsFragment() {

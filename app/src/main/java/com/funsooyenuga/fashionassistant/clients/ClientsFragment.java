@@ -11,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,11 +33,14 @@ import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
 import com.funsooyenuga.fashionassistant.util.Injection;
 import com.funsooyenuga.fashionassistant.util.Util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-import static com.funsooyenuga.fashionassistant.clients.ClientsFilterType.PENDING_JOBS;
 import static com.funsooyenuga.fashionassistant.clients.ClientsFilterType.MEASUREMENTS;
+import static com.funsooyenuga.fashionassistant.clients.ClientsFilterType.PENDING_JOBS;
 
 public class ClientsFragment extends Fragment implements ClientsContract.View,
         DeliverDialog.Listener {
@@ -310,11 +314,14 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
 
 //------------------------------------ ADAPTER --------------------------------------//
 
-    public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder> {
+    public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.PendingJobVH> {
 
         private List<Client> clients;
         private ClientItemListener itemListener;
         private ClientsFilterType filter = PENDING_JOBS;
+
+        private final int PENDING_JOB = 1;
+        private final int MEASUREMENT = 2;
 
         public ClientAdapter(List<Client> clients, ClientItemListener itemListener) {
             this.clients = clients;
@@ -322,28 +329,57 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public PendingJobVH onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View clientView = inflater.inflate(R.layout.client_list_row, parent, false);
+            View clientView = inflater.inflate(R.layout.pending_job_row, parent, false);
 
-            return new ViewHolder(clientView, itemListener);
+            return new PendingJobVH(clientView, itemListener);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(final PendingJobVH holder, int position) {
             toggleCheckBoxAndDate(holder, filter);
 
             Client client = clients.get(position);
             holder.clientName.setText(client.getName());
 
             if (filter == PENDING_JOBS && client.getDeliveryDate() != null) {
-                holder.dueDate.setText(Util.formatDate(client.getDeliveryDate()));
+                holder.dueDate.setText(setDate(client.getDeliveryDate()));
             } else {
                 holder.dueDate.setText("");
             }
         }
 
-        private void toggleCheckBoxAndDate(ViewHolder holder, ClientsFilterType filter) {
+        private String setDate(Date date) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            String dateToDisplay;
+
+            Calendar tomorrowCal = Calendar.getInstance();
+            Calendar yesterdayCal = Calendar.getInstance();
+
+            tomorrowCal.add(Calendar.DAY_OF_YEAR, 1);
+            yesterdayCal.add(Calendar.DAY_OF_YEAR, -1);
+
+            Date tomorrow = tomorrowCal.getTime();
+            Date yesterday = yesterdayCal.getTime();
+
+            boolean isToday = DateUtils.isToday(date.getTime());
+            boolean isYesterday = dateFormat.format(date).equals(dateFormat.format(yesterday));
+            boolean isTomorrow = dateFormat.format(date).equals(dateFormat.format(tomorrow));
+
+            if (isToday) {
+                dateToDisplay = "Today";
+            } else if (isYesterday) {
+                dateToDisplay = "Yesterday";
+            } else if (isTomorrow) {
+                dateToDisplay = "Tomorrow";
+            } else {
+                dateToDisplay = Util.formatDateWithoutYear(date);
+            }
+            return dateToDisplay;
+        }
+
+        private void toggleCheckBoxAndDate(PendingJobVH holder, ClientsFilterType filter) {
             if (filter == MEASUREMENTS) {
                 holder.dueDate.setVisibility(View.GONE);
                 holder.deliverCb.setVisibility(View.GONE);
@@ -358,14 +394,23 @@ public class ClientsFragment extends Fragment implements ClientsContract.View,
             return clients.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @Override
+        public int getItemViewType(int position) {
+            if (clients.get(position).isPending()) {
+                return PENDING_JOB;
+            } else {
+                return MEASUREMENT;
+            }
+        }
+
+        public class PendingJobVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             public TextView clientName, dueDate;
             public CheckBox deliverCb;
 
             private ClientItemListener listener;
 
-            public ViewHolder(View itemView, ClientItemListener listener) {
+            public PendingJobVH(View itemView, ClientItemListener listener) {
                 super(itemView);
                 this.listener = listener;
 
