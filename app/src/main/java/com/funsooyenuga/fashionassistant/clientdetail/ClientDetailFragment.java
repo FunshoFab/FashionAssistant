@@ -139,7 +139,9 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
         noDataText = (TextView) v.findViewById(R.id.noDataText);
 
         topListView = (RecyclerView) v.findViewById(R.id.top_list);
+        topListView.setFocusable(false);
         trouserListView = (RecyclerView) v.findViewById(R.id.trouser_list);
+        trouserListView.setFocusable(false);
 
         topListView.setAdapter(topListAdapter);
         trouserListView.setAdapter(trouserListAdapter);
@@ -188,7 +190,7 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
         if (addInfo.isEmpty()) {
             addInfoLayout.setVisibility(View.GONE);
         } else {
-            addInfoDetail.setVisibility(View.VISIBLE);
+            addInfoLayout.setVisibility(View.VISIBLE);
             addInfoDetail.setText(addInfo);
         }
 
