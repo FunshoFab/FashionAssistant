@@ -173,10 +173,8 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
         String addInfo = client.getAddInfo();
 
         if (phoneNumber.isEmpty()) {
-            Log.d(TAG, "Phone number invisible");
             phoneNumberLayout.setVisibility(View.GONE);
         } else {
-            Log.d(TAG, "Phone number visible");
             phoneNumberLayout.setVisibility(View.VISIBLE);
             phoneNumberDetail.setText(phoneNumber);
             phoneNumberLayout.setOnClickListener(new View.OnClickListener() {
@@ -195,7 +193,6 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
         }
 
         if (phoneNumber.isEmpty() && addInfo.isEmpty()) {
-            Log.d(TAG, "Hide ClientInfoCard");
             clientInfoCard.setVisibility(View.GONE);
         } else {
             clientInfoCard.setVisibility(View.VISIBLE);

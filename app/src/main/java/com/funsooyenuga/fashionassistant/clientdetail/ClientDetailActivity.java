@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.funsooyenuga.fashionassistant.R;
 import com.funsooyenuga.fashionassistant.util.Util;
@@ -33,8 +32,6 @@ public class ClientDetailActivity extends AppCompatActivity implements ClientDet
         actionBar.setDisplayShowHomeEnabled(true);
 
         actionBar.setTitle(name);
-
-        Log.d("ClientDetail", "name received" + name);
 
         Util.hostFragment(getSupportFragmentManager(), R.id.content_frame,
                 ClientDetailFragment.newInstance(clientId, sex), ClientDetailFragment.TAG);
