@@ -21,6 +21,7 @@ import com.funsooyenuga.fashionassistant.clients.ClientsFragment;
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientDataSource;
+import com.funsooyenuga.fashionassistant.notification.NotificationService;
 import com.funsooyenuga.fashionassistant.util.Injection;
 import com.funsooyenuga.fashionassistant.util.Util;
 
@@ -243,6 +244,12 @@ public class AddOrEditClientFragment extends Fragment
     }
 
     @Override
+    public void setNotification(Client client) {
+        NotificationService.setNotification(getActivity(), client, true);
+        //TODO: cancel notification when a Job is delivered
+    }
+
+    @Override
     public void result(boolean isPending) {
         Intent data = new Intent();
         data.putExtra(ClientsFragment.EXTRA_ADD_CLIENT, isPending);
@@ -289,7 +296,6 @@ public class AddOrEditClientFragment extends Fragment
             set(bust, client.getChestOrBust());
         }
     }
-
 
     /**
      * Gets the data in the widgets and puts them in a Client object.

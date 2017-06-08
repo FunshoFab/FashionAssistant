@@ -63,6 +63,10 @@ public class Client {
         return a.getName().compareToIgnoreCase(b.getName());
     }
 
+    public int getNotificationId() {
+        return getId().hashCode();
+    }
+
     //GETTER AND SETTER METHODS
     public String getName() {
         return name;

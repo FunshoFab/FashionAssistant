@@ -12,6 +12,8 @@ public interface AddOrEditClientContract {
 
         void setClientDetails(Client client);
 
+        void setNotification(Client client);
+
         void result(boolean isPending);
     }
 

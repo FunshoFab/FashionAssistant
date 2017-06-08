@@ -51,6 +51,9 @@ public class AddOrEditClientPresenter implements AddOrEditClientContract.Present
         } else {
             repository.updateClient(client);
         }
+        if (client.isPending()) {
+            addClientView.setNotification(client);
+        }
         addClientView.result(client.isPending());
     }
 
