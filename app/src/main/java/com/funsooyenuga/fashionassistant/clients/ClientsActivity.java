@@ -1,5 +1,6 @@
 package com.funsooyenuga.fashionassistant.clients;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,10 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
     private FragmentManager fm;
 
     private ClientDetailFragment clientDetailFragment;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ClientsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

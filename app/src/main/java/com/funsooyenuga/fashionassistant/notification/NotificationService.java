@@ -3,24 +3,36 @@ package com.funsooyenuga.fashionassistant.notification;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 
+import com.funsooyenuga.fashionassistant.R;
+import com.funsooyenuga.fashionassistant.clients.ClientsActivity;
 import com.funsooyenuga.fashionassistant.data.Client;
+import com.funsooyenuga.fashionassistant.util.Util;
 
 public class NotificationService extends IntentService {
 
     public static final String TAG = "NotificationService";
+
     private static final String EXTRA_CLIENT_NAME = "extra_client_name";
-    private static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
+    private static final String EXTRA_DELIVERY_DATE = "extra_delivery_date";
+    public static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
+    public static final String EXTRA_NOTIFICATION = "notification";
+
     public static final String ACTION_SHOW_NOTIFICATION = "com.funsooyenuga.fashionassistant.SHOW_NOTIFICATION";
+
     public static final String BROADCAST_PERMISSION = "com.funsooyenuga.fashionassistant.PRIVATE";
 
-    public static Intent newIntent(Context context, String clientName, int notificationId) {
+    public static Intent newIntent(Context context, String clientName, String deliveryDate, int notificationId) {
         Intent intent = new Intent(context, NotificationService.class);
+
         intent.putExtra(EXTRA_CLIENT_NAME, clientName);
         intent.putExtra(EXTRA_NOTIFICATION_ID, notificationId);
+        intent.putExtra(EXTRA_DELIVERY_DATE, deliveryDate);
 
         return intent;
     }
@@ -31,8 +43,25 @@ public class NotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        sendOrderedBroadcast(new Intent(ACTION_SHOW_NOTIFICATION), BROADCAST_PERMISSION, null, null,
-                Activity.RESULT_OK, null, null);
+        String clientName = intent.getStringExtra(EXTRA_CLIENT_NAME);
+        String date = intent.getStringExtra(EXTRA_DELIVERY_DATE);
+        int notificationId = intent.getIntExtra(EXTRA_NOTIFICATION_ID, 0);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ClientsActivity.newIntent(this),0);
+
+        Notification notification = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Pending job")
+                .setContentText(clientName + "'s delivery is on " + date)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build();
+
+        Intent notifIntent = new Intent(ACTION_SHOW_NOTIFICATION);
+        notifIntent.putExtra(EXTRA_NOTIFICATION, notification);
+        notifIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId);
+
+        sendOrderedBroadcast(notifIntent, BROADCAST_PERMISSION, null, null, Activity.RESULT_OK, null, null);
     }
 
     /**
@@ -42,13 +71,18 @@ public class NotificationService extends IntentService {
      * @param flag if true, it sets the notification, if false, it cancels the notification
      */
     public static void setNotification(Context context, Client client, boolean flag) {
-        Intent intent = NotificationService.newIntent(context, client.getName(), client.getNotificationId());
-        PendingIntent pendingIntent = PendingIntent.getService(context, client.getNotificationId(),
+        String name = client.getName();
+        String date = Util.formatDateWithoutYear(client.getDeliveryDate());
+        int notificationId = client.getNotificationId();
+
+        Intent intent = NotificationService.newIntent(context, name, date, notificationId);
+
+        PendingIntent pendingIntent = PendingIntent.getService(context, notificationId,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         if (flag) {
-            alarmManager.set(AlarmManager.RTC, System.currentTimeMillis()+5000, pendingIntent);
+            alarmManager.set(AlarmManager.RTC, System.currentTimeMillis()+7000, pendingIntent);
 
         } else {
             alarmManager.cancel(pendingIntent);
