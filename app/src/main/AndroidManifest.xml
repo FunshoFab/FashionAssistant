@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.funsooyenuga.fashionassistant">
 
+    <permission android:name="com.funsooyenuga.fashionassistant.PRIVATE"
+        android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.funsooyenuga.fashionassistant.PRIVATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -39,6 +44,12 @@
 
         <service
             android:name=".notification.NotificationService" />
+
+        <receiver android:name=".notification.NotificationReceiver" android:exported="false">
+            <intent-filter android:priority="-999">
+                <action android:name="com.funsooyenuga.fashionassistant.SHOW_NOTIFICATION"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

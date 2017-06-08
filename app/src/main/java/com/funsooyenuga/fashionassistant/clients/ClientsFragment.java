@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -30,6 +29,7 @@ import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.DbManager.AndroidDatabaseManager;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientsLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
+import com.funsooyenuga.fashionassistant.notification.CancelNotifFragment;
 import com.funsooyenuga.fashionassistant.util.Injection;
 import com.funsooyenuga.fashionassistant.util.Util;
 
@@ -42,7 +42,7 @@ import java.util.List;
 import static com.funsooyenuga.fashionassistant.clients.ClientsFilterType.MEASUREMENTS;
 import static com.funsooyenuga.fashionassistant.clients.ClientsFilterType.PENDING_JOBS;
 
-public class ClientsFragment extends Fragment implements ClientsContract.View,
+public class ClientsFragment extends CancelNotifFragment implements ClientsContract.View,
         DeliverDialog.Listener {
 
     public static final String TAG = "clientsFragment";
