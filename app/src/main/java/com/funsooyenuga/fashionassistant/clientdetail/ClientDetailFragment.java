@@ -29,6 +29,7 @@ import com.funsooyenuga.fashionassistant.addOrEditClient.EditClientActivity;
 import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientDataSource;
+import com.funsooyenuga.fashionassistant.notification.NotificationService;
 import com.funsooyenuga.fashionassistant.util.Injection;
 import com.funsooyenuga.fashionassistant.util.Util;
 
@@ -334,6 +335,11 @@ public class ClientDetailFragment extends Fragment implements ClientDetailContra
     @Override
     public void onDeleteClick() {
         presenter.deleteClient();
+    }
+
+    @Override
+    public void cancelNotification(Client client) {
+        NotificationService.setNotification(getActivity(), client, false);
     }
 
     @Override

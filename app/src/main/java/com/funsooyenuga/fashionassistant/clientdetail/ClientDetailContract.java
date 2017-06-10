@@ -12,6 +12,8 @@ public interface ClientDetailContract {
 
         void showDetails(Client client);
 
+        void cancelNotification(Client client);
+
         void returnToClientsList();
     }
 
