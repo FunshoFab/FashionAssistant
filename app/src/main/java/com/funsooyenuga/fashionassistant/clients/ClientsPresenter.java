@@ -130,7 +130,17 @@ public class ClientsPresenter implements ClientsContract.Presenter,
 
     @Override
     public void setDelivered(String clientId) {
+        cancelNotification(clientId);
         repository.setDelivered(clientId, true);
         clientsView.showDeliveredMessage();
+    }
+
+    private void cancelNotification(String clientId) {
+        // Temporary hack to get the client in order to cancel the notification
+        for (Client client : clients) {
+            if (client.getId().equals(clientId)) {
+                clientsView.cancelNotification(client);
+            }
+        }
     }
 }

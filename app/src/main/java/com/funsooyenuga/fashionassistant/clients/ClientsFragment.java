@@ -30,6 +30,7 @@ import com.funsooyenuga.fashionassistant.data.DbManager.AndroidDatabaseManager;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientsLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
 import com.funsooyenuga.fashionassistant.notification.CancelNotifFragment;
+import com.funsooyenuga.fashionassistant.notification.NotificationService;
 import com.funsooyenuga.fashionassistant.util.Injection;
 import com.funsooyenuga.fashionassistant.util.Util;
 
@@ -229,6 +230,11 @@ public class ClientsFragment extends CancelNotifFragment implements ClientsContr
     @Override
     public void showDeliveredMessage() {
         showMessage(getString(R.string.delivered));
+    }
+
+    @Override
+    public void cancelNotification(Client client) {
+        NotificationService.setNotification(getActivity(), client, false);
     }
 
     private void showMessage(String message) {

@@ -20,6 +20,8 @@ public interface ClientsContract {
 
         void showDeliveredMessage();
 
+        void cancelNotification(Client client);
+
         void showNoDataUI(ClientsFilterType filter);
     }
 
