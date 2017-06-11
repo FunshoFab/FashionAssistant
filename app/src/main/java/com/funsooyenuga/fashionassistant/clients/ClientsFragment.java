@@ -10,7 +10,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,13 +30,11 @@ import com.funsooyenuga.fashionassistant.data.loaders.ClientsLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
 import com.funsooyenuga.fashionassistant.notification.CancelNotifFragment;
 import com.funsooyenuga.fashionassistant.notification.NotificationService;
+import com.funsooyenuga.fashionassistant.util.DateUtil;
 import com.funsooyenuga.fashionassistant.util.Injection;
 import com.funsooyenuga.fashionassistant.util.Util;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static com.funsooyenuga.fashionassistant.clients.ClientsFilterType.MEASUREMENTS;
@@ -350,39 +347,10 @@ public class ClientsFragment extends CancelNotifFragment implements ClientsContr
             holder.clientName.setText(client.getName());
 
             if (filter == PENDING_JOBS && client.getDeliveryDate() != null) {
-                holder.dueDate.setText(setDate(client.getDeliveryDate()));
+                holder.dueDate.setText(DateUtil.formatToRelativeDate(client.getDeliveryDate()));
             } else {
                 holder.dueDate.setText("");
             }
-        }
-
-        private String setDate(Date date) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-            String dateToDisplay;
-
-            Calendar tomorrowCal = Calendar.getInstance();
-            Calendar yesterdayCal = Calendar.getInstance();
-
-            tomorrowCal.add(Calendar.DAY_OF_YEAR, 1);
-            yesterdayCal.add(Calendar.DAY_OF_YEAR, -1);
-
-            Date tomorrow = tomorrowCal.getTime();
-            Date yesterday = yesterdayCal.getTime();
-
-            boolean isToday = DateUtils.isToday(date.getTime());
-            boolean isYesterday = dateFormat.format(date).equals(dateFormat.format(yesterday));
-            boolean isTomorrow = dateFormat.format(date).equals(dateFormat.format(tomorrow));
-
-            if (isToday) {
-                dateToDisplay = "Today";
-            } else if (isYesterday) {
-                dateToDisplay = "Yesterday";
-            } else if (isTomorrow) {
-                dateToDisplay = "Tomorrow";
-            } else {
-                dateToDisplay = Util.formatDateWithoutYear(date);
-            }
-            return dateToDisplay;
         }
 
         private void toggleCheckBoxAndDate(PendingJobVH holder, ClientsFilterType filter) {

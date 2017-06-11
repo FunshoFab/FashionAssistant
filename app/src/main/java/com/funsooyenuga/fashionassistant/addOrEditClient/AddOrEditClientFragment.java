@@ -22,8 +22,8 @@ import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.loaders.ClientLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientDataSource;
 import com.funsooyenuga.fashionassistant.notification.NotificationService;
+import com.funsooyenuga.fashionassistant.util.DateUtil;
 import com.funsooyenuga.fashionassistant.util.Injection;
-import com.funsooyenuga.fashionassistant.util.Util;
 
 import java.util.Date;
 
@@ -183,7 +183,7 @@ public class AddOrEditClientFragment extends Fragment
         if (requestCode == RC_DATE_DIALOG && resultCode == Activity.RESULT_OK) {
             Date date = (Date) data.getSerializableExtra(DateDialogFragment.EXTRA_DATE);
 
-            formattedDate = Util.formatDate(date);
+            formattedDate = DateUtil.formatDate(date);
             deliveryDate.setText(formattedDate);
         }
     }
@@ -265,7 +265,7 @@ public class AddOrEditClientFragment extends Fragment
         phoneNumber.setText(client.getPhoneNumber());
         addInfo.setText(client.getAddInfo());
         if (client.getDeliveryDate() != null) {
-            formattedDate = Util.formatDate(client.getDeliveryDate());
+            formattedDate = DateUtil.formatDate(client.getDeliveryDate());
             deliveryDate.setText(formattedDate);
         }
 
@@ -310,7 +310,7 @@ public class AddOrEditClientFragment extends Fragment
         c.setSex(sex);
         c.setReceivedDate(new Date());
         if (formattedDate != null) {
-            c.setDeliveryDate(Util.stringToDate(formattedDate));
+            c.setDeliveryDate(DateUtil.stringToDate(formattedDate));
         }
 
         if (sex.equals(Client.MALE)) {

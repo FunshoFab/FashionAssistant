@@ -12,7 +12,7 @@ import android.support.v4.app.NotificationCompat;
 import com.funsooyenuga.fashionassistant.R;
 import com.funsooyenuga.fashionassistant.clients.ClientsActivity;
 import com.funsooyenuga.fashionassistant.data.Client;
-import com.funsooyenuga.fashionassistant.util.Util;
+import com.funsooyenuga.fashionassistant.util.DateUtil;
 
 public class NotificationService extends IntentService {
 
@@ -72,7 +72,7 @@ public class NotificationService extends IntentService {
      */
     public static void setNotification(Context context, Client client, boolean flag) {
         String name = client.getName();
-        String date = Util.formatDateWithoutYear(client.getDeliveryDate());
+        String date = DateUtil.formatToRelativeDate(client.getDeliveryDate());
         int notificationId = client.getNotificationId();
 
         Intent intent = NotificationService.newIntent(context, name, date, notificationId);

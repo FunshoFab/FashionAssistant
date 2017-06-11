@@ -5,13 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
 
@@ -19,8 +17,6 @@ import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.ClientInfoTable;
 import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.MeasurementTable;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -113,31 +109,6 @@ public class Util {
             ft.replace(resourceId, fragment, tag)
                     .commit();
         }
-    }
-
-    public static String formatDate(@NonNull Date date) {
-        String pattern = "EEE, d MMM yyyy";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-        return dateFormat.format(date);
-    }
-
-    public static String formatDateWithoutYear(@NonNull Date date) {
-        String pattern = "EEE, d MMM";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-        return dateFormat.format(date);
-    }
-
-    public static Date stringToDate(@NonNull String formattedDate) {
-        String pattern = "EEE, d MMM yyyy";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-
-        Date date = null;
-        try {
-            date = dateFormat.parse(formattedDate);
-        } catch (ParseException e) {
-            Log.d("Util", e.toString());
-        }
-        return date;
     }
 
     public static void tintMenuIcon(Context context, MenuItem item, @ColorRes int color) {
