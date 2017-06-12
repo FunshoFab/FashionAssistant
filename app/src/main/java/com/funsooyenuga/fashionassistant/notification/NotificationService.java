@@ -16,6 +16,8 @@ import com.funsooyenuga.fashionassistant.data.Client;
 import com.funsooyenuga.fashionassistant.settings.SettingsActivity;
 import com.funsooyenuga.fashionassistant.util.DateUtil;
 
+import java.util.Date;
+
 public class NotificationService extends IntentService {
 
     public static final String TAG = "NotificationService";
@@ -73,11 +75,12 @@ public class NotificationService extends IntentService {
      * @param flag if true, it sets the notification, if false, it cancels the notification
      */
     public static void setNotification(Context context, Client client, boolean flag) {
-        if (!notificationIsEnabled(context)) {
-            return;
+        Date deliveryDate = client.getDeliveryDate();
+        if (!notificationIsEnabled(context) || deliveryDate.getTime() < System.currentTimeMillis()) {
+            return; // User has disabled notification or delivery time is already past
         }
+        String date = DateUtil.formatToRelativeDate(deliveryDate);
         String name = client.getName();
-        String date = DateUtil.formatToRelativeDate(client.getDeliveryDate());
         int notificationId = client.getNotificationId();
 
         Intent intent = NotificationService.newIntent(context, name, date, notificationId);
@@ -87,7 +90,7 @@ public class NotificationService extends IntentService {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         if (flag) {
-            long alarmTime = client.getDeliveryDate().getTime() - DateUtil.ONE_DAY;
+            long alarmTime = alarmTime(deliveryDate.getTime(), getInterval(context));
             alarmManager.set(AlarmManager.RTC, alarmTime, pendingIntent);
 
         } else {
@@ -101,7 +104,41 @@ public class NotificationService extends IntentService {
                 SettingsActivity.KEY_PREF_NOTIFICATION_STATUS, true);
     }
 
-    private static long alarmTime(long deliveryDate) {
-        return 1;
+    private static int getInterval(Context context) {
+        return Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString(
+                SettingsActivity.KEY_PREF_INTERVAL, ""));
+    }
+
+    private static long alarmTime(long deliveryDate, int interval) {
+        long alarmTime;
+        long currentTime = System.currentTimeMillis();
+        long daysBeforeDelivery = deliveryDate - currentTime;
+        long intervalInMilliSecs = interval * DateUtil.ONE_DAY;
+
+        if (daysBeforeDelivery <= intervalInMilliSecs) {
+            /*
+                Example: Interval is 5 days before delivery
+                 1. User registers a new job to be delivered in 3 days :D
+                 2. User registers a new job to be delivered in 5 days
+
+                Solution: Set Notification to a day after the Job is added
+            */
+            if (daysBeforeDelivery < DateUtil.ONE_DAY) {
+                // Delivery is less than one day, set Notification 12 hours from now
+                alarmTime = currentTime + DateUtil.TWELVE_HOURS;
+            } else {
+                alarmTime = currentTime + DateUtil.ONE_DAY;
+            }
+        }
+        else {
+            // Notify user at the interval set in Notification setting
+            if (intervalInMilliSecs < DateUtil.ONE_DAY) {
+                // set alarm for 12 hours after job is added
+                alarmTime = deliveryDate + DateUtil.TWELVE_HOURS;
+            } else {
+                alarmTime = deliveryDate - DateUtil.ONE_DAY * interval;
+            }
+        }
+        return alarmTime;
     }
 }

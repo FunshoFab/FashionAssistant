@@ -92,10 +92,12 @@
 
     <!-- Strings related to Settings -->
     <string name="pref_notification">Notification</string>
+    <string name="pref_default_interval">3</string>
 
     <plurals name="pref_interval_summary">
         <item quantity="one">%d day before delivery</item>
         <item quantity="other">%d days before delivery</item>
+        <item quantity="zero">12 hours before delivery</item>
     </plurals>
 
 </resources>
