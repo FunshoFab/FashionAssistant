@@ -3,6 +3,7 @@ package com.funsooyenuga.fashionassistant.clients;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,7 @@ public class ClientsActivity extends AppCompatActivity implements ClientsFragmen
         if (fragment == null) {
             Util.hostFragment(fm, R.id.content_frame, ClientsFragment.newInstance(), ClientsFragment.TAG);
         }
+        PreferenceManager.setDefaultValues(this, R.xml.pref_settings, false);
     }
 
     @Override

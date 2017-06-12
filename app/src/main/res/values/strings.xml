@@ -88,7 +88,14 @@
     <string name="tv_bottom">Bottom:</string>
     <string name="tv_hips">Hips:</string>
     <string name="no_measurement">No measurement</string>
+    <string name="title_activity_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Strings related to Settings -->
+    <string name="pref_notification">Notification</string>
+
+    <plurals name="pref_interval_summary">
+        <item quantity="one">%d day before delivery</item>
+        <item quantity="other">%d days before delivery</item>
+    </plurals>
+
 </resources>

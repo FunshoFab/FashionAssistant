@@ -82,7 +82,8 @@ public class NotificationService extends IntentService {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         if (flag) {
-            alarmManager.set(AlarmManager.RTC, System.currentTimeMillis()+7000, pendingIntent);
+            long alarmTime = client.getDeliveryDate().getTime() - DateUtil.ONE_DAY;
+            alarmManager.set(AlarmManager.RTC, alarmTime, pendingIntent);
 
         } else {
             alarmManager.cancel(pendingIntent);

@@ -30,6 +30,7 @@ import com.funsooyenuga.fashionassistant.data.loaders.ClientsLoader;
 import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
 import com.funsooyenuga.fashionassistant.notification.CancelNotifFragment;
 import com.funsooyenuga.fashionassistant.notification.NotificationService;
+import com.funsooyenuga.fashionassistant.settings.SettingsActivity;
 import com.funsooyenuga.fashionassistant.util.DateUtil;
 import com.funsooyenuga.fashionassistant.util.Injection;
 import com.funsooyenuga.fashionassistant.util.Util;
@@ -240,7 +241,7 @@ public class ClientsFragment extends CancelNotifFragment implements ClientsContr
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_client_list, menu);
+        inflater.inflate(R.menu.menu_clients, menu);
         MenuItem item = menu.findItem(R.id.choose_filter);
 
         if (item != null) {
@@ -254,6 +255,9 @@ public class ClientsFragment extends CancelNotifFragment implements ClientsContr
         switch (id) {
             case R.id.choose_filter:
                 showFilterPopUp();
+                return true;
+            case R.id.action_settings:
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
             case R.id.show_database:
                 Intent intent = new Intent(getActivity(), AndroidDatabaseManager.class);

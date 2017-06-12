@@ -246,7 +246,6 @@ public class AddOrEditClientFragment extends Fragment
     @Override
     public void setNotification(Client client) {
         NotificationService.setNotification(getActivity(), client, true);
-        //TODO: cancel notification when a Job is delivered
     }
 
     @Override
