@@ -7,11 +7,13 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
 import com.funsooyenuga.fashionassistant.R;
 import com.funsooyenuga.fashionassistant.clients.ClientsActivity;
 import com.funsooyenuga.fashionassistant.data.Client;
+import com.funsooyenuga.fashionassistant.settings.SettingsActivity;
 import com.funsooyenuga.fashionassistant.util.DateUtil;
 
 public class NotificationService extends IntentService {
@@ -71,6 +73,9 @@ public class NotificationService extends IntentService {
      * @param flag if true, it sets the notification, if false, it cancels the notification
      */
     public static void setNotification(Context context, Client client, boolean flag) {
+        if (!notificationIsEnabled(context)) {
+            return;
+        }
         String name = client.getName();
         String date = DateUtil.formatToRelativeDate(client.getDeliveryDate());
         int notificationId = client.getNotificationId();
@@ -89,5 +94,14 @@ public class NotificationService extends IntentService {
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
+    }
+
+    private static boolean notificationIsEnabled(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                SettingsActivity.KEY_PREF_NOTIFICATION_STATUS, true);
+    }
+
+    private static long alarmTime(long deliveryDate) {
+        return 1;
     }
 }

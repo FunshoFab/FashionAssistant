@@ -12,7 +12,8 @@ import com.funsooyenuga.fashionassistant.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private static final String KEY_PREF_INTERVAL = "pref_notification_interval";
+    public static final String KEY_PREF_INTERVAL = "pref_notification_interval";
+    public static final String KEY_PREF_NOTIFICATION_STATUS = "pref_notification_status";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

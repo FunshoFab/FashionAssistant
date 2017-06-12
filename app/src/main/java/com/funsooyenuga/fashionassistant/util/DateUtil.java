@@ -15,7 +15,8 @@ import java.util.Date;
 
 public class DateUtil {
 
-    public static final int ONE_DAY  = 86400000; // milliseconds in one day
+    public static final int ONE_DAY  = 24 * 60 *60 * 1000; // milliseconds in one day
+    public static final int TWELVE_HOURS = ONE_DAY / 2;
 
     public static String formatDate(@NonNull Date date) {
         String pattern = "EEE, d MMM yyyy";
