@@ -34,6 +34,8 @@ public class Util {
         cv.put(ClientInfoTable.CLIENT_SEX, client.getSex());
         if (client.getDeliveryDate() != null) {
             cv.put(ClientInfoTable.DELIVERY_DATE, client.getDeliveryDate().getTime());
+        } else {
+            cv.put(ClientInfoTable.DELIVERY_DATE, 0);
         }
         cv.put(ClientInfoTable.RECEIVED_DATE, client.getReceivedDate().getTime());
         cv.put(ClientInfoTable.CLIENT_ID, client.getId());
