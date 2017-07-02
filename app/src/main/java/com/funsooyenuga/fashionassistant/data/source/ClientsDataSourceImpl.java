@@ -12,6 +12,7 @@ import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.ClientInfoTa
 import com.funsooyenuga.fashionassistant.util.Util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,6 +65,35 @@ public class ClientsDataSourceImpl implements ClientDataSource {
             Log.e(TAG, e.toString());
         }
 
+        return clients;
+    }
+
+    @Override
+    public List<Client> getPendingClients() {
+        List<Client> clients = new ArrayList<>();
+        long currentDate = new Date().getTime();
+
+        String selection = "CAST(" + ClientInfoTable.DELIVERY_DATE + " AS TEXT) > ?" +
+                           " AND CAST(" + ClientInfoTable.DELIVERED + " AS TEXT) = ?";
+        String[] selectionArgs = {Long.toString(currentDate), Integer.toString(0)};
+
+        try {
+            Cursor cursor = db.query(
+                    ClientInfoTable.TABLE_NAME, null, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    Client client = Util.cursorToClient(cursor, new Client());
+                    clients.add(client);
+                }
+                cursor.close();
+            }
+        } catch(SQLiteException e) {
+            Log.e(TAG, e.toString());
+        }
+        Log.d(TAG, "Clients: " + clients.size());
+        // Log.d(TAG, "Selection: " + selection);
+        // Log.d(TAG, "SelectionArgs[0]: " + selectionArgs[0]);
         return clients;
     }
 

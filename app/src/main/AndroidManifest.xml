@@ -7,6 +7,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.funsooyenuga.fashionassistant.PRIVATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -42,9 +43,9 @@
             android:label="@string/edit_client"
             android:parentActivityName=".clientdetail.ClientDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".settings.SettingsActivity"
-            android:parentActivityName=".clients.ClientsActivity"/>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:parentActivityName=".clients.ClientsActivity" />
 
         <service android:name=".notification.NotificationService" />
 
@@ -53,6 +54,11 @@
             android:exported="false">
             <intent-filter android:priority="-999">
                 <action android:name="com.funsooyenuga.fashionassistant.SHOW_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".notification.StartupReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 

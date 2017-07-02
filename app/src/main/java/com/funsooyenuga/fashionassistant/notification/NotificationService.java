@@ -13,10 +13,13 @@ import android.support.v4.app.NotificationCompat;
 import com.funsooyenuga.fashionassistant.R;
 import com.funsooyenuga.fashionassistant.clients.ClientsActivity;
 import com.funsooyenuga.fashionassistant.data.Client;
+import com.funsooyenuga.fashionassistant.data.source.ClientsRepository;
 import com.funsooyenuga.fashionassistant.settings.SettingsActivity;
 import com.funsooyenuga.fashionassistant.util.DateUtil;
+import com.funsooyenuga.fashionassistant.util.Injection;
 
 import java.util.Date;
+import java.util.List;
 
 public class NotificationService extends IntentService {
 
@@ -124,8 +127,8 @@ public class NotificationService extends IntentService {
                 Solution: Set Notification to a day after the Job is added
             */
             if (daysBeforeDelivery < DateUtil.ONE_DAY) {
-                // Delivery is less than one day, set Notification 12 hours from now
-                alarmTime = currentTime + DateUtil.TWELVE_HOURS;
+                // Delivery is less than one day, set Notification 12 hours from delivery
+                alarmTime = deliveryDate - DateUtil.TWELVE_HOURS;
             } else {
                 alarmTime = currentTime + DateUtil.ONE_DAY;
             }
@@ -133,12 +136,25 @@ public class NotificationService extends IntentService {
         else {
             // Notify user at the interval set in Notification setting
             if (intervalInMilliSecs < DateUtil.ONE_DAY) {
-                // set alarm for 12 hours after job is added
-                alarmTime = deliveryDate + DateUtil.TWELVE_HOURS;
+                // set alarm for 12 hours before delivery
+                alarmTime = deliveryDate - DateUtil.TWELVE_HOURS;
             } else {
                 alarmTime = deliveryDate - DateUtil.ONE_DAY * interval;
             }
         }
         return alarmTime;
+    }
+
+    public static void resetAlarms(Context context) {
+        if (notificationIsEnabled(context)) {
+            ClientsRepository repository = Injection.provideClientsRepository(context);
+
+            List<Client> clients = repository.getPendingClients();
+            if (!clients.isEmpty()) {
+                for (Client client : clients) {
+                    setNotification(context, client, true);
+                }
+            }
+        }
     }
 }

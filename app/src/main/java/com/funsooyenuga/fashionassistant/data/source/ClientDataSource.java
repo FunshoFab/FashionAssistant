@@ -12,6 +12,8 @@ public interface ClientDataSource {
 
     List<Client> getClients();
 
+    List<Client> getPendingClients();
+
     void saveClient(Client client);
 
     void updateClient(Client client);

@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.funsooyenuga.fashionassistant.R;
+import com.funsooyenuga.fashionassistant.notification.NotificationService;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -38,6 +39,8 @@ public class SettingsActivity extends AppCompatActivity {
                             Preference intervalPref = findPreference(key);
                             int newInterval = Integer.valueOf(sharedPreferences.getString(key, ""));
                             intervalPref.setSummary(getResources().getQuantityString(R.plurals.pref_interval_summary, newInterval, newInterval));
+
+                            NotificationService.resetAlarms(getActivity());
                         }
                     }
                 };

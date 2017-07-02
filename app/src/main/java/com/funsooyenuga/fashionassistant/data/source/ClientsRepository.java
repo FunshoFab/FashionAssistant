@@ -50,6 +50,11 @@ public class ClientsRepository implements ClientDataSource {
         return clients;
     }
 
+    @Override
+    public List<Client> getPendingClients() {
+        return dataSource.getPendingClients();
+    }
+
     private void cacheClients(List<Client> clients) {
         cachedClients = new LinkedHashMap<>();
 
