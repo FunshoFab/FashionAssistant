@@ -79,8 +79,8 @@ public class NotificationService extends IntentService {
      */
     public static void setNotification(Context context, Client client, boolean flag) {
         Date deliveryDate = client.getDeliveryDate();
-        if (!notificationIsEnabled(context) || deliveryDate.getTime() < System.currentTimeMillis()) {
-            return; // User has disabled notification or delivery time is already past
+        if (!notificationIsEnabled(context)) {
+            return;
         }
         String date = DateUtil.formatToRelativeDate(deliveryDate);
         String name = client.getName();
@@ -93,9 +93,14 @@ public class NotificationService extends IntentService {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         if (flag) {
-            long alarmTime = alarmTime(deliveryDate.getTime(), getInterval(context));
+            long alarmTime = client.getAlarmTime();
+            if (alarmTime == 0) {
+                // An alarm has not been previously set
+                alarmTime = setAlarmTime(deliveryDate.getTime(), getInterval(context));
+                client.setAlarmTime(alarmTime);
+                saveAlarm(context, client);
+            }
             alarmManager.set(AlarmManager.RTC, alarmTime, pendingIntent);
-
         } else {
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
@@ -112,13 +117,12 @@ public class NotificationService extends IntentService {
                 SettingsActivity.KEY_PREF_INTERVAL, ""));
     }
 
-    private static long alarmTime(long deliveryDate, int interval) {
+    private static long setAlarmTime(long deliveryDate, int interval) {
         long alarmTime;
         long currentTime = System.currentTimeMillis();
-        long daysBeforeDelivery = deliveryDate - currentTime;
-        long intervalInMilliSecs = interval * DateUtil.ONE_DAY;
+        int daysBeforeDelivery = (int) (deliveryDate - currentTime) / DateUtil.ONE_DAY_IN_MILLI_SECS;
 
-        if (daysBeforeDelivery <= intervalInMilliSecs) {
+        if (daysBeforeDelivery <= interval) {
             /*
                 Example: Interval is 5 days before delivery
                  1. User registers a new job to be delivered in 3 days :D
@@ -126,35 +130,57 @@ public class NotificationService extends IntentService {
 
                 Solution: Set Notification to a day after the Job is added
             */
-            if (daysBeforeDelivery < DateUtil.ONE_DAY) {
+            if (daysBeforeDelivery <= DateUtil.ONE_DAY) {
                 // Delivery is less than one day, set Notification 12 hours from delivery
                 alarmTime = deliveryDate - DateUtil.TWELVE_HOURS;
             } else {
-                alarmTime = currentTime + DateUtil.ONE_DAY;
+                alarmTime = currentTime + DateUtil.ONE_DAY_IN_MILLI_SECS;
             }
         }
         else {
             // Notify user at the interval set in Notification setting
-            if (intervalInMilliSecs < DateUtil.ONE_DAY) {
+            if (interval <= DateUtil.ONE_DAY) {
                 // set alarm for 12 hours before delivery
                 alarmTime = deliveryDate - DateUtil.TWELVE_HOURS;
             } else {
-                alarmTime = deliveryDate - DateUtil.ONE_DAY * interval;
+                alarmTime = deliveryDate - DateUtil.ONE_DAY_IN_MILLI_SECS * interval;
             }
         }
         return alarmTime;
     }
 
-    public static void resetAlarms(Context context) {
+    /**
+     * Sets alarm after they might have been cleared on phone reboot
+     *
+     * @param context
+     * @param resetAlarmTime If this is true, it would change the alarm time previously
+     *                       set. Only set this to true when an event like notification interval
+     *                       change occurs.
+     */
+    public static void resetAlarms(Context context, boolean resetAlarmTime) {
         if (notificationIsEnabled(context)) {
             ClientsRepository repository = Injection.provideClientsRepository(context);
 
             List<Client> clients = repository.getPendingClients();
             if (!clients.isEmpty()) {
                 for (Client client : clients) {
+                    if (resetAlarmTime) {
+                        client.setAlarmTime(0);
+                    }
                     setNotification(context, client, true);
                 }
             }
         }
+    }
+
+    /**
+     * Saves an alarm to the database in order to restart them when phone reboots
+     *
+     * @param context
+     * @param client
+     */
+    private static void saveAlarm(Context context, Client client) {
+        ClientsRepository repository = Injection.provideClientsRepository(context);
+        repository.updateClient(client);
     }
 }

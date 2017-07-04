@@ -89,7 +89,6 @@ public class ClientsRepository implements ClientDataSource {
     public void updateClient(Client client) {
         dataSource.updateClient(client);
         //Remove the old Client from the map and put the new client object
-        String clientId = client.getId();
 
         cachedClients.remove(client.getId());
         cachedClients.put(client.getId(), client);

@@ -13,6 +13,8 @@ import com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.MeasurementT
 
 import java.util.ArrayList;
 
+import static com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.*;
+
 /**
  * Created by FAB THE GREAT on 07/12/2016.
  */
@@ -69,7 +71,10 @@ public class ClientDbHelper extends SQLiteOpenHelper {
                 + MeasurementTable.HIPS + ", "
                 + MeasurementTable.KNEE_LENGTH + ", "
                 + MeasurementTable.TOP_OR_GOWN_LENGTH + ", "
-                + MeasurementTable.WAIST + ")"
+                + MeasurementTable.WAIST + ", "
+
+                + Notification.ALARM_TIME + ", "
+                + Notification.ALARM_EXECUTED + ")"
         );
     }
 
@@ -77,7 +82,7 @@ public class ClientDbHelper extends SQLiteOpenHelper {
     public ArrayList<Cursor> getData(String Query){
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();
-        String[] columns = new String[] { "mesage" };
+        String[] columns = new String[] { "message" };
         //an array list of cursor to save two cursors one has results from the query
         //other cursor stores error message if any errors are triggered
         ArrayList<Cursor> alc = new ArrayList<Cursor>(2);

@@ -48,4 +48,9 @@ public class ClientDbSchema {
         public static final String HIPS = "hips";
     }
 
+    public static final class Notification {
+        public static final String ALARM_TIME = "alarm_time";
+        public static final String ALARM_EXECUTED = "alarm_executed";
+    }
+
 }

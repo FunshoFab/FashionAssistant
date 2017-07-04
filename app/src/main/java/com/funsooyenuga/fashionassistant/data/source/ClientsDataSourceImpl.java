@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.funsooyenuga.fashionassistant.data.source.ClientDbSchema.*;
+
 /**
  * A singleton that serves as the data source.
  */
@@ -71,11 +73,10 @@ public class ClientsDataSourceImpl implements ClientDataSource {
     @Override
     public List<Client> getPendingClients() {
         List<Client> clients = new ArrayList<>();
-        long currentDate = new Date().getTime();
 
-        String selection = "CAST(" + ClientInfoTable.DELIVERY_DATE + " AS TEXT) > ?" +
+        String selection = "CAST(" + Notification.ALARM_EXECUTED + " AS TEXT) = ?" +
                            " AND CAST(" + ClientInfoTable.DELIVERED + " AS TEXT) = ?";
-        String[] selectionArgs = {Long.toString(currentDate), Integer.toString(0)};
+        String[] selectionArgs = {Integer.toString(0), Integer.toString(0)};
 
         try {
             Cursor cursor = db.query(

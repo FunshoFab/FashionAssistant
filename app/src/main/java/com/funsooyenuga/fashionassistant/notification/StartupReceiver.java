@@ -13,6 +13,6 @@ public class StartupReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        NotificationService.resetAlarms(context);
+        NotificationService.resetAlarms(context, false);
     }
 }

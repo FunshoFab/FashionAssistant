@@ -40,7 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
                             int newInterval = Integer.valueOf(sharedPreferences.getString(key, ""));
                             intervalPref.setSummary(getResources().getQuantityString(R.plurals.pref_interval_summary, newInterval, newInterval));
 
-                            NotificationService.resetAlarms(getActivity());
+                            NotificationService.resetAlarms(getActivity(), true);
                         }
                     }
                 };

@@ -13,7 +13,7 @@ public class Client {
     public static final String MALE = "male";
     public static final String FEMALE  = "female";
 
-    //Personal details
+    // Personal details
     private String id;
     private String name;
     private String sex;
@@ -23,10 +23,10 @@ public class Client {
     private String addInfo;
     private boolean delivered;
 
-    //Measurements
-    //CAP
+    // Measurements
+    // CAP
     private double capBase;
-    //TOP OR GOWN
+    // TOP OR GOWN
     private double shoulder;
     private double chestOrBust;
     private double cuff;
@@ -34,17 +34,21 @@ public class Client {
     private double longSleeve;
     private double shortSleeve;
     private double topOrGownLength;
-    //female only
+    // female only
     private double halfLength;
     private double highWaist;
     private double kneeLength;
 
-    //TROUSER
+    // TROUSER
     private double waist;
     private double thigh;
     private double trouserLength;
     private double bottom;
     private double hips;
+
+    // NOTIFICATION
+    private long alarmTime;
+    private boolean alarmExecuted;
 
     public Client() {
         this.id = UUID.randomUUID().toString();
@@ -264,5 +268,21 @@ public class Client {
 
     public void setShortSleeve(double shortSleeve) {
         this.shortSleeve = shortSleeve;
+    }
+
+    public boolean isAlarmExecuted() {
+        return alarmExecuted;
+    }
+
+    public void setAlarmExecuted(boolean alarmExecuted) {
+        this.alarmExecuted = alarmExecuted;
+    }
+
+    public long getAlarmTime() {
+        return alarmTime;
+    }
+
+    public void setAlarmTime(long alarmTime) {
+        this.alarmTime = alarmTime;
     }
 }
