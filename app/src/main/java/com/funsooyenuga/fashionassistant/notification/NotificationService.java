@@ -59,7 +59,7 @@ public class NotificationService extends IntentService {
         Notification notification = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Pending job")
-                .setContentText(clientName + "'s delivery is on " + date)
+                .setContentText(clientName + "'s delivery is " + date)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build();
