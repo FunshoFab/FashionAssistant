@@ -15,7 +15,7 @@
 
     <!-- For debugging purposes only-->
     <item
-        android:visible="true"
+        android:visible="false"
         android:id="@+id/show_database"
         android:title="Show database"
         app:showAsAction="never" />
